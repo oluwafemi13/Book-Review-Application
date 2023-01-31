@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    internal class Author
+    public class Author
     {
+        public Guid AuthorId { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorEmail { get; set; }
+        public string AuthorBio { get; set; }
     }
 }

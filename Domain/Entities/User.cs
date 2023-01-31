@@ -10,6 +10,6 @@ namespace Domain.Entities
     public class User: IdentityUser
     {
         public virtual Guid UserId { get; set; }
-        public string Username { get; set; }
+        public string? Username { get; set; }
     }
 }
