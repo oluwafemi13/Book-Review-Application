@@ -16,12 +16,19 @@ namespace Domain.Entities
         public DateOnly DatePublished { get; set; }
         public string ISBN { get; set; }
         public string Language { get; set; }
+        public string CoverImage { get; set; }
 
         //one to many relationship between book and Author
         public Author author { get; set; }
-        public string CpverImage { get; set; }
-        //containing reviews and ratings of the book
-        public (string, string) Reviews { get; set; }
+
+        //one to many relationship between ratings and book
+        public static ICollection<Ratings> Ratings { get; set; }
+
+        //public double RatingAverage { get; set; } 
+
+
+        /* //containing reviews and ratings of the book
+         public (string, string) Reviews { get; set; }*/
 
 
 

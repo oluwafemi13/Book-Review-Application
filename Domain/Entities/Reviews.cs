@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Ratings
+    public class Reviews
     {
-        public Guid RatingId { get; set; }
-        public double Rating { get; set; }
-        //relationship between ratings and books
+        public Guid ReviewId { get; set; }
+        public string review { get; set; }
+
+        //relationship between book and review
         public Book book { get; set; }
     }
 }

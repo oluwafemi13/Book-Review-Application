@@ -12,5 +12,8 @@ namespace Domain.Entities
         public string AuthorName { get; set; }
         public string AuthorEmail { get; set; }
         public string AuthorBio { get; set; }
+
+        //relationship between book and author
+        public ICollection<Book> Books { get; set; }
     }
 }
