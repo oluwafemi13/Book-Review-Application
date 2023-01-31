@@ -12,5 +12,6 @@ namespace Domain.Entities
         public double Rating { get; set; }
         //relationship between ratings and books
         public Book book { get; set; }
+
     }
 }

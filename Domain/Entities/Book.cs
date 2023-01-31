@@ -21,8 +21,14 @@ namespace Domain.Entities
         //one to many relationship between book and Author
         public Author author { get; set; }
 
+        //relationship between book and format
+        public Format format { get; set; }
+
         //one to many relationship between ratings and book
         public static ICollection<Ratings> Ratings { get; set; }
+
+        //relationship between book and review
+        public ICollection<Reviews> Reviews { get; set; }
 
         //public double RatingAverage { get; set; } 
 
