@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,9 @@ namespace Domain.Entities
 
         //relationship between book and review
         public ICollection<Reviews> Reviews { get; set; }
+
+        //relationship between genre and books
+        public ICollection<Genre> Genres { get; set; }
 
         //public double RatingAverage { get; set; } 
 

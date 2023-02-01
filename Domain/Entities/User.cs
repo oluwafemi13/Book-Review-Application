@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,6 @@ namespace Domain.Entities
 {
     public class User: IdentityUser
     {
-        public virtual Guid UserId { get; set; }
-        public string? Username { get; set; }
+       
     }
 }
