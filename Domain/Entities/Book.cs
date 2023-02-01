@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace Domain.Entities
         public Format format { get; set; }
 
         //one to many relationship between ratings and book
-        public static ICollection<Ratings> Ratings { get; set; }
+        public static ICollection<Rating> Ratings { get; set; }
 
         //relationship between book and review
         public ICollection<Reviews> Reviews { get; set; }
@@ -34,11 +35,10 @@ namespace Domain.Entities
         //relationship between genre and books
         public ICollection<Genre> Genres { get; set; }
 
-        //public double RatingAverage { get; set; } 
-
-
-        /* //containing reviews and ratings of the book
-         public (string, string) Reviews { get; set; }*/
+        [NotMapped]
+        protected double ratingaverage = Ratings.Average(r => r.Rating);
+        public double RatingAverage { get { return RatingAverage; } set { RatingAverage = ratingaverage; } }
+           
 
 
 
