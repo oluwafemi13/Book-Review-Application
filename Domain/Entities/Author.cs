@@ -16,6 +16,6 @@ namespace Domain.Entities
         //relationship between book and author
         public ICollection<Book> Books { get; set; }
         //relationship between author and awards
-        public ICollection<Awards> awards { get; set; }
+        public ICollection<Award> awards { get; set; }
     }
 }

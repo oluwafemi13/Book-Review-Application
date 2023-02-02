@@ -30,15 +30,16 @@ namespace Domain.Entities
         public static ICollection<Rating> Ratings { get; set; }
 
         //relationship between book and review
-        public ICollection<Reviews> Reviews { get; set; }
+        public ICollection<Review> Reviews { get; set; }
 
         //relationship between genre and books
         public ICollection<Genre> Genres { get; set; }
 
         [NotMapped]
-        protected double ratingaverage = Ratings.Average(r => r.Rating);
-        public double RatingAverage { get { return RatingAverage; } set { RatingAverage = ratingaverage; } }
-           
+        protected double ratingaverage = Ratings.Average(r => r.rating);
+        //public double RatingAverage { get { return RatingAverage; } set { RatingAverage = ratingaverage; } }
+        
+
 
 
 
