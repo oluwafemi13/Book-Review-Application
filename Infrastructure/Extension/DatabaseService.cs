@@ -15,11 +15,12 @@ namespace Infrastructure.Extension
        
         public static IServiceCollection AddDatabaseService(this IServiceCollection service, IConfiguration configuration)
         {
-            //service.AddDbContext<DatabaseContext>(options => options.UseNpgsql(configuration.GetConnectionString()));
-            //services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            
             service.AddDbContext<DatabaseContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("ConnectionString"),
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(DatabaseContext).Assembly.FullName)), ServiceLifetime.Transient);
+
+       
 
             return service;
         }

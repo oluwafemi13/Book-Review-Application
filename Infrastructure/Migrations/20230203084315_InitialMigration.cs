@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,10 +15,10 @@ namespace Infrastructure.Migrations
                 name: "Authors",
                 columns: table => new
                 {
-                    AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AuthorName = table.Column<string>(type: "text", nullable: false),
-                    AuthorEmail = table.Column<string>(type: "text", nullable: false),
-                    AuthorBio = table.Column<string>(type: "text", nullable: false)
+                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorBio = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,8 +29,8 @@ namespace Infrastructure.Migrations
                 name: "Genres",
                 columns: table => new
                 {
-                    GenreId = table.Column<Guid>(type: "uuid", nullable: false),
-                    GenreName = table.Column<string>(type: "text", nullable: false)
+                    GenreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GenreName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,9 +41,9 @@ namespace Infrastructure.Migrations
                 name: "Awards",
                 columns: table => new
                 {
-                    AwardId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AwardTitle = table.Column<string>(type: "text", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uuid", nullable: false)
+                    AwardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AwardTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,16 +60,16 @@ namespace Infrastructure.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BookTitle = table.Column<string>(type: "text", nullable: false),
-                    Author = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Summary = table.Column<string>(type: "text", nullable: false),
-                    DatePublished = table.Column<DateOnly>(type: "date", nullable: false),
-                    ISBN = table.Column<string>(type: "text", nullable: false),
-                    Language = table.Column<string>(type: "text", nullable: false),
-                    CoverImage = table.Column<string>(type: "text", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uuid", nullable: false)
+                    BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BookTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Summary = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DatePublished = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ISBN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,8 +86,8 @@ namespace Infrastructure.Migrations
                 name: "BookGenre",
                 columns: table => new
                 {
-                    BooksBookId = table.Column<Guid>(type: "uuid", nullable: false),
-                    GenresGenreId = table.Column<Guid>(type: "uuid", nullable: false)
+                    BooksBookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GenresGenreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,10 +110,10 @@ namespace Infrastructure.Migrations
                 name: "Formats",
                 columns: table => new
                 {
-                    FormatId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FormatType = table.Column<string>(type: "text", nullable: false),
-                    NumberOfPages = table.Column<int>(type: "integer", nullable: false),
-                    BookId = table.Column<Guid>(type: "uuid", nullable: false)
+                    FormatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FormatType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberOfPages = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,9 +130,9 @@ namespace Infrastructure.Migrations
                 name: "Ratings",
                 columns: table => new
                 {
-                    RatingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    rating = table.Column<double>(type: "double precision", nullable: false),
-                    BookId = table.Column<Guid>(type: "uuid", nullable: false)
+                    RatingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    rating = table.Column<double>(type: "float", nullable: false),
+                    BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,9 +149,9 @@ namespace Infrastructure.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    ReviewId = table.Column<Guid>(type: "uuid", nullable: false),
-                    review = table.Column<string>(type: "text", nullable: false),
-                    BookId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    review = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {

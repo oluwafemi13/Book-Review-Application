@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Domain.Entities
         public string Author { get; set; }
         public string Description { get; set; }
         public string Summary { get; set; }
-        public DateOnly DatePublished { get; set; }
+        public DateTime DatePublished { get; set; }
         public string ISBN { get; set; }
         public string Language { get; set; }
         public string CoverImage { get; set; }
