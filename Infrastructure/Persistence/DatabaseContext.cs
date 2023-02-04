@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class DatabaseContext: DbContext
+    public class DatabaseContext: IdentityDbContext<User>
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options):base(options)
         {
