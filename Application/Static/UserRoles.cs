@@ -1,0 +1,16 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.Static
+{
+    public class UserRoles
+    {
+        public const string Admin = "Admin";  //access to all security levels
+        public const string User = "User";   //leave comments only
+        public const string Reviewer = "Reviewer"; //leave ratings and reviews
+    }
+}

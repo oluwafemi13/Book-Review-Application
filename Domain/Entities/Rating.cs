@@ -13,5 +13,7 @@ namespace Domain.Entities
         //relationship between ratings and books
         public Book book { get; set; }
 
+        //relationship between user and ratings
+        public User user { get; set; }
     }
 }
