@@ -11,6 +11,6 @@ namespace Application.Static
     {
         public const string Admin = "Admin";  //access to all security levels
         public const string User = "User";   //leave comments only
-        public const string Reviewer = "Reviewer"; //leave ratings and reviews
+        //public const string Reviewer = "Reviewer"; //leave ratings and reviews
     }
 }

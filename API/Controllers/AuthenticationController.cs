@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -19,13 +20,13 @@ namespace API.Controllers
     public class AuthenticationController: ControllerBase
     {
         private readonly UserManager<User> _usermanager;
-        private readonly RoleManager<User> _roleManager;
+        private readonly RoleManager<IdentityUser> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
         public AuthenticationController(UserManager<User> usermanager, 
-                                        RoleManager<User> roleManager, 
+                                        RoleManager<IdentityUser> roleManager, 
                                         IConfiguration configuration, 
                                         ILogger logger, 
                                         IMapper mapper)
@@ -79,7 +80,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("Register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDTO model)
         {
             var userExists = await _usermanager.FindByNameAsync(model.UserName);
@@ -109,8 +110,8 @@ namespace API.Controllers
             var result = await _usermanager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
-           /* if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
+/*
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
             if (!await _roleManager.RoleExistsAsync(UserRoles.User))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));*/

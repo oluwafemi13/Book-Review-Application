@@ -19,8 +19,8 @@ namespace Application.DTO
         [Required]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        public UserRoles Roles { get; set; }
+        /*[Required]
+        public UserRoles Roles { get; set; }*/
 
     }
 }
