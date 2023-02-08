@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class DatabaseContext: IdentityUserContext<User>
+    public class DatabaseContext: IdentityDbContext<User>
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options):base(options)
         {
@@ -25,6 +25,7 @@ namespace Infrastructure.Persistence
         public DbSet<Award> Awards { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<RatingAverage> RatingAverages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

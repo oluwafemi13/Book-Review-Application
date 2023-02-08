@@ -36,10 +36,8 @@ namespace Domain.Entities
         //relationship between genre and books
         public ICollection<Genre> Genres { get; set; }
 
-        [NotMapped]
-        protected double ratingaverage = Ratings.Average(r => r.rating);
-        //public double RatingAverage { get { return RatingAverage; } set { RatingAverage = ratingaverage; } }
-        
+        public RatingAverage AverageRating { get; set; }
+
 
 
 

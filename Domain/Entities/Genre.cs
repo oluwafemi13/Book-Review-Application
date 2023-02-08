@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Common;
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Genre
+    public class Genre: EntityBase
     {
         public Guid GenreId { get; set; }
-        public string GenreName { get; set; } = Enum.GetName(typeof(GenreList),GenreList.Memoir);
+        public string GenreName { get; set; }
 
         //relationship between book and genre
         public ICollection<Book> Books { get; set; }

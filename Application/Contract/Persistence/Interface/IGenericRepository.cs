@@ -1,12 +1,26 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Contract.Persistence.Interface
 {
-    internal class IGenericRepository
+    public interface IGenericRepository<TContext> where TContext : class
     {
+        Task<IReadOnlyList<TContext>> GetAllAsync();
+        Task<IReadOnlyList<TContext>> GetAsync();
+        
+       
+        Task<TContext> GetByIdAsync(int id);
+        Task<TContext> GetByNameAsync(string Name);
+        Task<TContext> AddAsync(TContext entity);
+        Task UpdateAsync(TContext entity);
+        Task DeleteAsync(TContext entity);
+
+
+
     }
 }
