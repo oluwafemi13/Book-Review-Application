@@ -27,14 +27,16 @@ namespace Application.Features.Commands.Reviews.CreateReviewCommand
             _logger = logger;
         }
 
-        public Task<string> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
             var confirmifReviewExists = _reviewRepository.GetByStringIdAsync(request.ReviewId.ToString());
             if(confirmifReviewExists != null)
             {
                 _logger.LogInformation($"Review ALready Exists....You can not create a duplicate review");
             }
-
+           var mapped =  _mapper.Map<Review>(request);
+            await _reviewRepository.AddAsync(mapped);
+            return request.ReviewId.ToString(); 
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Domain.Entities
     public class Review: EntityBase
     {
         public Guid ReviewId { get; set; }
+        public string ReviewTitle { get; set; }
         public string review { get; set; }
 
         //relationship between book and review

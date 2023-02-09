@@ -14,10 +14,12 @@ namespace Application.Contract.Persistence.Interface
         Task<IReadOnlyList<TContext>> GetAsync();
         
         Task<TContext> GetByIdAsync(int id);
+        Task<TContext> GetByGuidAsync(Guid id);
         Task<TContext> GetByStringIdAsync(string Id);
         Task<TContext> GetByNameAsync(string Name);
         Task<TContext> AddAsync(TContext entity);
         Task UpdateAsync(TContext entity);
+        Task DeleteAsync(int id);
         Task DeleteAsync(TContext entity);
 
 
