@@ -3,7 +3,6 @@ using Application.Model;
 using Domain.Entities;
 using Application.Static;
 using AutoMapper;
-using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -110,11 +109,11 @@ namespace API.Controllers
             var result = await _usermanager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
+/*
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
-                await _roleManager.CreateAsync("Admin");
+                await _roleManager.CreateAsync();
             if (!await _roleManager.RoleExistsAsync(UserRoles.User))
-                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));*/
 
             if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
             {

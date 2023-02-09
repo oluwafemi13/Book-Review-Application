@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230206132437_adedAuthentication")]
-    partial class adedAuthentication
+    [Migration("20230209060215_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,16 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("AuthorId");
 
                     b.ToTable("Authors");
@@ -75,6 +85,19 @@ namespace Infrastructure.Migrations
                     b.Property<string>("AwardTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("YearWon")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("AwardId");
 
@@ -95,6 +118,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AverageRatingId")
+                        .HasColumnType("int");
 
                     b.Property<string>("BookTitle")
                         .IsRequired()
@@ -127,21 +153,35 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("AverageRatingId");
+
                     b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Domain.Entities.Format", b =>
                 {
-                    b.Property<Guid>("FormatId")
+                    b.Property<int>("FormatId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FormatId"));
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FormatType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("NumberOfPages")
                         .HasColumnType("int");
@@ -160,9 +200,19 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("GenreName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("GenreId");
 
@@ -177,6 +227,16 @@ namespace Infrastructure.Migrations
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("rating")
                         .HasColumnType("float");
@@ -193,6 +253,22 @@ namespace Infrastructure.Migrations
                     b.ToTable("Ratings");
                 });
 
+            modelBuilder.Entity("Domain.Entities.RatingAverage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("AverageRating")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RatingAverages");
+                });
+
             modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
                     b.Property<Guid>("ReviewId")
@@ -201,6 +277,16 @@ namespace Infrastructure.Migrations
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("review")
                         .IsRequired()
@@ -267,10 +353,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -462,6 +544,14 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.RatingAverage", "AverageRating")
+                        .WithMany("Books")
+                        .HasForeignKey("AverageRatingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AverageRating");
+
                     b.Navigation("author");
                 });
 
@@ -574,6 +664,11 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("format")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.RatingAverage", b =>
+                {
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Application.Contract.Persistence.Interface
 {
-    public interface IRatingRepository: IGenericRepository<Rating>
+    public interface IUserRepository: IGenericRepository<User>
     {
-        Task<IEnumerable<Rating>> GetRatingByBook( string book);
 
     }
 }

@@ -9,5 +9,6 @@ namespace Application.Contract.Persistence.Interface
 {
     public interface IRatingAverage: IGenericRepository<RatingAverage>
     {
+
     }
 }
