@@ -30,7 +30,7 @@ namespace Application.Features.Commands.book.CreateBook
         }
         public async Task<string> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            var check = await _BookRepository.GetByNameAsync(request.BookTitle);
+            var check = await _BookRepository.GetByGuidAsync(request.BookId);
             if (check != null)
             {
                 if (check.ISBN == request.ISBN)
@@ -44,7 +44,7 @@ namespace Application.Features.Commands.book.CreateBook
             if (!valid)
                 _logger.LogError($"Invalid ISBN Number");
 
-            var map = _mapper.Map<book>(request);
+            var map = _mapper.Map<Book>(request);
             var create = await _BookRepository.AddAsync(map);
             return create.BookId.ToString();
         }

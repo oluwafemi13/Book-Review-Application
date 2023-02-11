@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Format: EntityBase
+    public class Format
     {
         
         public int FormatId { get; set; }
