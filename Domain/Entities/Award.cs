@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public class Award: EntityBase
     {
-        public Guid AwardId { get; set; }
+        public int AwardId { get; set; }
         public string AwardTitle { get; set; }
 
         public DateTime YearWon { get; set; }

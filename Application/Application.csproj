@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Behaviour\" />
+    <Folder Include="Features\Commands\award\DeleteAward\" />
     <Folder Include="Features\Queries\" />
   </ItemGroup>
 
