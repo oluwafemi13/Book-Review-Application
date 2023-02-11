@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Commands.book
+namespace Application.Features.Commands.book.CreateBook
 {
-    public class CreateBookCommand: IRequest<string>
+    public class CreateBookCommand : IRequest<string>
     {
         public Guid BookId { get; set; }
         public string BookTitle { get; set; }
