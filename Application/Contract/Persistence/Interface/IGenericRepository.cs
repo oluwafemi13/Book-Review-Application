@@ -11,8 +11,16 @@ namespace Application.Contract.Persistence.Interface
     public interface IGenericRepository<TContext> where TContext : class
     {
         Task<IReadOnlyList<TContext>> GetAllAsync();
-        Task<IReadOnlyList<TContext>> GetAsync();
-        
+        Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate);
+        Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate = null,
+                                        Func<IQueryable<TContext>, IOrderedQueryable<TContext>> orderBy = null,
+                                        string includeString = null,
+                                        bool disableTracking = true);
+        Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate = null,
+                                       Func<IQueryable<TContext>, IOrderedQueryable<TContext>> orderBy = null,
+                                       List<Expression<Func<TContext, object>>> includes = null,
+                                       bool disableTracking = true);
+
         Task<TContext> GetByIdAsync(int id);
         Task<TContext> GetByGuidAsync(Guid id);
         Task<TContext> GetByStringIdAsync(string Id);
@@ -21,6 +29,7 @@ namespace Application.Contract.Persistence.Interface
         Task UpdateAsync(TContext entity);
         Task DeleteAsync(int id);
         Task DeleteAsync(TContext entity);
+        Task DeleteByGuidAsync(Guid id);
 
 
 

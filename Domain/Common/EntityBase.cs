@@ -8,7 +8,7 @@ namespace Domain.Common
 {
     public abstract class EntityBase
     {
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }
