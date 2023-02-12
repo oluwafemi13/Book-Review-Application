@@ -29,7 +29,7 @@ namespace Application.Features.Commands.Reviews.CreateReviewCommand
 
         public async Task<string> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
-            var confirmifReviewExists = _reviewRepository.GetByStringIdAsync(request.ReviewId.ToString());
+            var confirmifReviewExists = _reviewRepository.GetByGuidAsync(request.ReviewId);
             if(confirmifReviewExists != null)
             {
                 _logger.LogInformation($"Review ALready Exists....You can not create a duplicate review");

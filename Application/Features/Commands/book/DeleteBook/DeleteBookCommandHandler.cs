@@ -33,7 +33,7 @@ namespace Application.Features.Commands.book.DeleteBook
                 _logger.LogInformation($"Book {request.BookId}not found");
 
             }
-            await _BookRepository.DeleteByGuidAsync(request.BookId);
+            await _BookRepository.DeleteBookAndFormat(request.BookId);
             return Unit.Value;
         }
     }

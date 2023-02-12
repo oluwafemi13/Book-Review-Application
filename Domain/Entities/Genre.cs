@@ -10,7 +10,7 @@ namespace Domain.Entities
 {
     public class Genre: EntityBase
     {
-        public Guid GenreId { get; set; }
+        public int GenreId { get; set; }
         public string GenreName { get; set; }
 
         //relationship between book and genre
