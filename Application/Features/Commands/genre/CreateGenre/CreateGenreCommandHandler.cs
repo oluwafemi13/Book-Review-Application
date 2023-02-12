@@ -1,6 +1,7 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Application.Features.Commands.format.CreateFormat;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -27,7 +28,14 @@ namespace Application.Features.Commands.genre.CreateGenre
         }
         public async Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
         {
-            var find = await _genreRepository.
+            var find = await _genreRepository.GetByNameAsync(request.GenreName);
+            if (find != null)
+                _logger.LogInformation("Genre ALready Exists");
+            var map = _mapper.Map<Genre>(request);
+            await _genreRepository.AddAsync(map);
+            return map.GenreId;
+
+
         }
     }
 }

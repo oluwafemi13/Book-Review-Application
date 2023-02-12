@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Rating: EntityBase
+    public class Rating
     {
-        public Guid RatingId { get; set; }
+        public int RatingId { get; set; }
         public double rating { get; set; }
 
         
