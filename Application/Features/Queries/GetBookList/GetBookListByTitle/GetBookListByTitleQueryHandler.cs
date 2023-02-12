@@ -1,5 +1,5 @@
 ﻿using Application.Contract.Persistence.Interface;
-using Application.Features.Queries.GetBookListByAuthor;
+using Application.Features.Queries.GetBookList.GetBookListByAuthor;
 using AutoMapper;
 using MediatR;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookListByTitle
+namespace Application.Features.Queries.GetBookList.GetBookListByTitle
 {
     public class GetBookListByTitleQueryHandler : IRequestHandler<GetBookListByTitleQuery, List<BookVM>>
     {

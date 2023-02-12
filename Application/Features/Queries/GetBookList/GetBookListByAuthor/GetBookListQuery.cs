@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookListByAuthor
+namespace Application.Features.Queries.GetBookList.GetBookListByAuthor
 
 {
-    public class GetBookListQuery:IRequest<List<BookVM>>
+    public class GetBookListQuery : IRequest<List<BookVM>>
     {
         public string AuthorName { get; set; }
 

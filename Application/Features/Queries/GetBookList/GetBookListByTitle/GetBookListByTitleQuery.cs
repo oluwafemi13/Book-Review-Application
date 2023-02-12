@@ -1,4 +1,4 @@
-﻿using Application.Features.Queries.GetBookListByAuthor;
+﻿using Application.Features.Queries.GetBookList.GetBookListByAuthor;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookListByTitle
+namespace Application.Features.Queries.GetBookList.GetBookListByTitle
 {
-    public class GetBookListByTitleQuery: IRequest<List<BookVM>>
+    public class GetBookListByTitleQuery : IRequest<List<BookVM>>
     {
         public string BookTitle { get; set; }
 

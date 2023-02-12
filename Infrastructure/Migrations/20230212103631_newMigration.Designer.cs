@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230209060215_initialMigration")]
-    partial class initialMigration
+    [Migration("20230212103631_newMigration")]
+    partial class newMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,8 +30,8 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("BooksBookId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GenresGenreId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("GenresGenreId")
+                        .HasColumnType("int");
 
                     b.HasKey("BooksBookId", "GenresGenreId");
 
@@ -75,9 +75,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Award", b =>
                 {
-                    b.Property<Guid>("AwardId")
+                    b.Property<int>("AwardId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AwardId"));
 
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
@@ -169,19 +171,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("FormatType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("NumberOfPages")
                         .HasColumnType("int");
@@ -196,9 +188,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Genre", b =>
                 {
-                    b.Property<Guid>("GenreId")
+                    b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -221,22 +215,14 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Rating", b =>
                 {
-                    b.Property<Guid>("RatingId")
+                    b.Property<int>("RatingId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RatingId"));
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<double>("rating")
                         .HasColumnType("float");
@@ -287,6 +273,10 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ReviewTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("review")
                         .IsRequired()
