@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,10 @@ namespace Application.DTO
         public string UserName { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
+        [Required]
+        [Compare("Password")]
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
 
         /*[Required]
         public UserRoles Roles { get; set; }*/

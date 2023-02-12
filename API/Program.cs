@@ -1,3 +1,4 @@
+using Application.Extensions;
 using Domain.Entities;
 using Infrastructure.Extension;
 using Infrastructure.Persistence;
@@ -13,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDatabaseService(builder.Configuration);
+//builder.Services.AddMediatRServices();
+builder.Services.AddApplicationMappingServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

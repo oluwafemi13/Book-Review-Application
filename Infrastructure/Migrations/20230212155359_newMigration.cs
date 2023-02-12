@@ -91,7 +91,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AverageRating = table.Column<double>(type: "float", nullable: false)
+                    AverageRating = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -312,7 +312,7 @@ namespace Infrastructure.Migrations
                 {
                     RatingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    rating = table.Column<double>(type: "float", nullable: false),
+                    rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     userId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },

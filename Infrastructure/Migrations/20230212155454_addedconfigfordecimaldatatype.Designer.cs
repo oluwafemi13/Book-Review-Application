@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230212103631_newMigration")]
-    partial class newMigration
+    [Migration("20230212155454_addedconfigfordecimaldatatype")]
+    partial class addedconfigfordecimaldatatype
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,8 +224,8 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("rating")
-                        .HasColumnType("float");
+                    b.Property<decimal>("rating")
+                        .HasColumnType("decimal");
 
                     b.Property<string>("userId")
                         .HasColumnType("nvarchar(450)");
@@ -247,8 +247,8 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("AverageRating")
-                        .HasColumnType("float");
+                    b.Property<decimal>("AverageRating")
+                        .HasColumnType("decimal");
 
                     b.HasKey("Id");
 
