@@ -31,6 +31,7 @@ namespace Application.Features.Commands.genre.CreateGenre
             var find = await _genreRepository.GetByNameAsync(request.GenreName);
             if (find != null)
                 _logger.LogInformation("Genre ALready Exists");
+            //request.DateCreated = DateTime.UtcNow;
             var map = _mapper.Map<Genre>(request);
             await _genreRepository.AddAsync(map);
             return map.GenreId;
