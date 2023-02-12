@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookList.GetBookListByAuthor
+namespace Application.Features.Queries.GetBookList.GetBookByName
 {
     public class GetBookListQueryHandler : IRequestHandler<GetBookListQuery, List<BookVM>>
     {
@@ -23,7 +23,7 @@ namespace Application.Features.Queries.GetBookList.GetBookListByAuthor
 
         public async Task<List<BookVM>> Handle(GetBookListQuery request, CancellationToken cancellationToken)
         {
-            var bookList = await _bookRepo.GetByNameAsync(request.AuthorName);
+            var bookList = await _bookRepo.GetByNameAsync(request.Name);
             return _mapper.Map<List<BookVM>>(bookList);
         }
     }
