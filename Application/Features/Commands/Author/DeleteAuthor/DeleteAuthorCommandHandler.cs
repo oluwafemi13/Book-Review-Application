@@ -36,7 +36,7 @@ namespace Application.Features.Commands.author.DeleteAuthor
                 //throw new NotFoundException(nameof(request.AuthorId));
 
             }
-            await _authorRepository.DeleteAsync(runCheck);
+            await _authorRepository.DeleteByGuidAsync(request.AuthorId);
             return Unit.Value;
         }
     }
