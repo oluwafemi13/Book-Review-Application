@@ -10,7 +10,7 @@ namespace Domain.Entities
     public class Rating
     {
         public int RatingId { get; set; }
-        public double rating { get; set; }
+        public decimal rating { get; set; }
 
         
         //relationship between ratings and books

@@ -10,8 +10,8 @@ namespace Application.Features.Queries.GetBookList.GetBookByAverageRating
 {
     public class GetBookByAverageRatingQuery : IRequest<List<BookVM>>
     {
-        public double AverageRating { get; set; }
-        public GetBookByAverageRatingQuery(double averageRating)
+        public decimal AverageRating { get; set; }
+        public GetBookByAverageRatingQuery(decimal averageRating)
         {
             AverageRating = averageRating;
         }

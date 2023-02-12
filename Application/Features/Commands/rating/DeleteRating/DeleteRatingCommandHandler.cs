@@ -31,7 +31,7 @@ namespace Application.Features.Commands.rating.DeleteRating
             var find = await _ratingRepository.GetByIdAsync(request.RatingId);
             if (find == null)
                 _logger.LogInformation($"Rating with Id{request.RatingId} not found");
-            await _ratingRepository.DeleteAsync(request.RatingId);
+            await _ratingRepository.DeleteAsync(find);
             return true;
         }
     }

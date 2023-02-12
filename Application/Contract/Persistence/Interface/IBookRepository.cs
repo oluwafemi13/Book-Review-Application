@@ -11,7 +11,7 @@ namespace Application.Contract.Persistence.Interface
     {
         Task<Book> GetBookByISBN(string ISBN);
         Task<IEnumerable<Book>> GetBookByLanguage(string Language);
-        Task<IEnumerable<Book>> GetBookByRatingAverage(double RatingAverage);
+        Task<IEnumerable<Book>> GetBookByRatingAverage(decimal RatingAverage);
         Task DeleteBookAndFormat(Guid Id);
     }
 }

@@ -9,6 +9,6 @@ namespace Application.Contract.Persistence.Interface
 {
     public interface IRatingAverage: IGenericRepository<RatingAverage>
     {
-
+        Task<IEnumerable<Rating>> GetRatingAverageByBook(string book);
     }
 }

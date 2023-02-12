@@ -30,7 +30,7 @@ namespace Application.Features.Commands.award.DeleteAward
             var find = await _awardRepository.GetByIdAsync(request.AwardId);
             if (find is null)
                 _logger.LogInformation($"Award {request.AwardId}Does Not Exist in the Database");
-            await _awardRepository.DeleteAsync(request.AwardId);
+            await _awardRepository.DeleteAsync(find);
             return Unit.Value;
         }
     }

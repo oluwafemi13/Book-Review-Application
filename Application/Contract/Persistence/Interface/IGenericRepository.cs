@@ -27,9 +27,9 @@ namespace Application.Contract.Persistence.Interface
         Task<TContext> GetByNameAsync(string Name);
         Task<TContext> AddAsync(TContext entity);
         Task UpdateAsync(TContext entity);
-        Task DeleteAsync(int id);
+        //Task DeleteAsync(int id);
         Task DeleteAsync(TContext entity);
-        Task DeleteByGuidAsync(Guid id);
+        //Task DeleteByGuidAsync(Guid id);
 
 
 

@@ -30,7 +30,7 @@ namespace Application.Features.Commands.genre.DeleteGenre
             var check = await _genreRepository.GetByIdAsync(request.GenreId);
             if (check == null)
                 _logger.LogInformation("Genre Does not Exist");
-            await _genreRepository.DeleteAsync(request.GenreId);
+            await _genreRepository.DeleteAsync(check);
             return Unit.Value;
         }
     }

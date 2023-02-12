@@ -10,7 +10,7 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
 
-        public double AverageRating { get; set; }
+        public decimal AverageRating { get; set; }
 
 
 

@@ -29,13 +29,13 @@ namespace Application.Features.Commands.Reviews.DeleteReview
 
         public async Task<Unit> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
         {
-            var confirmExistence = _reviewRepository.GetByNameAsync(request.ReviewTitle);
+            var confirmExistence = await _reviewRepository.GetByGuidAsync(request.ReviewId);
             if (confirmExistence == null)
             {
               throw new NotFoundException(nameof(request.ReviewTitle));
                 
             }
-            await _reviewRepository.DeleteAsync(confirmExistence.Id);
+            await _reviewRepository.DeleteAsync(confirmExistence);
             _logger.LogInformation($"Review with title {request.ReviewTitle} has been deleted.");
             return Unit.Value;
         }

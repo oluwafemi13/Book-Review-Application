@@ -62,9 +62,13 @@ namespace Infrastructure.Repositories
             return await _dbContext.Set<TContext>().FindAsync(id);
         }
 
+        public async Task<TContext> GetByGuidAsync(Guid id)
+        {
+            return await _dbContext.Set<TContext>().FindAsync(id);
+        }
         public async Task<TContext> GetByNameAsync(string Name)
         {
-
+            return await _dbContext.Set<TContext>().FindAsync(Name);
         }
         public async Task<TContext> AddAsync(TContext entity)
         {
@@ -78,18 +82,15 @@ namespace Infrastructure.Repositories
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
-        public async Task DeleteAsync(int id)
-        {
-
-        }
+        
         public async Task DeleteAsync(TContext entity)
         {
             _dbContext.Set<TContext>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
-        public async Task DeleteByGuidAsync(Guid id)
+        /*public async Task DeleteByGuidAsync(Guid id)
         {
 
-        }
+        }*/
     }
 }
