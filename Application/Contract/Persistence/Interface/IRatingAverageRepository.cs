@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contract.Persistence.Interface
 {
-    public interface IRatingAverage: IGenericRepository<RatingAverage>
+    public interface IRatingAverageRepository: IGenericRepository<RatingAverage>
     {
         Task<IEnumerable<Rating>> GetRatingAverageByBook(string book);
     }

@@ -20,6 +20,12 @@ namespace Infrastructure.Extension
             service.AddScoped<IAuthorRepository, AuthorRepository>();
             service.AddScoped<IBookRepository, BookRepository>();
             service.AddTransient<IReviewRepository, ReviewRepository>();
+            service.AddTransient<IRatingRepository, RatingRepository>();
+            service.AddTransient<IGenreRepository, GenreRepository>();
+            service.AddTransient<IFormatRepository, FormatRepository>();
+            service.AddTransient<IRatingAverageRepository, RatingAverageRepository>();
+            service.AddTransient<IAwardRepository, AwardRepository>();
+
 
 
             return service;
