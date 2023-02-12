@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDatabaseService(builder.Configuration);
 //builder.Services.AddMediatRServices();
 builder.Services.AddApplicationMappingServices();
+builder.Services.AddRepositoryService();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

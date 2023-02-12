@@ -16,7 +16,12 @@ namespace Infrastructure.Repositories
         
         public async Task DeleteBookAndFormat(Guid Id)
         {
-            throw new NotImplementedException();
+            var format = await _dbContext.Formats.Where(x=> x.BookId== Id).FirstOrDefaultAsync(); 
+            var book = await _dbContext.Books.Where(x=> x.BookId== Id).FirstOrDefaultAsync();
+            _dbContext.Formats.Remove(format);
+            _dbContext.Books.Remove(book);
+            _dbContext.SaveChanges();
+
         }
 
         public async Task<Book> GetBookByISBN(string ISBN)

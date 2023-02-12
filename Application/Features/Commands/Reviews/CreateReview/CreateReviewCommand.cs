@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.Reviews.CreateReviewCommand
 {
-    public class CreateReviewCommand: IRequest<string>
+    public class CreateReviewCommand: IRequest<Guid>
     {
         public Guid ReviewId { get; set; }
         public string review { get; set; }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.Reviews.CreateReviewCommand
 {
-    public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, string>
+    public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, Guid>
     {
 
         private readonly IReviewRepository _reviewRepository;
@@ -27,7 +27,7 @@ namespace Application.Features.Commands.Reviews.CreateReviewCommand
             _logger = logger;
         }
 
-        public async Task<string> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
             var confirmifReviewExists = _reviewRepository.GetByGuidAsync(request.ReviewId);
             if(confirmifReviewExists != null)
@@ -36,7 +36,7 @@ namespace Application.Features.Commands.Reviews.CreateReviewCommand
             }
            var mapped =  _mapper.Map<Review>(request);
             await _reviewRepository.AddAsync(mapped);
-            return request.ReviewId.ToString(); 
+            return request.ReviewId; 
         }
     }
 }
