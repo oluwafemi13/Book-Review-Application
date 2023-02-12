@@ -14,6 +14,7 @@ namespace Application.Features.Commands.book.DeleteBook
     public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand>
     {
         private readonly IBookRepository _BookRepository;
+        //private readonly IFormatRepository _formatRepository;
         private readonly ILogger<DeleteBookCommandHandler> _logger;
         private readonly IMapper _mapper;
 
@@ -21,6 +22,7 @@ namespace Application.Features.Commands.book.DeleteBook
                                         ILogger<DeleteBookCommandHandler> logger,
                                         IMapper mapper)
         {
+            
             _BookRepository = BookRepository;
             _logger = logger;
             _mapper = mapper;
