@@ -19,30 +19,27 @@ namespace API.Controllers
     public class AuthenticationController: ControllerBase
     {
         private readonly UserManager<User> _usermanager;
-        private readonly RoleManager<IdentityUser> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-        private readonly IMapper _mapper;
+        
 
         public AuthenticationController(UserManager<User> usermanager, 
-                                        RoleManager<IdentityUser> roleManager, 
-                                        IConfiguration configuration, 
-                                        ILogger logger, 
-                                        IMapper mapper)
+                                        RoleManager<IdentityRole> roleManager, 
+                                        IConfiguration configuration
+                                        )
         {
             _usermanager = usermanager;
             _roleManager = roleManager;
             _configuration = configuration;
-            _logger = logger;
-            _mapper = mapper;
+            
         }
 
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO model)
         {
-            var check = _mapper.Map<User>(model);
-            check.UserName = model.Email;
+            //var check = _mapper.Map<User>(model);
+            //var UserName = model.Email;
             var user = await _usermanager.FindByNameAsync(model.Email);
             if (user != null && await _usermanager.CheckPasswordAsync(user, model.Password))
             {
@@ -86,14 +83,35 @@ namespace API.Controllers
             if (userExists !=null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-            var user = _mapper.Map<User>(model);
-            
+            var user = new User()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.UserName,
+                PhoneNumber = model.PhoneNumber,
+
+            };
+
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+            if (!await _roleManager.RoleExistsAsync(UserRoles.User))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+            if (await _roleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await _usermanager.AddToRoleAsync(user, UserRoles.User);
+            }
+
             var result = await _usermanager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
+
+
 
         [HttpPost]
         [Route("Register-Admin")]
@@ -103,17 +121,25 @@ namespace API.Controllers
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-            //var user = _mapper.Map(model, User);
-            var user = _mapper.Map<User>(model);
-           
+            var user = new User()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.UserName,
+                PhoneNumber = model.PhoneNumber,
+
+            };
+
             var result = await _usermanager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-/*
+
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
-                await _roleManager.CreateAsync();
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
             if (!await _roleManager.RoleExistsAsync(UserRoles.User))
-                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));*/
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
             if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
             {

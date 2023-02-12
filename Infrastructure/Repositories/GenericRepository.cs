@@ -12,7 +12,7 @@ namespace Infrastructure.Repositories
 {
     public class GenericRepository<TContext>: IGenericRepository<TContext> where TContext:class
     {
-        private readonly DatabaseContext _dbContext;
+        protected readonly DatabaseContext _dbContext;
 
         public GenericRepository(DatabaseContext dbContext)
         {
