@@ -17,13 +17,16 @@ namespace Application.Features.Commands.book.CreateBook
     public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, string>
     {
         private readonly IBookRepository _BookRepository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly ILogger<CreateBookCommandHandler> _logger;
         private readonly IMapper _mapper;
 
         public CreateBookCommandHandler(IBookRepository BookRepository,
                                         ILogger<CreateBookCommandHandler> logger,
-                                        IMapper mapper)
+                                        IMapper mapper,
+                                        IAuthorRepository authorRepository)
         {
+            _authorRepository= authorRepository;
             _BookRepository = BookRepository;
             _logger = logger;
             _mapper = mapper;
@@ -31,14 +34,17 @@ namespace Application.Features.Commands.book.CreateBook
         public async Task<string> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
             var check = await _BookRepository.GetByGuidAsync(request.BookId);
+            //var findAuthor = await _authorRepository.GetByNameAsync(request.Author);
             if (check != null)
             {
                 if (check.ISBN == request.ISBN)
                 {
-                    _logger.LogError($"Book Already Exists");
+                    _logger.LogError($"Book Already Exist");
                     return check.ISBN.ToString();
                 }
             }
+            
+
             //validate ISBN 10 digits number
             bool valid = validateISBN10(request.ISBN);
             if (!valid)

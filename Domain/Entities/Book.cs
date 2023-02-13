@@ -21,8 +21,8 @@ namespace Domain.Entities
         public string Language { get; set; }
         public string CoverImage { get; set; }
 
-        //one to many relationship between book and Author
-        public Author author { get; set; }
+        //many to many relationship between book and Author
+        public ICollection<Author> author { get; set; }
 
         //relationship between book and format
         public Format format { get; set; }
