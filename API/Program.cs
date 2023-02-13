@@ -3,6 +3,7 @@ using Domain.Entities;
 using Infrastructure.Extension;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,9 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDatabaseService(builder.Configuration);
-//builder.Services.AddMediatRServices();
+builder.Services.AddMediatRServices();
 builder.Services.AddApplicationMappingServices();
 builder.Services.AddRepositoryService();
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

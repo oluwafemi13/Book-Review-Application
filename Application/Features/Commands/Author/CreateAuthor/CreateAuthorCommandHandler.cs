@@ -30,15 +30,22 @@ namespace Application.Features.Commands.author.CreateAuthor
 
         public async Task<Guid> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
         {
-            var runCheck =await _authorRepository.GetByNameAsync(request.AuthorName);
+            var runCheck = await _authorRepository.GetByGuidAsync(request.AuthorId);
             if(runCheck is null)
             {
-                _logger.LogInformation($"Author {request.AuthorName} was not found");
-                throw new NotFoundException(nameof(request.AuthorName));
+                _logger.LogInformation($"Author {request.AuthorId} was not found");
+                //throw new NotFoundException(nameof(request.AuthorName));
                 
             }
-            var map = _mapper.Map<Author>(request);
-            await _authorRepository.AddAsync(map);
+            var author = new Author()
+            {
+                AuthorEmail = request.AuthorEmail,
+                AuthorName = request.AuthorName,
+                AuthorBio = request.AuthorBio,
+                AuthorId = request.AuthorId
+            };
+            //var map = _mapper.Map<Author>(request);
+            await _authorRepository.AddAsync(author);
 
             return request.AuthorId;
         }

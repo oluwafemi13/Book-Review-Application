@@ -36,7 +36,7 @@ namespace Application.Features.Commands.book.CreateBook
                 if (check.ISBN == request.ISBN)
                 {
                     _logger.LogError($"Book Already Exists");
-                    return check.ISBN;
+                    return check.ISBN.ToString();
                 }
             }
             //validate ISBN 10 digits number
@@ -44,8 +44,20 @@ namespace Application.Features.Commands.book.CreateBook
             if (!valid)
                 _logger.LogError($"Invalid ISBN Number");
 
-            var map = _mapper.Map<Book>(request);
-            var create = await _BookRepository.AddAsync(map);
+            var book = new Book()
+            {
+                ISBN = request.ISBN,
+                BookId = request.BookId,
+                CoverImage = request.CoverImage,
+                Description = request.Description,
+                Language = request.Language,
+                BookTitle = request.BookTitle,
+                Summary = request.Summary,
+                DatePublished = request.DatePublished
+
+            };
+            //var map = _mapper.Map<Book>(request);
+            var create = await _BookRepository.AddAsync(book);
             return create.BookId.ToString();
         }
 

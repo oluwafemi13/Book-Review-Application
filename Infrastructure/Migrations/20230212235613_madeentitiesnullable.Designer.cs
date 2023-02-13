@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230212235613_madeentitiesnullable")]
+    partial class madeentitiesnullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,9 +62,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedDate")
+                    b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("AuthorId");
@@ -88,9 +92,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedDate")
+                    b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("YearWon")
@@ -113,7 +118,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("AuthorId")
+                    b.Property<Guid?>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("BookTitle")
@@ -192,9 +197,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastModifiedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedDate")
+                    b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("GenreId");
@@ -263,9 +269,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedDate")
+                    b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ReviewTitle")
@@ -524,9 +531,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.Author", "author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorId");
 
                     b.Navigation("author");
                 });
@@ -647,13 +652,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Book", b =>
                 {
-                    b.Navigation("AverageRating")
-                        .IsRequired();
+                    b.Navigation("AverageRating");
 
                     b.Navigation("Reviews");
 
-                    b.Navigation("format")
-                        .IsRequired();
+                    b.Navigation("format");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

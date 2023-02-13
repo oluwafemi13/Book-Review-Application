@@ -13,8 +13,7 @@ namespace Application.Extensions
     {
         public static IServiceCollection AddMediatRServices(this IServiceCollection services)
         {
-            
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+              services.AddMediatR(Assembly.GetExecutingAssembly());
 
             return services;
         }
