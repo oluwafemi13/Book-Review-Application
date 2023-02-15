@@ -28,13 +28,22 @@ namespace Application.Features.Commands.author.UpdateAuthor
         }
         public async Task<Unit> Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
         {
-            var check =await _authorRepository.GetByGuidAsync(request.AuthorId);
+            var check = await _authorRepository.GetAuthorByEmail(request.AuthorEmail);
             if (check == null) {
                 throw new ArgumentException("Author not found");
 
             }
-            var map = _mapper.Map<Author>(request);
-            await _authorRepository.UpdateAsync(map);
+            var author = new Author()
+            {
+                
+                AuthorName = request.AuthorName,
+                AuthorEmail = request.AuthorEmail,
+                AuthorBio = request.AuthorBio,
+                LastModifiedDate = DateTime.Now,
+
+            };
+            //var map = _mapper.Map<Author>(request);
+            await _authorRepository.UpdateAsync(author);
             return Unit.Value;
         }
     }
