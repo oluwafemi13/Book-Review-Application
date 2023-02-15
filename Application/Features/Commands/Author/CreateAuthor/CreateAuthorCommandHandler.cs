@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.author.CreateAuthor
 {
-    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, Guid>
+    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, int>
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly ILogger<CreateAuthorCommandHandler> _logger;
@@ -28,9 +28,9 @@ namespace Application.Features.Commands.author.CreateAuthor
             _mapper = mapper;
         }
 
-        public async Task<Guid> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
         {
-            var runCheck = await _authorRepository.GetByGuidAsync(request.AuthorId);
+            var runCheck = await _authorRepository.GetByIdAsync(request.AuthorId);
             if(runCheck is null)
             {
                 _logger.LogInformation($"Author {request.AuthorId} was not found");

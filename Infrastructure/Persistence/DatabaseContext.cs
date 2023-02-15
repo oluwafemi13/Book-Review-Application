@@ -15,9 +15,14 @@ namespace Infrastructure.Persistence
 {
     public class DatabaseContext: IdentityDbContext<User>
     {
+
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }*/
         public DatabaseContext(DbContextOptions<DatabaseContext> options):base(options)
         {
-
+           
 
         }
         public DbSet<Author> Authors { get; set; }
