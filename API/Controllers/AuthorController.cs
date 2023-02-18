@@ -1,4 +1,6 @@
 ﻿using Application.Features.Commands.author.CreateAuthor;
+using Application.Features.Commands.author.DeleteAuthor;
+using Application.Features.Commands.author.UpdateAuthor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +25,14 @@ namespace API.Controllers
         }
 
         [HttpPut("UpdateAuthor")]
-        public async Task<ActionResult> UpdateAuthor([FromBody] CreateAuthorCommand command)
+        public async Task<ActionResult> UpdateAuthor([FromBody] UpdateAuthorCommand command)
+        {
+            var result = await _mediatr.Send(command);
+            return Ok(result);
+        }
+
+        [HttpDelete("DeleteAuthor")]
+        public async Task<ActionResult> DeleteAuthor(DeleteAuthorCommand command)
         {
             var result = await _mediatr.Send(command);
             return Ok(result);

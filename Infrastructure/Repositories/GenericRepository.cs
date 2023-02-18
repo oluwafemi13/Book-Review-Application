@@ -80,7 +80,9 @@ namespace Infrastructure.Repositories
         public async Task UpdateAsync(TContext entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
+            //_dbContext.Set<TContext>().Update(entity);
             await _dbContext.SaveChangesAsync();
+            
         }
         
         public async Task DeleteAsync(TContext entity)
@@ -88,9 +90,16 @@ namespace Infrastructure.Repositories
             _dbContext.Set<TContext>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
-        /*public async Task DeleteByGuidAsync(Guid id)
-        {
 
-        }*/
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+       
+        /*public async Task DeleteByGuidAsync(Guid id)
+{
+
+}*/
     }
 }

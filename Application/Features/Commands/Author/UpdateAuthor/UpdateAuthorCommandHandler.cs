@@ -35,14 +35,15 @@ namespace Application.Features.Commands.author.UpdateAuthor
             }
             var author = new Author()
             {
-                
+
                 AuthorName = request.AuthorName,
                 AuthorEmail = request.AuthorEmail,
                 AuthorBio = request.AuthorBio,
+                LastModifiedBy = request.LastModifiedBy,
                 LastModifiedDate = DateTime.Now,
 
             };
-            //var map = _mapper.Map<Author>(request);
+            /*ar map = _mapper.Map<UpdateAuthorCommand, Author>(request);*/
             await _authorRepository.UpdateAsync(author);
             return Unit.Value;
         }

@@ -29,7 +29,7 @@ namespace Application.Features.Commands.author.DeleteAuthor
         }
         public async Task<Unit> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
         {
-           var runCheck = await _authorRepository.GetByGuidAsync(request.AuthorId);
+           var runCheck = await _authorRepository.GetByIdAsync(request.AuthorId);
             if (runCheck == null)
             {
                 _logger.LogError($"user with user id {request.AuthorId} was not found");

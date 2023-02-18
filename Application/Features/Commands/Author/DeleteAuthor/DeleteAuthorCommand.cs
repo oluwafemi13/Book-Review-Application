@@ -9,6 +9,6 @@ namespace Application.Features.Commands.author.DeleteAuthor
 {
     public class DeleteAuthorCommand: IRequest
     {
-        public Guid AuthorId { get; set; }
+        public int AuthorId { get; set; }
     }
 }

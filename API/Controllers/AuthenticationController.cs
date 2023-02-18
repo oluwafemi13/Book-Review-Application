@@ -76,7 +76,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("Register")]
+        [Route("Register-User")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDTO model)
         {
             var userExists = await _usermanager.FindByNameAsync(model.UserName);

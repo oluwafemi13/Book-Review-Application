@@ -20,7 +20,9 @@ namespace Infrastructure.Repositories
         }
         public async Task<Author> GetAuthorByEmail(string email)
         {
-            var author = await _dbContext.Authors.FindAsync(email);
+            var author =await  _dbContext.Authors
+                                                 .Where(x => x.AuthorEmail == email)
+                                                 .FirstOrDefaultAsync();
             return author;
         }
     }
