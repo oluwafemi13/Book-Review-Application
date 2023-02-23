@@ -76,10 +76,14 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("Register-User")]
+        [Route("Register-User/Author")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDTO model)
         {
             var userExists = await _usermanager.FindByNameAsync(model.UserName);
+            if(userExists.Email == model.Email)
+            {
+                return BadRequest($"User with {model.Email} Already Exist, Please Register with a new Email");
+            }
             if (userExists !=null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
@@ -98,8 +102,14 @@ namespace API.Controllers
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
             if (!await _roleManager.RoleExistsAsync(UserRoles.User))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Author))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Author));
 
-            if (await _roleManager.RoleExistsAsync(UserRoles.User))
+            if(model.Roles == UserRoles.Author)
+            {
+                await _usermanager.AddToRoleAsync(user, UserRoles.Author);
+            }
+            else 
             {
                 await _usermanager.AddToRoleAsync(user, UserRoles.User);
             }

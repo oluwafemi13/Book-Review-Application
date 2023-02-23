@@ -28,14 +28,14 @@ namespace Application.Features.Commands.author.UpdateAuthor
         }
         public async Task<Unit> Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
         {
-            var check = await _authorRepository.GetAuthorByEmail(request.AuthorEmail);
+            var check = await _authorRepository.GetByIdAsync(request.AuthorId);
             if (check == null) {
                 throw new ArgumentException("Author not found");
 
             }
-            var author = new Author()
+            var author = new UpdateAuthorCommand()
             {
-
+                AuthorId= request.AuthorId,
                 AuthorName = request.AuthorName,
                 AuthorEmail = request.AuthorEmail,
                 AuthorBio = request.AuthorBio,
@@ -43,7 +43,7 @@ namespace Application.Features.Commands.author.UpdateAuthor
                 LastModifiedDate = DateTime.Now,
 
             };
-            /*ar map = _mapper.Map<UpdateAuthorCommand, Author>(request);*/
+            //_mapper.Map(request, check, typeof(UpdateAuthorCommand), typeof(Author));
             await _authorRepository.UpdateAsync(author);
             return Unit.Value;
         }

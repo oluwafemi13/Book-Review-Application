@@ -10,7 +10,7 @@ namespace Application.Static
     public class UserRoles
     {
         public const string Admin = "Admin";  //access to all security levels
-        public const string User = "User";   //leave comments only
-        public const string Author = "Author"; //add books
+        public const string User = "User";   //leave comments and Reviews only
+        public const string Author = "Author"; //add books and Read Reviews
     }
 }

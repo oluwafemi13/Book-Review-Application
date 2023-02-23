@@ -16,6 +16,7 @@ namespace Application.DTO
         [Required]
         public string LastName { get; set; }
         [Required]
+        
         public string UserName { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
@@ -24,8 +25,8 @@ namespace Application.DTO
         [NotMapped]
         public string ConfirmPassword { get; set; }
 
-        /*[Required]
-        public UserRoles Roles { get; set; }*/
+        [Required]
+        public string Roles { get; set; }
 
     }
 }
