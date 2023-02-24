@@ -25,5 +25,10 @@ namespace Infrastructure.Repositories
                                                  .FirstOrDefaultAsync();
             return author;
         }
+
+        /*public async Task<Author> UpdateAuthor(Author author)
+        {
+
+        }*/
     }
 }

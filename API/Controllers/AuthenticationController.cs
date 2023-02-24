@@ -76,16 +76,26 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("Register-User/Author")]
+        [Route("Register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDTO model)
         {
-            var userExists = await _usermanager.FindByNameAsync(model.UserName);
-            if(userExists.Email == model.Email)
+           
+            /*Role role = new Role();
+            if (role.RoleName == "Admin")
+                role.RoleId = new Guid("b3ca6ed52cb744ad9171d9f56bcfa676");
+            if (role.RoleName == "User")
+                role.RoleId = new Guid("514c5018b2d24ea3b008a2c133a65227");
+            if (role.RoleName == "Author")
+                role.RoleId = new Guid("90e0e7d40c2d427c9f896d4f6b818599");*/
+
+            var userExists = await _usermanager.FindByNameAsync(model.Email);
+           /* if(userExists.Email == model.Email || userExists.Email == null)
             {
                 return BadRequest($"User with {model.Email} Already Exist, Please Register with a new Email");
-            }
+            }*/
             if (userExists !=null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+            
 
             var user = new User()
             {
@@ -95,8 +105,12 @@ namespace API.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.UserName,
                 PhoneNumber = model.PhoneNumber,
+                
 
             };
+            /*if (model.Roles == UserRoles.Admin || model.Roles == UserRoles.User || model.Roles == UserRoles.Author)
+                user.RoleId = role.RoleId;*/
+
 
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
@@ -108,10 +122,17 @@ namespace API.Controllers
             if(model.Roles == UserRoles.Author)
             {
                 await _usermanager.AddToRoleAsync(user, UserRoles.Author);
+                
             }
-            else 
+            if(model.Roles == UserRoles.User)
             {
                 await _usermanager.AddToRoleAsync(user, UserRoles.User);
+                
+            }
+            if (model.Roles == UserRoles.Admin)
+            {
+                await _usermanager.AddToRoleAsync(user, UserRoles.Admin);
+               
             }
 
             var result = await _usermanager.CreateAsync(user, model.Password);
@@ -123,7 +144,7 @@ namespace API.Controllers
 
 
 
-        [HttpPost]
+       /* [HttpPost]
         [Route("Register-Admin")]
         public async Task<ActionResult<Response>> RegisterAdmin([FromBody] UserRegistrationDTO model)
         {
@@ -157,7 +178,7 @@ namespace API.Controllers
             }
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
-        }
+        }*/
     }
 
 }

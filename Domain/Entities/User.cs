@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        [ForeignKey("RoleId")]
+        public Guid RoleId { get; set; }
        // public string Role { get; set; }
 
         public ICollection<Rating> ratings { get; set; }

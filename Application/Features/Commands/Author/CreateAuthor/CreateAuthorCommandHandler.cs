@@ -30,13 +30,15 @@ namespace Application.Features.Commands.author.CreateAuthor
 
         public async Task<int> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
         {
-            var runCheck = await _authorRepository.GetByIdAsync(request.AuthorId);
-            if(runCheck is null)
+            var runCheck = await _authorRepository.GetAuthorByEmail(request.AuthorEmail);
+            
+            if(runCheck != null)
             {
-                _logger.LogInformation($"Author {request.AuthorId} was not found");
+                _logger.LogInformation($"User Already Exists");
                 //throw new NotFoundException(nameof(request.AuthorName));
                 
             }
+            
             var author = new Author()
             {
                 AuthorEmail = request.AuthorEmail,

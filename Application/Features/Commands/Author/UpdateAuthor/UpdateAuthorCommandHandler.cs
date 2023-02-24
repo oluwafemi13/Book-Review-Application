@@ -28,12 +28,12 @@ namespace Application.Features.Commands.author.UpdateAuthor
         }
         public async Task<Unit> Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
         {
-            var check = await _authorRepository.GetByIdAsync(request.AuthorId);
+            var check = await _authorRepository.GetAuthorByEmail(request.AuthorEmail);
             if (check == null) {
                 throw new ArgumentException("Author not found");
 
             }
-            var author = new UpdateAuthorCommand()
+            var author = new Author()
             {
                 AuthorId= request.AuthorId,
                 AuthorName = request.AuthorName,
