@@ -79,20 +79,9 @@ namespace API.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDTO model)
         {
-           
-            /*Role role = new Role();
-            if (role.RoleName == "Admin")
-                role.RoleId = new Guid("b3ca6ed52cb744ad9171d9f56bcfa676");
-            if (role.RoleName == "User")
-                role.RoleId = new Guid("514c5018b2d24ea3b008a2c133a65227");
-            if (role.RoleName == "Author")
-                role.RoleId = new Guid("90e0e7d40c2d427c9f896d4f6b818599");*/
-
+         
             var userExists = await _usermanager.FindByNameAsync(model.Email);
-           /* if(userExists.Email == model.Email || userExists.Email == null)
-            {
-                return BadRequest($"User with {model.Email} Already Exist, Please Register with a new Email");
-            }*/
+           
             if (userExists !=null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
             
@@ -139,7 +128,7 @@ namespace API.Controllers
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return Ok(new Response { Status = "Success", Message = "User created successfully!", StatusCode = (int) StatusCodes.Status200OK});
         }
 
 
