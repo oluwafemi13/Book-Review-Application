@@ -42,7 +42,7 @@ namespace Application.Features.Commands.author.UpdateAuthor
 
             var findUser =await _usermanager.FindByEmailAsync(request.AuthorEmail);
             if(findUser == null)
-                throw new NotFoundException(request.AuthorEmail+ "Was  Not found");
+                throw new NotFoundException(request.AuthorEmail);
 
             var author = new Author()
             {
@@ -64,6 +64,7 @@ namespace Application.Features.Commands.author.UpdateAuthor
 
             };
             var result = await _usermanager.UpdateAsync(user);
+                    
             if (!result.Succeeded)
                 _logger.Log(LogLevel.Error, "Update UnSuccessful");
             await _authorRepository.UpdateAsync(author);

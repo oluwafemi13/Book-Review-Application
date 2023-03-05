@@ -33,7 +33,8 @@ namespace Infrastructure.Persistence
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<RatingAverage> RatingAverages { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<Role> Role { get; set; }
+        //public DbSet<User> UsersTable { get; set; }  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,7 +42,7 @@ namespace Infrastructure.Persistence
             modelBuilder.Entity<RatingAverage>().Property(x => x.AverageRating).HasColumnType<decimal>("decimal");
             modelBuilder.Entity<Rating>().Property(x => x.rating).HasColumnType<decimal>("decimal");
             //modelBuilder.Entity<IdentityUserLogin>().HasKey(x => x.UserId);
-            
+            //modelBuilder.Entity<Book>().Property(x => x.CoverImage).HasColumnType<VarBinary>("varbinary");
 
         }
 
