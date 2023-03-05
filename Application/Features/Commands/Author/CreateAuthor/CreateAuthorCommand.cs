@@ -12,6 +12,6 @@ namespace Application.Features.Commands.author.CreateAuthor
         public int AuthorId { get; set; }
         public string AuthorName { get; set; }
         public string AuthorEmail { get; set; }
-        public string AuthorBio { get; set; }
+        public string? AuthorBio { get; set; }
     }
 }

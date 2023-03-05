@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Application.Features.Commands.author.CreateAuthor;
+using Application.Contract.Persistence.Interface;
 
 namespace API.Controllers
 {
@@ -22,18 +23,21 @@ namespace API.Controllers
         private readonly UserManager<User> _usermanager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-        private CreateAuthorCommandHandler _authorHandler;
+        private IAuthorRepository _authorRepository;
+        private IMapper _mapper;
         
 
         public AuthenticationController(UserManager<User> usermanager, 
                                         RoleManager<IdentityRole> roleManager, 
                                         IConfiguration configuration,
-                                        CreateAuthorCommandHandler authorHandler)
+                                       IAuthorRepository authorRepository,
+                                        IMapper mapper)
         {
             _usermanager = usermanager;
             _roleManager = roleManager;
             _configuration = configuration;
-            _authorHandler = authorHandler;
+            _authorRepository= authorRepository;
+            _mapper = mapper;
             
         }
 
@@ -85,7 +89,7 @@ namespace API.Controllers
         #region Registration
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult> Register([FromBody] UserRegistrationDTO model)
+        public async Task<ActionResult> Register([FromBody] UserRegistrationDTO model, CancellationToken token)
         {
          
             var userExists = await _usermanager.FindByEmailAsync(model.Email);
@@ -123,9 +127,15 @@ namespace API.Controllers
 
             if(await _roleManager.RoleExistsAsync(UserRoles.Author) && model.Roles == UserRoles.Author)
             {
-                
                 await _usermanager.AddToRoleAsync(user, UserRoles.Author);
-                
+                var authorCommand = new Author
+                {
+                    AuthorEmail = model.Email,
+                    AuthorName = model.FirstName + " " + model.LastName,
+                    AuthorBio = null
+                };
+                await _authorRepository.AddAsync(authorCommand);
+ 
             }
             if(await _roleManager.RoleExistsAsync(UserRoles.User) && model.Roles == UserRoles.User)
             {
@@ -178,6 +188,7 @@ namespace API.Controllers
 
              return Ok(new Response { Status = "Success", Message = "User created successfully!" });
          }*/
+    
     }
 
 }
