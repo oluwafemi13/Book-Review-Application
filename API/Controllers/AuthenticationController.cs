@@ -95,7 +95,7 @@ namespace API.Controllers
             var userExists = await _usermanager.FindByEmailAsync(model.Email);
            
             if (userExists !=null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!", StatusCode = StatusCodes.Status500InternalServerError });
             
 
             var user = new User()
@@ -107,9 +107,10 @@ namespace API.Controllers
                 UserName = model.UserName,
                 PhoneNumber = model.PhoneNumber,
                 EmailConfirmed = false,
-                LockoutEnabled= false,
+                //LockoutEnabled= false,
                 TwoFactorEnabled= false,
                 PhoneNumberConfirmed= false,  
+                
 
             };
             var result = await _usermanager.CreateAsync(user, model.Password);
@@ -132,7 +133,7 @@ namespace API.Controllers
                 {
                     AuthorEmail = model.Email,
                     AuthorName = model.FirstName + " " + model.LastName,
-                    AuthorBio = null
+                    AuthorBio = string.Empty
                 };
                 await _authorRepository.AddAsync(authorCommand);
  
@@ -153,6 +154,7 @@ namespace API.Controllers
 
         #endregion
 
+        #region not needed
         /* [HttpPost]
          [Route("Register-Admin")]
          public async Task<ActionResult<Response>> RegisterAdmin([FromBody] UserRegistrationDTO model)
@@ -188,7 +190,8 @@ namespace API.Controllers
 
              return Ok(new Response { Status = "Success", Message = "User created successfully!" });
          }*/
-    
+        #endregion
+
     }
 
 }

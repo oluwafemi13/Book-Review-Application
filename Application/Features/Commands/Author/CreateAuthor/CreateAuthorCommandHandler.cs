@@ -44,12 +44,14 @@ namespace Application.Features.Commands.author.CreateAuthor
                 AuthorEmail = request.AuthorEmail,
                 AuthorName = request.AuthorName,
                 AuthorBio = request.AuthorBio,
-                AuthorId = request.AuthorId
+                
             };
             //var map = _mapper.Map<Author>(request);
             await _authorRepository.AddAsync(author);
 
             return request.AuthorId;
         }
+
+        
     }
 }
