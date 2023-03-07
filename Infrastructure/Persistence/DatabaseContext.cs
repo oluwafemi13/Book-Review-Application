@@ -45,9 +45,12 @@ namespace Infrastructure.Persistence
 
             modelBuilder.Entity<Book>().HasOne<Format>(f=> f.format)
                                        .WithOne(b=> b.book)
-                                       
                                        .OnDelete(DeleteBehavior.Cascade);
-                                       
+
+            modelBuilder.Entity<Author>().HasMany<Award>(aw=> aw.awards)
+                                         .WithOne(au=> au.author)
+                                         .OnDelete(DeleteBehavior.Cascade);
+
 
         }
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDatabaseService(builder.Configuration);
 builder.Services.AddMediatRServices();
+builder.Services.AddValidatorConfiguration();
 builder.Services.AddApplicationMappingServices();
 builder.Services.AddRepositoryService();
 builder.Services.AddAutoMapper(typeof(Program));
