@@ -44,6 +44,12 @@ namespace Infrastructure.Persistence
             //modelBuilder.Entity<IdentityUserLogin>().HasKey(x => x.UserId);
             //modelBuilder.Entity<Book>().Property(x => x.CoverImage).HasColumnType<VarBinary>("varbinary");
 
+            modelBuilder.Entity<Book>().HasOne<Format>(f=> f.format)
+                                       .WithOne(b=> b.book)
+                                       
+                                       .OnDelete(DeleteBehavior.Cascade);
+                                       
+
         }
 
     }

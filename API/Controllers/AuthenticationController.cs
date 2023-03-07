@@ -128,6 +128,9 @@ namespace API.Controllers
 
             if(await _roleManager.RoleExistsAsync(UserRoles.Author) && model.Roles == UserRoles.Author)
             {
+                var GetRoleByName = _roleManager.FindByNameAsync(UserRoles.Author);
+                user.RoleId =Convert.ToString(GetRoleByName.Id); 
+                
                 await _usermanager.AddToRoleAsync(user, UserRoles.Author);
                 var authorCommand = new Author
                 {
