@@ -37,37 +37,33 @@ namespace Application.Features.Commands.author.UpdateAuthor
         public async Task<Unit> Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
         {
             var authorExists = await _authorRepository.GetAuthorByEmail(request.AuthorEmail);
+            var findUserId = await _usermanager.FindByEmailAsync(request.AuthorEmail);
+            var userId = findUserId.Id;
+            var authorID = authorExists.AuthorId;
+
             if (authorExists == null) 
                 throw new ArgumentException("Author not found");
-
-            var findUser =await _usermanager.FindByEmailAsync(request.AuthorEmail);
-            if(findUser == null)
+            if(findUserId == null)
                 throw new NotFoundException(request.AuthorEmail);
 
-            var author = new Author()
-            {
-                AuthorId= authorExists.AuthorId,
-                AuthorName = request.AuthorFirstName+ " "+ request.AuthorLastName,
-                AuthorEmail = request.AuthorEmail,
-                AuthorBio = request.AuthorBio,
-                LastModifiedBy = request.LastModifiedBy,
-                LastModifiedDate = DateTime.Now,
+            var findAuthorById = await _authorRepository.GetByIdAsync(authorID);
 
-            };
+            findAuthorById.AuthorName = request.AuthorFirstName + " " + request.AuthorLastName;
+            findAuthorById.AuthorBio = request.AuthorBio;
+            findAuthorById.LastModifiedBy= request.LastModifiedBy;
+            findAuthorById.LastModifiedDate= request.LastModifiedDate;
+            
 
-            var user = new User()
-            {
-                Email = request.AuthorEmail,
-                FirstName = request.AuthorFirstName,
-                LastName = request.AuthorLastName,
-                
-
-            };
-            var result = await _usermanager.UpdateAsync(user);
+            var find = await _usermanager.FindByIdAsync(userId);
+           
+            find.FirstName= request.AuthorFirstName;
+            find.LastName= request.AuthorLastName;
+            find.Email= request.AuthorEmail;
+            var result = await _usermanager.UpdateAsync(find);
                     
             if (!result.Succeeded)
                 _logger.Log(LogLevel.Error, "Update UnSuccessful");
-            await _authorRepository.UpdateAsync(author);
+            await _authorRepository.UpdateAsync(findAuthorById);
             return Unit.Value;
         }
     }

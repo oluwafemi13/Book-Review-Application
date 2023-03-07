@@ -17,6 +17,6 @@ namespace Application.Features.Commands.book.CreateBook
         public DateTime DatePublished { get; set; }
         public string ISBN { get; set; }
         public string Language { get; set; }
-        public byte[]? CoverImage { get; set; }
+        public string CoverImage { get; set; }
     }
 }

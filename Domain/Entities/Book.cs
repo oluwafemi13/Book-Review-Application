@@ -19,7 +19,7 @@ namespace Domain.Entities
         public DateTime DatePublished { get; set; }
         public string ISBN { get; set; }
         public string Language { get; set; }
-        public byte[]? CoverImage { get; set; }
+        public string CoverImage { get; set; }
 
         //many to many relationship between book and Author
         public ICollection<Author> author { get; set; }

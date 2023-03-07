@@ -41,8 +41,7 @@ namespace Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<RatingAverage>().Property(x => x.AverageRating).HasColumnType<decimal>("decimal");
             modelBuilder.Entity<Rating>().Property(x => x.rating).HasColumnType<decimal>("decimal");
-            //modelBuilder.Entity<IdentityUserLogin>().HasKey(x => x.UserId);
-            //modelBuilder.Entity<Book>().Property(x => x.CoverImage).HasColumnType<VarBinary>("varbinary");
+            
 
             modelBuilder.Entity<Book>().HasOne<Format>(f=> f.format)
                                        .WithOne(b=> b.book)
