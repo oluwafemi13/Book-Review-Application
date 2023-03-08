@@ -1,4 +1,5 @@
-﻿using Application.Features.Commands.award.UpdateAward;
+﻿using Application.Features.Commands.award.DeleteAward;
+using Application.Features.Commands.award.UpdateAward;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("DeleteAward")]
-        public async Task<ActionResult> DeleteAward([FromBody] UpdateAwardCommand command)
+        public async Task<ActionResult> DeleteAward([FromBody] DeleteAwardCommand command)
         {
             var result = await _mediatR.Send(command);
             return Ok(result);
