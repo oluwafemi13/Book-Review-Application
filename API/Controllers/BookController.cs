@@ -17,21 +17,21 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("Add Book")]
+        [HttpPost("CreateBook")]
         public async Task<ActionResult> CreateBook([FromBody] CreateBookCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
         }
 
-        [HttpPut("Edit Book")]
+        [HttpPut("UpdateBook")]
         public async Task<ActionResult> UpdateBook([FromBody] UpdateBookCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok();
         }
 
-        [HttpDelete("Delete Book")]
+        [HttpDelete("DeleteBook")]
         public async Task<ActionResult> DeleteBook(Guid Id)
         {
            var command = new DeleteBookCommand() { BookId= Id };

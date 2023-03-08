@@ -1,5 +1,6 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Application.Features.Commands.author.CreateAuthor;
+using Application.Model;
 using AutoMapper;
 using AutoMapper.Configuration.Conventions;
 using Domain.Entities;
@@ -49,6 +50,7 @@ namespace Application.Features.Commands.book.CreateBook
             bool valid = validateISBN10(request.ISBN);
             if (!valid)
                 _logger.LogError($"Invalid ISBN Number");
+                return "Invalid ISBN Number";
 
             var book = new Book()
             {
@@ -59,7 +61,8 @@ namespace Application.Features.Commands.book.CreateBook
                 Language = request.Language,
                 BookTitle = request.BookTitle,
                 Summary = request.Summary,
-                DatePublished = request.DatePublished
+                DatePublished = request.DatePublished,
+                Author = request.Author  
 
             };
             //var map = _mapper.Map<Book>(request);
