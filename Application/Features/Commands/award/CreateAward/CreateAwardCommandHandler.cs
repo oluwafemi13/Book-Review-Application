@@ -33,33 +33,28 @@ namespace Application.Features.Commands.award.UpdateAward
         public async Task<int> Handle(CreateAwardCommand request, CancellationToken cancellationToken)
         {
             var awardExist = await _awardRepository.GetByName(request.AwardTitle, request.AuthorId);
-            var award = new Award();
-            if (awardExist != null)
-            {
-                foreach(var a in awardExist)
-                {
-                    if(a.YearWon.Date == request.YearWon.Date)
-                    {
-                        _logger.LogInformation($"Award won in {request.YearWon.Date} already exists");
-                    }
-                    
-                    
-                }
-                award.AwardId = request.AwardId;
-                award.AuthorId = request.AuthorId;
-                award.AwardTitle = request.AwardTitle;
-                award.YearWon = request.YearWon;
-                var add1 = await _awardRepository.AddAsync(award);
-                return add1.AwardId;
-            }
             
-            award.AwardId = request.AwardId;
-            award.AuthorId = request.AuthorId;
-            award.AwardTitle= request.AwardTitle;
-            award.YearWon = request.YearWon;
+            var findYearWon = awardExist.Where(x => x.YearWon.Date == request.YearWon.Date).FirstOrDefault();
 
-            var add = await _awardRepository.AddAsync(award);
-            return add.AwardId;
+            if(findYearWon == null)
+            {
+                var award = new Award();
+                award.YearWon = request.YearWon;
+                award.DateCreated   = DateTime.Now;
+                award.AwardTitle = request.AwardTitle;
+                award.AuthorId = request.AuthorId;
+
+                await _awardRepository.AddAsync(award);
+                return request.AwardId;
+
+            }
+
+            return findYearWon.AwardId;
+
+            
+            
+            
+            
             
 
         }

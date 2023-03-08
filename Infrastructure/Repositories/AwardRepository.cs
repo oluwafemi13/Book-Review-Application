@@ -25,8 +25,8 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Award>> GetByName(string name, int id)
         {
             return await _dbContext.Awards
-                .Where(y => y.AuthorId == id)
-                .Where(x => x.AwardTitle == name).ToListAsync();
+                .Where(y => y.AwardTitle == name)
+                .Where(x => x.AuthorId == id).ToListAsync();
         }
     }
 }

@@ -29,5 +29,12 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("DeleteAward")]
+        public async Task<ActionResult> DeleteAward([FromBody] UpdateAwardCommand command)
+        {
+            var result = await _mediatR.Send(command);
+            return Ok(result);
+        }
+
     }
 }
