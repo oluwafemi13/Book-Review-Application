@@ -1,4 +1,4 @@
-﻿using Application.Features.Commands.author.CreateAuthor;
+﻿using Application.Features.Commands.award.UpdateAward;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,15 +8,22 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class AwardController:ControllerBase
     {
-        private readonly Mediator _mediatR;
+        private readonly IMediator _mediatR;
        
-        public AwardController(Mediator mediatR)
+        public AwardController(IMediator mediatR)
         {
             _mediatR = mediatR;
         }
 
         [HttpPost("CreateAward")]
-        public async Task<ActionResult> CreateAuthor([FromBody] CreateAuthorCommand command)
+        public async Task<ActionResult> CreateAward([FromBody] CreateAwardCommand command)
+        {
+            var result = await _mediatR.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPut("UpdateAward")]
+        public async Task<ActionResult> UpdateAward([FromBody] UpdateAwardCommand command)
         {
             var result = await _mediatR.Send(command);
             return Ok(result);

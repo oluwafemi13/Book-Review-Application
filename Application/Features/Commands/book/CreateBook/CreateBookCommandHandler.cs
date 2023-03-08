@@ -74,7 +74,7 @@ namespace Application.Features.Commands.book.CreateBook
             List<int> list = new List<int>();
             int total = 0;
             string converted = "";
-            if (ISBN.Length <= 10)
+            if (ISBN.Length == 10)
             {
                 converted = convert10to13(ISBN);
 

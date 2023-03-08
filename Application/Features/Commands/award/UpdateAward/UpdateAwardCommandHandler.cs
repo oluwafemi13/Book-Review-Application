@@ -31,10 +31,29 @@ namespace Application.Features.Commands.award.UpdateAward
             if (search == null)
             {
                 _logger.LogError("Award Does not Exist");
+                return Unit.Value;
             }
-   
-            var map = _mapper.Map<Award>(request);
-             await _awardRepository.UpdateAsync(map);
+            
+            var getallAwardsByAuthor = await _awardRepository.GetAllByIdAsync(request.AuthorId);
+            
+            foreach(var award in getallAwardsByAuthor)
+            {
+                
+                if(award.AwardTitle== request.AwardTitle && award.YearWon.Date == request.YearWon.Date) 
+                {
+                    _logger.LogInformation($"Another award won on the same date {request.YearWon.Date} exists");
+
+                }
+            }
+            //award.AwardId = request.AwardId;
+            search.AuthorId = request.AuthorId;
+            search.AwardTitle = request.AwardTitle;
+            search.LastModifiedBy = request.LastModifiedBy;
+            search.LastModifiedDate = request.LastModifiedDate;
+            search.YearWon= request.YearWon;
+
+            //var map = _mapper.Map<Award>(request);
+             await _awardRepository.UpdateAsync(search);
             return Unit.Value;
         }
     }

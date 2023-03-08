@@ -50,7 +50,7 @@ namespace Infrastructure.Persistence
             modelBuilder.Entity<Author>().HasMany<Award>(aw=> aw.awards)
                                          .WithOne(au=> au.author)
                                          .OnDelete(DeleteBehavior.Cascade);
-
+            modelBuilder.Entity<Award>().Property(x => x.YearWon).HasColumnType<DateTime>("date");
 
         }
 

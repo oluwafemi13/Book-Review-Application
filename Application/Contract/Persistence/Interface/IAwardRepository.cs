@@ -9,6 +9,7 @@ namespace Application.Contract.Persistence.Interface
 {
     public interface IAwardRepository: IGenericRepository<Award>
     {
-        
+         Task<IEnumerable<Award>> GetAllByIdAsync(int Id);
+        Task<IEnumerable<Award>> GetByName(string name, int id);
     }
 }

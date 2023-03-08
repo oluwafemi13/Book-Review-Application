@@ -23,6 +23,7 @@ namespace Infrastructure.Repositories
         {
             return await _dbContext.Set<TContext>().ToListAsync();
         }
+        
 
         public async Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate)
         {
@@ -64,7 +65,7 @@ namespace Infrastructure.Repositories
 
         public async Task<TContext> GetByGuidAsync(Guid id)
         {
-            return await _dbContext.Set<TContext>().FindAsync();
+            return await _dbContext.Set<TContext>().FindAsync(id);
         }
         public async Task<TContext> GetByNameAsync(string Name)
         {
@@ -81,8 +82,8 @@ namespace Infrastructure.Repositories
         public async Task UpdateAsync(TContext entity)
         {
             //_dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.Entry<TContext>(entity).State= EntityState.Modified;
-            //_dbContext.Set<TContext>().Update(entity);
+            //_dbContext.Entry<TContext>(entity).State= EntityState.Modified;
+            _dbContext.Set<TContext>().Update(entity);
             await _dbContext.SaveChangesAsync();
             
         }
