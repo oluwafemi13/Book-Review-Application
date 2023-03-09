@@ -99,7 +99,7 @@ namespace API.Controllers
             var userExists = await _usermanager.FindByEmailAsync(model.Email);
            
             if (userExists !=null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!", StatusCode = StatusCodes.Status500InternalServerError });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = $"User with Email: {model.Email} already exists!", StatusCode = StatusCodes.Status500InternalServerError });
             
 
             var user = new User()
@@ -130,12 +130,9 @@ namespace API.Controllers
             if (!await _roleManager.RoleExistsAsync(UserRoles.Author))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.Author));
 
-            if(await _roleManager.RoleExistsAsync(UserRoles.Author) && model.Roles == UserRoles.Author)
+            if(await _roleManager.RoleExistsAsync(UserRoles.Author) && model.Roles.ToLower() == UserRoles.Author.ToLower())
             {
-                var GetRoleByName = _roleManager.FindByNameAsync(UserRoles.Author);
-                user.RoleId =GetRoleByName.Id.ToString(); 
-                
-                
+                user.RoleName = UserRoles.Author;
                 await _usermanager.AddToRoleAsync(user, UserRoles.Author);
                 await _usermanager.UpdateAsync(user);
                 var authorCommand = new Author
@@ -147,14 +144,18 @@ namespace API.Controllers
                 await _authorRepository.AddAsync(authorCommand);
  
             }
-            if(await _roleManager.RoleExistsAsync(UserRoles.User) && model.Roles == UserRoles.User)
+            if(await _roleManager.RoleExistsAsync(UserRoles.User) && model.Roles.ToLower() == UserRoles.User.ToLower())
             {
+                user.RoleName = UserRoles.User;
                 await _usermanager.AddToRoleAsync(user, UserRoles.User);
-                
+                await _usermanager.UpdateAsync(user);
+
             }
-            if (await _roleManager.RoleExistsAsync(UserRoles.Admin) && model.Roles == UserRoles.Admin)
+            if (await _roleManager.RoleExistsAsync(UserRoles.Admin) && model.Roles.ToLower() == UserRoles.Admin.ToLower())
             {
+                user.RoleName = UserRoles.Admin;
                 await _usermanager.AddToRoleAsync(user, UserRoles.Admin);
+                await _usermanager.UpdateAsync(user);
                
             }
 

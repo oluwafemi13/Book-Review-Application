@@ -15,8 +15,8 @@ namespace Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        [ForeignKey("Role")]
-        public string? RoleId { get; set; }
+       
+        public int? RoleId { get; set; }
         public string? RoleName { get; set; }
 
         public ICollection<Rating> ratings { get; set; }

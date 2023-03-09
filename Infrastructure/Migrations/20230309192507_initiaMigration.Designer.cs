@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230308141905_modifiedModels")]
-    partial class modifiedModels
+    [Migration("20230309192507_initiaMigration")]
+    partial class initiaMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -228,9 +228,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("rating")
                         .HasColumnType("decimal");
 
@@ -308,9 +305,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Role", b =>
                 {
-                    b.Property<Guid>("RoleId")
+                    b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -371,8 +370,8 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<string>("RoleName")
                         .HasColumnType("nvarchar(max)");

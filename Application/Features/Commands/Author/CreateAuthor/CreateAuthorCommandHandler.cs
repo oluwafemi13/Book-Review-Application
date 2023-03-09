@@ -10,10 +10,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Model;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Commands.author.CreateAuthor
 {
-    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, int>
+    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, Response>
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly ILogger<CreateAuthorCommandHandler> _logger;
@@ -28,15 +30,19 @@ namespace Application.Features.Commands.author.CreateAuthor
             _mapper = mapper;
         }
 
-        public async Task<int> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
         {
             var runCheck = await _authorRepository.GetAuthorByEmail(request.AuthorEmail);
             
             if(runCheck != null)
             {
                 _logger.LogInformation($"User Already Exists");
-                //throw new NotFoundException(nameof(request.AuthorName));
-                
+                return new Response { 
+                                    Status = "Error", 
+                                    Message = "User already exists!" ,
+                                    StatusCode = StatusCodes.Status409Conflict
+                                    };
+
             }
             
             var author = new Author()
@@ -46,12 +52,16 @@ namespace Application.Features.Commands.author.CreateAuthor
                 AuthorBio = request.AuthorBio,
                 
             };
-            //var map = _mapper.Map<Author>(request);
             await _authorRepository.AddAsync(author);
 
-            return request.AuthorId;
+            return new Response
+            {
+                Status = "Success",
+                Message = "Author Successfully Created",
+                StatusCode = StatusCodes.Status200OK
+            };
         }
 
-        
+       
     }
 }
