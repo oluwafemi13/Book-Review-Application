@@ -89,7 +89,7 @@ namespace API.Controllers
         #region Registration
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult> Register([FromBody] UserRegistrationDTO model, CancellationToken token)
+        public async Task<ActionResult<Response>> Register([FromBody] UserRegistrationDTO model, CancellationToken token)
         {
          
             var userExists = await _usermanager.FindByEmailAsync(model.Email);

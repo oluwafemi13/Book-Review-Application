@@ -34,28 +34,31 @@ namespace Application.Features.Commands.book.CreateBook
         }
         public async Task<string> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            var check = await _BookRepository.GetByGuidAsync(request.BookId);
+            //var check = await _BookRepository.GetByGuidAsync(request.BookId);
+            var findBook = await _BookRepository.GetBookByISBN(request.ISBN);
             //var findAuthor = await _authorRepository.GetByNameAsync(request.Author);
-            if (check != null)
+            if (findBook != null)
             {
-                if (check.ISBN == request.ISBN)
-                {
                     _logger.LogError($"Book Already Exist");
-                    return check.ISBN.ToString();
-                }
+                    return findBook.ISBN.ToString();
+              
             }
-            
+            string clearedIn = request.ISBN.ToUpper().Replace("-", "").Replace(" ", "").Trim();
 
             //validate ISBN 10 digits number
             bool valid = validateISBN10(request.ISBN);
-            if (!valid)
-                _logger.LogError($"Invalid ISBN Number");
+            if (valid == false)
+            {
+                _logger.LogInformation("Invalid ISBN Number");
                 return "Invalid ISBN Number";
+                
+            }
+               
 
             var book = new Book()
             {
-                ISBN = request.ISBN,
-                BookId = request.BookId,
+                ISBN = clearedIn,
+                BookId = Guid.NewGuid(),
                 CoverImage = request.CoverImage,
                 Description = request.Description,
                 Language = request.Language,

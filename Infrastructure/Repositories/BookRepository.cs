@@ -26,7 +26,9 @@ namespace Infrastructure.Repositories
 
         public async Task<Book> GetBookByISBN(string ISBN)
         {
-            var book = await _dbContext.Books.Where(x => x.ISBN == ISBN).FirstOrDefaultAsync();
+            string clearedIn = ISBN.ToUpper().Replace("-", "").Replace(" ", "").Trim();
+
+            var book = await _dbContext.Books.Where(x => x.ISBN == clearedIn).FirstOrDefaultAsync();
             return book;
         }
 
