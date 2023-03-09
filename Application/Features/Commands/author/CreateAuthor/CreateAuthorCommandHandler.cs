@@ -37,8 +37,12 @@ namespace Application.Features.Commands.author.CreateAuthor
             if(runCheck != null)
             {
                 _logger.LogInformation($"User Already Exists");
-                
-                
+                return new Response { 
+                                    Status = "Error", 
+                                    Message = "User already exists!" ,
+                                    StatusCode = StatusCodes.Status409Conflict
+                                    };
+
             }
             
             var author = new Author()
@@ -48,12 +52,16 @@ namespace Application.Features.Commands.author.CreateAuthor
                 AuthorBio = request.AuthorBio,
                 
             };
-           
             await _authorRepository.AddAsync(author);
 
-            return StatusCodes()
+            return new Response
+            {
+                Status = "Success",
+                Message = "Author Successfully Created",
+                StatusCode = StatusCodes.Status200OK
+            };
         }
 
-        
+       
     }
 }

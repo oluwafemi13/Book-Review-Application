@@ -26,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpPut("UpdateAuthor")]
-        public async Task<ActionResult<Response>> UpdateAuthor([FromBody] UpdateAuthorCommand command)
+        public async Task<ActionResult> UpdateAuthor([FromBody] UpdateAuthorCommand command)
         {
             var result = await _mediatr.Send(command);
             return Ok(result);

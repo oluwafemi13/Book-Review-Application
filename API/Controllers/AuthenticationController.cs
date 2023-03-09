@@ -17,8 +17,10 @@ using Application.Contract.Persistence.Interface;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("Api/[Controller]")]
-    public class AuthenticationController: ControllerBase
+    [Route("Api/v1/[Controller]")]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public class AuthenticationController : ControllerBase
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         private readonly UserManager<User> _usermanager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -89,7 +91,9 @@ namespace API.Controllers
         #region Registration
         [HttpPost]
         [Route("Register")]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public async Task<ActionResult<Response>> Register([FromBody] UserRegistrationDTO model, CancellationToken token)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
          
             var userExists = await _usermanager.FindByEmailAsync(model.Email);
@@ -129,9 +133,11 @@ namespace API.Controllers
             if(await _roleManager.RoleExistsAsync(UserRoles.Author) && model.Roles == UserRoles.Author)
             {
                 var GetRoleByName = _roleManager.FindByNameAsync(UserRoles.Author);
-                user.RoleId =Convert.ToString(GetRoleByName.Id); 
+                user.RoleId =GetRoleByName.Id.ToString(); 
+                
                 
                 await _usermanager.AddToRoleAsync(user, UserRoles.Author);
+                await _usermanager.UpdateAsync(user);
                 var authorCommand = new Author
                 {
                     AuthorEmail = model.Email,

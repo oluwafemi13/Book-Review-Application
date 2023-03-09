@@ -1,9 +1,11 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Application.Exceptions;
 using Application.Features.Commands.author.DeleteAuthor;
+using Application.Model;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.author.UpdateAuthor
 {
-    internal class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand>
+    internal class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand, Response>
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly ILogger<UpdateAuthorCommandHandler> _logger;
@@ -34,7 +36,7 @@ namespace Application.Features.Commands.author.UpdateAuthor
             _usermanager = userManager;
             _roleManager = roleManager;
         }
-        public async Task<Unit> Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
         {
             var authorExists = await _authorRepository.GetAuthorByEmail(request.AuthorEmail);
             var findUserId = await _usermanager.FindByEmailAsync(request.AuthorEmail);
@@ -62,9 +64,21 @@ namespace Application.Features.Commands.author.UpdateAuthor
             var result = await _usermanager.UpdateAsync(find);
                     
             if (!result.Succeeded)
-                _logger.Log(LogLevel.Error, "Update UnSuccessful");
+                return new Response
+                {
+                Status = "Error",
+                Message = "Update Unsuccessful!",
+                StatusCode = StatusCodes.Status500InternalServerError
+                };
+                    //_logger.Log(LogLevel.Error, "Update UnSuccessful");
             await _authorRepository.UpdateAsync(findAuthorById);
-            return Unit.Value;
+
+            return new Response
+                                {
+                                    Status = "Successful",
+                                    Message = "Update Successful!",
+                                    StatusCode = StatusCodes.Status200OK
+                                };
         }
     }
 }
