@@ -1,7 +1,9 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Application.Features.Commands.book.CreateBook;
+using Application.Model;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.book.DeleteBook
 {
-    public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand>
+    public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, Response>
     {
         private readonly IBookRepository _BookRepository;
         //private readonly IFormatRepository _formatRepository;
@@ -27,16 +29,27 @@ namespace Application.Features.Commands.book.DeleteBook
             _logger = logger;
             _mapper = mapper;
         }
-        public async Task<Unit> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
         {
-            var search = await _BookRepository.GetAsync(x => x.BookId == request.BookId);
+            var search = await _BookRepository.GetBookByISBN(request.ISBN);
             if (search == null)
             {
-                _logger.LogInformation($"Book {request.BookId}not found");
+                _logger.LogInformation($"Book {request.ISBN}not found");
+                return new Response
+                {
+                    Status = "Error",
+                    Message = "Book Not Found",
+                    StatusCode = StatusCodes.Status404NotFound
+                };
 
             }
-            await _BookRepository.DeleteBookAndFormat(request.BookId);
-            return Unit.Value;
+            await _BookRepository.DeleteBook(request.ISBN);
+            return new Response
+            {
+                Status = "Success",
+                Message = "Successfully Deleted",
+                StatusCode = StatusCodes.Status200OK
+            };
         }
     }
 }

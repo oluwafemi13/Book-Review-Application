@@ -32,11 +32,11 @@ namespace API.Controllers
         }
 
         [HttpDelete("DeleteBook")]
-        public async Task<ActionResult> DeleteBook(Guid Id)
+        public async Task<ActionResult> DeleteBook(string ISBN)
         {
-           var command = new DeleteBookCommand() { BookId= Id };
-            await _mediator.Send(command);
-            return Ok();
+           var command = new DeleteBookCommand() { ISBN   = ISBN};
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
 

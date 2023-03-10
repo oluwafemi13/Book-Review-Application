@@ -14,11 +14,9 @@ namespace Infrastructure.Repositories
     {
         public BookRepository(DatabaseContext context): base(context) { }
         
-        public async Task DeleteBookAndFormat(Guid Id)
+        public async Task DeleteBook(string ISBN)
         {
-            var format = await _dbContext.Formats.Where(x=> x.BookId== Id).FirstOrDefaultAsync(); 
-            var book = await _dbContext.Books.Where(x=> x.BookId== Id).FirstOrDefaultAsync();
-            _dbContext.Formats.Remove(format);
+            var book = await _dbContext.Books.Where(x=> x.ISBN== ISBN).FirstOrDefaultAsync();
             _dbContext.Books.Remove(book);
             _dbContext.SaveChanges();
 

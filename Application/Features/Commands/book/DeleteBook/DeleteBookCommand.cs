@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Model;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.book.DeleteBook
 {
-    public class DeleteBookCommand: IRequest
+    public class DeleteBookCommand: IRequest<Response>
     {
-        public Guid BookId { get; set; }
+        public string ISBN { get; set; }
     }
 }

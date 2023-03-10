@@ -97,9 +97,10 @@ namespace Infrastructure.Repositories
             return false;
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(id).State= EntityState.Deleted;
+            _dbContext.SaveChangesAsync();
         }
 
     }

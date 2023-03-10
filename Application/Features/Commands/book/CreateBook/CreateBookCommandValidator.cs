@@ -20,9 +20,6 @@ namespace Application.Features.Commands.book.CreateBook
             RuleFor(x => x.NumberOfPages).NotEmpty().NotNull();
             RuleFor(x => x.FormatType).NotEmpty().NotNull();
             RuleFor(x => x.Language).NotEmpty().NotNull();
-            
-
-
         }
     }
 }

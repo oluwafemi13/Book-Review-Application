@@ -51,6 +51,7 @@ namespace Infrastructure.Persistence
                                          .WithOne(au=> au.author)
                                          .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Award>().Property(x => x.YearWon).HasColumnType<DateTime>("date");
+            modelBuilder.Entity<Book>().Property(x => x.BookId).HasColumnType<Guid>("uniqueidentifier");
 
         }
 
