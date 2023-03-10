@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Model;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.award.UpdateAward
 {
-    public class CreateAwardCommand : IRequest<int>
+    public class CreateAwardCommand : IRequest<Response>
     {
         public int AwardId { get; set; }
         public string AwardTitle { get; set; }

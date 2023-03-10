@@ -73,7 +73,6 @@ namespace Infrastructure.Repositories
         }
         public async Task<TContext> AddAsync(TContext entity)
         {
-            //_dbContext.Set<TContext>().Add(entity);
             _dbContext.Entry(entity).State = EntityState.Added;
             await _dbContext.SaveChangesAsync();
             return entity;
@@ -81,8 +80,7 @@ namespace Infrastructure.Repositories
 
         public async Task UpdateAsync(TContext entity)
         {
-            //_dbContext.Entry(entity).State = EntityState.Modified;
-            //_dbContext.Entry<TContext>(entity).State= EntityState.Modified;
+           
             _dbContext.Set<TContext>().Update(entity);
             await _dbContext.SaveChangesAsync();
             

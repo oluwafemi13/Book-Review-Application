@@ -19,6 +19,6 @@ namespace Application.Features.Commands.book.CreateBook
         public string ISBN { get; set; }
         public string Language { get; set; }
         public string CoverImage { get; set; }
-        //public Format format { get; set; }
+        public Format format { get; set; }
     }
 }
