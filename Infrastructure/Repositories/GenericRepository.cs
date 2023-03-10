@@ -88,10 +88,15 @@ namespace Infrastructure.Repositories
             
         }
         
-        public async Task DeleteAsync(TContext entity)
+        public async Task<bool> DeleteAsync(TContext entity)
         {
-            _dbContext.Set<TContext>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+           var result =  _dbContext.Set<TContext>().Remove(entity);
+            if(result.State== EntityState.Deleted)
+            {
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public Task DeleteAsync(int id)

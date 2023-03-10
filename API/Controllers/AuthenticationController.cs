@@ -99,7 +99,9 @@ namespace API.Controllers
             var userExists = await _usermanager.FindByEmailAsync(model.Email);
            
             if (userExists !=null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = $"User with Email: {model.Email} already exists!", StatusCode = StatusCodes.Status500InternalServerError });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", 
+                                                                                           Message = $"User with Email: {model.Email} already exists!", 
+                                                                                           StatusCode = StatusCodes.Status500InternalServerError });
             
 
             var user = new User()
@@ -120,7 +122,8 @@ namespace API.Controllers
             var result = await _usermanager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", 
+                                                                                           Message = "User creation failed! Please check user details and try again." });
 
 
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
@@ -159,7 +162,9 @@ namespace API.Controllers
                
             }
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!", StatusCode = (int) StatusCodes.Status200OK});
+            return Ok(new Response { Status = "Success", 
+                                    Message = "User created successfully!", 
+                                    StatusCode = StatusCodes.Status200OK});
         }
 
         #endregion

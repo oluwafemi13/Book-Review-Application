@@ -34,7 +34,7 @@ namespace Infrastructure.Persistence
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<RatingAverage> RatingAverages { get; set; }
         public DbSet<Role> Role { get; set; }
-        //public DbSet<User> UsersTable { get; set; }  
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -26,6 +26,14 @@ namespace Infrastructure.Repositories
             return author;
         }
 
+        public async Task<Author> GetAuthorById(int Id)
+        {
+            var author = await _dbContext.Authors
+                                                 .Where(x => x.AuthorId == Id)
+                                                 .FirstOrDefaultAsync();
+            return author;
+        }
+
         /*public async Task<Author> UpdateAuthor(Author author)
         {
 
