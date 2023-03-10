@@ -16,5 +16,11 @@ namespace Infrastructure.Repositories
         {
 
         }
+
+        public async Task<Format> FindFormat(Guid id)
+        {
+            var result = _dbContext.Formats.Where(x=> x.BookId== id).FirstOrDefault();
+            return result ?? throw new Exception("not found");
+        }
     }
 }

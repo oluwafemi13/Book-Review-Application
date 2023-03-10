@@ -9,6 +9,6 @@ namespace Application.Contract.Persistence.Interface
 {
     public interface IFormatRepository: IGenericRepository<Format>
     {
-
+        Task<Format> FindFormat(Guid id);
     }
 }

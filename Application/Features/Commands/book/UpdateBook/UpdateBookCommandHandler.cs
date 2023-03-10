@@ -1,6 +1,7 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Application.Exceptions;
 using Application.Features.Commands.book.CreateBook;
+using Application.ISBN_Validation;
 using Application.Model;
 using AutoMapper;
 using Domain.Entities;
@@ -37,7 +38,7 @@ namespace Application.Features.Commands.book.UpdateBook
             try
             {
                 var search = await _BookRepository.GetByGuidAsync(request.BookId);
-                var findFormat = await _formatRepository.GetByGuidAsync(request.BookId);
+                var findFormat = await _formatRepository.FindFormat(request.BookId);
                 if (search == null)
                 {
                     _logger.LogError($"Book with Id {request.BookId} not found");
@@ -48,10 +49,53 @@ namespace Application.Features.Commands.book.UpdateBook
                         StatusCode=StatusCodes.Status404NotFound
                     };
                 }
+                var validate = new ISBN10Validation();
+                var validateISBN = validate.validateISBN10(request.ISBN);
+                if(validateISBN != true)
+                {
+                    search.BookTitle = request.BookTitle;
+                    search.Author = request.Author;
+                    search.CoverImage ??= request.CoverImage;
+                    search.Language = request.Language;
+                    search.DatePublished = request.DatePublished;
+                    search.Description = request.Description;
+                    search.Summary = request.Summary;
+                    await _BookRepository.UpdateAsync(search);
 
-                var map = _mapper.Map<Book>(request);
-                await _BookRepository.UpdateAsync(map);
-                return Unit.Value;
+                }
+                else
+                {
+                    search.BookTitle = request.BookTitle;
+                    search.Author = request.Author;
+                    search.CoverImage ??= request.CoverImage;
+                    search.Language = request.Language;
+                    search.ISBN = request.ISBN;
+                    search.DatePublished = request.DatePublished;
+                    search.Description = request.Description;
+                    search.Summary = request.Summary;
+                    await _BookRepository.UpdateAsync(search);
+                }
+                
+                if (findFormat== null)
+                {
+                    _logger.LogInformation("format does not Exist");
+                    return new Response
+                    {
+                        Status = "Error",
+                        Message = "Format does not Exist, Book Successfully Updated",
+                        StatusCode = StatusCodes.Status404NotFound
+                    };
+                }
+                findFormat.FormatType = request.FormatType;
+                findFormat.NumberOfPages = request.NumberOfPages;
+                await _formatRepository.UpdateAsync(findFormat);
+
+                return new Response
+                {
+                    Status= "Success",
+                    Message = "Successfully Updated",
+                    StatusCode = StatusCodes.Status200OK
+                };
             }
             catch (Exception)
             {
