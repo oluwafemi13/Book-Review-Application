@@ -5,6 +5,7 @@ using AutoMapper;
 using AutoMapper.Configuration.Conventions;
 using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,32 +16,37 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.book.CreateBook
 {
-    public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, string>
+    public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Response>
     {
         private readonly IBookRepository _BookRepository;
-        private readonly IAuthorRepository _authorRepository;
+        private readonly IFormatRepository _formatRepository;
         private readonly ILogger<CreateBookCommandHandler> _logger;
         private readonly IMapper _mapper;
 
         public CreateBookCommandHandler(IBookRepository BookRepository,
                                         ILogger<CreateBookCommandHandler> logger,
                                         IMapper mapper,
-                                        IAuthorRepository authorRepository)
+                                        IFormatRepository formatRepository)
         {
-            _authorRepository= authorRepository;
+            _formatRepository= formatRepository;
             _BookRepository = BookRepository;
             _logger = logger;
             _mapper = mapper;
         }
-        public async Task<string> Handle(CreateBookCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            //var check = await _BookRepository.GetByGuidAsync(request.BookId);
+            try
+            {
             var findBook = await _BookRepository.GetBookByISBN(request.ISBN);
-            //var findAuthor = await _authorRepository.GetByNameAsync(request.Author);
             if (findBook != null)
             {
                     _logger.LogError($"Book Already Exist");
-                    return findBook.ISBN.ToString();
+                return new Response
+                {
+                    Status = "Error",
+                    Message = $"Book with ISBN Number {request.ISBN} already Exist",
+                    StatusCode = StatusCodes.Status400BadRequest
+                };
               
             }
             string clearedIn = request.ISBN.ToUpper().Replace("-", "").Replace(" ", "").Trim();
@@ -50,27 +56,46 @@ namespace Application.Features.Commands.book.CreateBook
             if (valid == false)
             {
                 _logger.LogInformation("Invalid ISBN Number");
-                return "Invalid ISBN Number";
+                return new Response
+                {
+                    Status = "Error",
+                    Message = "Invalid ISBN Number",
+                    //StatusCode = StatusCodes.Status400BadRequest
+                };
                 
             }
-               
+                    var book = new Book();
+                    book.ISBN = clearedIn;
+                    book.BookId = Guid.NewGuid();
+                    book.CoverImage = request.CoverImage;
+                    book.Description = request.Description;
+                    book.Language = request.Language;
+                    book.BookTitle = request.BookTitle;
+                    book.Summary = request.Summary;
+                    book.DatePublished = request.DatePublished;
+                    book.Author = request.Author;
+                    /*book.format.FormatType = request.FormatType;
+                    book.format.NumberOfPages = request.NumberOfPages;
+                    book.format.BookId = book.BookId;*/
 
-            var book = new Book()
-            {
-                ISBN = clearedIn,
-                BookId = Guid.NewGuid(),
-                CoverImage = request.CoverImage,
-                Description = request.Description,
-                Language = request.Language,
-                BookTitle = request.BookTitle,
-                Summary = request.Summary,
-                DatePublished = request.DatePublished,
-                Author = request.Author  
-
-            };
-            //var map = _mapper.Map<Book>(request);
             var create = await _BookRepository.AddAsync(book);
-            return create.BookId.ToString();
+            var format = new Format();
+            format.FormatType = request.FormatType;
+            format.NumberOfPages = request.NumberOfPages;
+            format.BookId = book.BookId;
+            await _formatRepository.AddAsync(format);
+            return new Response
+            {
+                Status = "Success",
+                Message = "Successfully Created",
+                StatusCode = StatusCodes.Status201Created
+            };
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
 

@@ -102,12 +102,5 @@ namespace Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        
-
-
-        /*public async Task DeleteByGuidAsync(Guid id)
-{
-
-}*/
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Model;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.book.CreateBook
 {
-    public class CreateBookCommand : IRequest<string>
+    public class CreateBookCommand : IRequest<Response>
     {
         //public Guid BookId { get; set; } = new Guid();
         public string BookTitle { get; set; }
@@ -19,6 +20,8 @@ namespace Application.Features.Commands.book.CreateBook
         public string ISBN { get; set; }
         public string Language { get; set; }
         public string CoverImage { get; set; }
-        public Format format { get; set; }
+        //public int FormatId { get; set; }
+        public string FormatType { get; set; }
+        public int NumberOfPages { get; set; }
     }
 }
