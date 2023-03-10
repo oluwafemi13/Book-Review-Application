@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Model;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.book.UpdateBook
 {
-    public class UpdateBookCommand: IRequest
+    public class UpdateBookCommand: IRequest<Response>
     {
         public Guid BookId { get; set; }
         public string BookTitle { get; set; }
@@ -18,5 +19,7 @@ namespace Application.Features.Commands.book.UpdateBook
         public string ISBN { get; set; }
         public string Language { get; set; }
         public string CoverImage { get; set; }
+        public string FormatType { get; set; }
+        public int NumberOfPages { get; set; }
     }
 }

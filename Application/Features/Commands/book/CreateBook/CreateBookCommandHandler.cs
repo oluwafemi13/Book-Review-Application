@@ -1,5 +1,6 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Application.Features.Commands.author.CreateAuthor;
+using Application.ISBN_Validation;
 using Application.Model;
 using AutoMapper;
 using AutoMapper.Configuration.Conventions;
@@ -51,8 +52,9 @@ namespace Application.Features.Commands.book.CreateBook
             }
             string clearedIn = request.ISBN.ToUpper().Replace("-", "").Replace(" ", "").Trim();
 
-            //validate ISBN 10 digits number
-            bool valid = validateISBN10(request.ISBN);
+                //validate ISBN 10 digits number
+                var validation = new ISBN10Validation();
+                bool valid = validation.validateISBN10(request.ISBN);
             if (valid == false)
             {
                 _logger.LogInformation("Invalid ISBN Number");
