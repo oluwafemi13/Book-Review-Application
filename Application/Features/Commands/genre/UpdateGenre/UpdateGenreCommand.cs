@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.genre.UpdateGenre
 {
-    public class UpdateGenreCommand: Genre, IRequest
+    public class UpdateGenreCommand: IRequest<HttpResponseMessage>
     {
+        public int Id { get; set; }
+        public string GenreName { get; set; }
+        public string? LastModifiedBy { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
     }
 }
