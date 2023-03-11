@@ -1,4 +1,5 @@
 using Application.Extensions;
+using Application.MappingConfiguration;
 using Domain.Entities;
 using Infrastructure.Extension;
 using Infrastructure.Persistence;
@@ -20,6 +21,7 @@ builder.Services.AddMediatRServices();
 builder.Services.AddValidatorConfiguration();
 builder.Services.AddApplicationMappingServices();
 builder.Services.AddRepositoryService();
+//builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();

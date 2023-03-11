@@ -1,4 +1,5 @@
 ﻿using Application.Features.Commands.genre.CreateGenre;
+using Application.Features.Commands.genre.UpdateGenre;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,13 @@ namespace API.Controllers
 
         [HttpPost("CreateGenre")]
         public async Task<ActionResult> CreateGenre([FromBody] CreateGenreCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPut("UpdateGenre")]
+        public async Task<ActionResult> UpdateGenre([FromBody] UpdateGenreCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);

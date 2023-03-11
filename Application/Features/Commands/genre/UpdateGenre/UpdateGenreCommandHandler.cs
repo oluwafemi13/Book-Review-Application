@@ -39,13 +39,20 @@ namespace Application.Features.Commands.genre.UpdateGenre
 
                 };
             }
-               
-                
-            else
-            request.LastModifiedDate = DateTime.Now;
-            var map = _mapper.Map<Genre>(request);
-            await _genreRepository.AddAsync(map);
-            return Unit.Value;
+            //request.LastModifiedDate = DateTime.Now;
+            var genre = new Genre();
+            genre.GenreName= request.GenreName;
+            genre.LastModifiedDate = DateTime.Now;
+            genre.LastModifiedBy = request.LastModifiedBy;
+            
+            //var map = _mapper.Map<Genre>(request);
+            await _genreRepository.UpdateAsync(genre);
+            return new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.OK,
+                ReasonPhrase = "Genre Does Not Exist",
+
+            };
         }
     }
 }
