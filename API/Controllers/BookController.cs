@@ -8,7 +8,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BookController: ControllerBase
+    public class BookController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -31,7 +31,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("DeleteBook")]
+        [HttpDelete("DeleteBook/{ISBN}")]
         public async Task<ActionResult> DeleteBook(string ISBN)
         {
            var command = new DeleteBookCommand() { ISBN   = ISBN};

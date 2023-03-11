@@ -13,6 +13,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Application.Features.Commands.author.CreateAuthor;
 using Application.Contract.Persistence.Interface;
+//using System.Web.Http;
 
 namespace API.Controllers
 {
@@ -206,6 +207,72 @@ namespace API.Controllers
              return Ok(new Response { Status = "Success", Message = "User created successfully!" });
          }*/
         #endregion
+
+       /* [HttpPost]
+        [Route("api/login")]
+        public IHttpActionResult Login(LoginRequest request)
+        {
+            var user = _userRepository.GetUser(request.Username);
+
+            if (user == null || !ValidatePassword(user.Password, request.Password))
+            {
+                return Unauthorized();
+            }
+
+            // Generate a JWT token for the user
+            var token = GenerateJwtToken(user);
+
+            // Return the token to the client
+            return Ok(new LoginResponse { Token = token });
+        }
+
+        [HttpGet]
+        [Route("api/resources/{id}")]
+        [Authorize]
+        public IHttpActionResult GetResource(int id)
+        {
+            // Retrieve the authenticated user from the token
+            var user = (User)HttpContext.Current.Items["User"];
+
+            var resource = _repository.GetResource(id);
+
+            if (resource == null)
+            {
+                return NotFound();
+            }
+
+            // Check if the user has permission to access the resource
+            if (!HasPermission(user, resource))
+            {
+                return Unauthorized();
+            }
+
+            // Return the resource
+            return Ok(resource);
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("secret-key");
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+            new Claim("UserId", user.Id.ToString())
+        }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+        private bool ValidatePassword(string passwordHash, string password)
+        {
+            // Validate the password hash against the provided password
+            return BCrypt.Net.BCrypt.Verify(password, passwordHash);
+        }*/
 
     }
 
