@@ -35,6 +35,7 @@ namespace Domain.Entities
 
         //relationship between genre and books
         public ICollection<Genre> Genres { get; set; }
+        //public ICollection<BookGenre> BookGenre { get; set; }
 
         public RatingAverage AverageRating { get; set; }
 
