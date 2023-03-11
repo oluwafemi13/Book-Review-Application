@@ -41,10 +41,10 @@ namespace Application.Features.Commands.genre.UpdateGenre
             }
             //request.LastModifiedDate = DateTime.Now;
             var genre = new Genre();
-            genre.GenreId = request.Id;
-            genre.GenreName= request.GenreName;
-            genre.LastModifiedDate = DateTime.Now;
-            genre.LastModifiedBy = request.LastModifiedBy;
+            //find.GenreId = request.Id;
+            find.GenreName= request.GenreName;
+            find.LastModifiedDate = DateTime.Now;
+            find.LastModifiedBy = request.LastModifiedBy;
             
             //var map = _mapper.Map<Genre>(request);
             await _genreRepository.UpdateAsync(genre);
