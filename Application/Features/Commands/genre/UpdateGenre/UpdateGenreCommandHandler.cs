@@ -41,6 +41,7 @@ namespace Application.Features.Commands.genre.UpdateGenre
             }
             //request.LastModifiedDate = DateTime.Now;
             var genre = new Genre();
+            genre.GenreId = request.Id;
             genre.GenreName= request.GenreName;
             genre.LastModifiedDate = DateTime.Now;
             genre.LastModifiedBy = request.LastModifiedBy;
