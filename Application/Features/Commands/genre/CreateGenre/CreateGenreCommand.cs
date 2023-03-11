@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.genre.CreateGenre
 {
-    public class CreateGenreCommand:EntityBase, IRequest<Response>
+    public class CreateGenreCommand: IRequest<Response>
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string GenreName { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

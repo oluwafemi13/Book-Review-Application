@@ -1,16 +1,7 @@
 ﻿using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Data;
 namespace Infrastructure.Persistence
 {
     public class DatabaseContext: IdentityDbContext<User>
@@ -34,7 +25,7 @@ namespace Infrastructure.Persistence
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<RatingAverage> RatingAverages { get; set; }
         public DbSet<Role> Role { get; set; }
-        //public DbSet<BookGenre> BookGenre { get; set; }
+        
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -54,20 +45,10 @@ namespace Infrastructure.Persistence
             modelBuilder.Entity<Award>().Property(x => x.YearWon).HasColumnType<DateTime>("date");
             modelBuilder.Entity<Book>().Property(x => x.BookId).HasColumnType<Guid>("uniqueidentifier");
 
-            /*modelBuilder.Entity<BookGenre>().HasKey(x => new
-            {
-                x.BookId,
-                x.GenreId
-            });*/
+           
 
-            /*modelBuilder.Entity<BookGenre>().HasOne<Book>(x=> x.book)
-                                            .WithMany(bg=> bg.BookGenre)
-                                            .HasForeignKey(x=>x.BookId);
 
-            modelBuilder.Entity<BookGenre>().HasOne<Genre>(x => x.genre)
-                                            .WithMany(bg => bg.BookGenre)
-                                            .HasForeignKey(x => x.GenreId);
-*/
+           
         }
 
     }

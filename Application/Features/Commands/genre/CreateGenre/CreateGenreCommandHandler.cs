@@ -30,7 +30,7 @@ namespace Application.Features.Commands.genre.CreateGenre
         }
         public async Task<Response> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
         {
-            var findGenre = await _genreRepository.GetByNameAsync(request.GenreName);
+            var findGenre = await _genreRepository.FindGenreByName(request.GenreName);
             
             if (findGenre != null)
             {
@@ -42,9 +42,10 @@ namespace Application.Features.Commands.genre.CreateGenre
                     StatusCode = StatusCodes.Status403Forbidden
                 };
             }
-                
-            var map = _mapper.Map<Genre>(request);
-            await _genreRepository.AddAsync(map);
+            var genre = new Genre();
+            genre.GenreName = request.GenreName;
+            genre.DateCreated = DateTime.Now;
+            await _genreRepository.AddAsync(genre);
             return new Response
             {
                 Status = "success",

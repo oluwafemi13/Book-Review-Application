@@ -10,5 +10,6 @@ namespace Application.Contract.Persistence.Interface
     public interface IGenreRepository: IGenericRepository<Genre>
     {
         Task<IEnumerable<Genre>> GetGenreByBook(Guid BookId);
+        Task<Genre> FindGenreByName(string Name);
     }
 }
