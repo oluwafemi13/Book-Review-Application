@@ -34,5 +34,11 @@ namespace Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        /*public async Task<bool> InsertGenreByBook(List<Genre> genre)
+        {
+            var result = await _dbContext.Books
+            throw new NotImplementedException();
+        }*/
     }
 }

@@ -14,7 +14,7 @@ namespace Domain.Entities
         public string GenreName { get; set; }
 
         //relationship between book and genre
-        public ICollection<Book> Books { get; set; }
-        //public ICollection<BookGenre> BookGenre { get; set; }
+        //public ICollection<Book> Books { get; set; }
+        public ICollection<BookGenre> BookGenre { get; set; }
     }
 }

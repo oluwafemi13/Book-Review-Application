@@ -25,8 +25,9 @@ namespace Infrastructure.Persistence
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<RatingAverage> RatingAverages { get; set; }
         public DbSet<Role> Role { get; set; }
-        
 
+        public DbSet<BookAuthor> BookAuthors { get; set; }
+        public DbSet<BookGenre> BookGenres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,10 +46,10 @@ namespace Infrastructure.Persistence
             modelBuilder.Entity<Award>().Property(x => x.YearWon).HasColumnType<DateTime>("date");
             modelBuilder.Entity<Book>().Property(x => x.BookId).HasColumnType<Guid>("uniqueidentifier");
 
-           
+            modelBuilder.Entity<BookAuthor>().HasKey(bc => new { bc.AuthorId, bc.BookId});
+            modelBuilder.Entity<BookGenre>().HasKey(bg => new { bg.BookId, bg.GenreId });
 
 
-           
         }
 
     }

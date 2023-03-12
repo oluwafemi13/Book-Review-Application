@@ -22,7 +22,8 @@ namespace Domain.Entities
         public string CoverImage { get; set; }
 
         //many to many relationship between book and Author
-        public ICollection<Author> author { get; set; }
+        //public ICollection<Author> author { get; set; }
+        public ICollection<BookAuthor> BookAuthor { get; set; }
 
         //relationship between book and format
         public Format format { get; set; }
@@ -34,8 +35,8 @@ namespace Domain.Entities
         public ICollection<Review> Reviews { get; set; }
 
         //relationship between genre and books
-        public ICollection<Genre> Genres { get; set; }
-        //public ICollection<BookGenre> BookGenre { get; set; }
+        //public ICollection<Genre> Genres { get; set; }
+        public ICollection<BookGenre> BookGenre { get; set; }
 
         public RatingAverage AverageRating { get; set; }
 
