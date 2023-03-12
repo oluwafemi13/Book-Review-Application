@@ -62,8 +62,8 @@ namespace Application.Features.Commands.book.CreateBook
             string clearedIn = request.ISBN.ToUpper().Replace("-", "").Replace(" ", "").Trim();
 
                 //validate ISBN 10 digits number
-                var validation = new ISBN10Validation();
-                bool valid = validation.validateISBN10(request.ISBN);
+            var validation = new ISBN10Validation();
+            bool valid = validation.validateISBN10(request.ISBN);
             if (valid == false)
             {
                 _logger.LogInformation("Invalid ISBN Number");
@@ -115,6 +115,7 @@ namespace Application.Features.Commands.book.CreateBook
                     else
                     {
                         var bookgenre = new BookGenre();
+                        bookgenre.Id++;
                         bookgenre.GenreId = findGenre.GenreId;
                         bookgenre.BookId = book.BookId;
                         await _BookGenreRepository.CreateBookGenre(bookgenre);

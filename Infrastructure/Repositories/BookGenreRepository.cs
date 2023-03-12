@@ -22,17 +22,9 @@ namespace Infrastructure.Repositories
 
         public async Task CreateBookGenre(BookGenre entity)
         {
-            /*var find = _Db.BookGenres
-                .Where(e => e.GenreId == entity.GenreId)
-                .Where(f => f.BookId == entity.BookId)
-                .FirstOrDefaultAsync();*/
-           /* if(find == null)
-            {*/
                 await _Db.BookGenres.AddAsync(entity);
                 await _Db.SaveChangesAsync();
-                /*return true;
-            }
-            return false;*/
+               
         }
     }
 }

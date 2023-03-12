@@ -39,7 +39,6 @@ namespace Application.Features.Commands.genre.UpdateGenre
 
                 };
             }
-            //request.LastModifiedDate = DateTime.Now;
             
             find.GenreId = request.Id;
             find.GenreName= request.GenreName;
