@@ -20,7 +20,7 @@ namespace Application.Features.Commands.book.CreateBook
         public string ISBN { get; set; }
         public string Language { get; set; }
         public string CoverImage { get; set; }
-       
+        public IList<Genre> Genres { get; set; }
         public string FormatType { get; set; }
         public int NumberOfPages { get; set; }
 
