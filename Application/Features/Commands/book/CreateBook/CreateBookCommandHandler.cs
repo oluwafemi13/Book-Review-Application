@@ -23,11 +23,13 @@ namespace Application.Features.Commands.book.CreateBook
         private readonly IBookRepository _BookRepository;
         private readonly IFormatRepository _formatRepository;
         private readonly IGenreRepository _genreRepository;
+        private readonly IBookGenreRepository _BookGenreRepository;
         private readonly ILogger<CreateBookCommandHandler> _logger;
         private readonly IMapper _mapper;
 
         public CreateBookCommandHandler(IBookRepository BookRepository,
                                         ILogger<CreateBookCommandHandler> logger,
+                                        IBookGenreRepository BookGenreRepository,
                                         IGenreRepository genreRepository,
                                         IMapper mapper,
                                         IFormatRepository formatRepository)
@@ -35,6 +37,7 @@ namespace Application.Features.Commands.book.CreateBook
             _formatRepository= formatRepository;
             _BookRepository = BookRepository;
             _genreRepository= genreRepository;
+            _BookGenreRepository = BookGenreRepository;
             _logger = logger;
             _mapper = mapper;
         }
@@ -43,8 +46,7 @@ namespace Application.Features.Commands.book.CreateBook
             try
             {
             var findBook = await _BookRepository.GetBookByISBN(request.ISBN);
-            //var findGenre = await _genreRepository.FindGenreByName(request.GenreName);
-            
+
             if (findBook != null)
             {
                     _logger.LogError($"Book Already Exist");
@@ -72,6 +74,7 @@ namespace Application.Features.Commands.book.CreateBook
                 };
                 
             }
+            
                     var book = new Book();
                     book.ISBN = clearedIn;
                     book.BookId = Guid.NewGuid();
@@ -89,7 +92,28 @@ namespace Application.Features.Commands.book.CreateBook
             format.NumberOfPages = request.NumberOfPages;
             format.BookId = book.BookId;
             await _formatRepository.AddAsync(format);
-            return new Response
+
+                //GENRE
+                foreach (var genre in request.GenreName)
+                {
+                    var findGenre = await _genreRepository.FindGenreByName(genre);
+                    if (findGenre == null)
+                    {
+                        var gen = new Genre();
+                        gen.GenreName = genre;
+                        gen.DateCreated = DateTime.Now;
+
+                        var result = await _genreRepository.AddAsync(gen);
+                        var bookgenre = new BookGenre();
+                        bookgenre.GenreId = result.GenreId;
+                        bookgenre.BookId = book.BookId;
+
+                        await _BookGenreRepository.CreateBookGenre(bookgenre);
+
+                    }
+
+                }
+                return new Response
             {
                 Status = "Success",
                 Message = "Successfully Created",

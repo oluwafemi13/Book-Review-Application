@@ -20,18 +20,19 @@ namespace Infrastructure.Repositories
             _Db = db;
         }
 
-        public async Task<bool> CreateBookGenre(BookGenre entity)
+        public async Task CreateBookGenre(BookGenre entity)
         {
-            var find = _Db.BookGenres
+            /*var find = _Db.BookGenres
                 .Where(e => e.GenreId == entity.GenreId)
                 .Where(f => f.BookId == entity.BookId)
-                .FirstOrDefaultAsync();
-            if(find == null)
-            {
+                .FirstOrDefaultAsync();*/
+           /* if(find == null)
+            {*/
                 await _Db.BookGenres.AddAsync(entity);
-                return true;
+                await _Db.SaveChangesAsync();
+                /*return true;
             }
-            return false;
+            return false;*/
         }
     }
 }
