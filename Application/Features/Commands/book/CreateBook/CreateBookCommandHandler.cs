@@ -7,6 +7,7 @@ using AutoMapper.Configuration.Conventions;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -110,6 +111,13 @@ namespace Application.Features.Commands.book.CreateBook
 
                         await _BookGenreRepository.CreateBookGenre(bookgenre);
 
+                    }
+                    else
+                    {
+                        var bookgenre = new BookGenre();
+                        bookgenre.GenreId = findGenre.GenreId;
+                        bookgenre.BookId = book.BookId;
+                        await _BookGenreRepository.CreateBookGenre(bookgenre);
                     }
 
                 }

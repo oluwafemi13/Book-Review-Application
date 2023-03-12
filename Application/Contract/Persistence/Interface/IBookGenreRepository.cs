@@ -10,6 +10,6 @@ namespace Application.Contract.Persistence.Interface
 {
     public interface IBookGenreRepository
     {
-        Task<bool> CreateBookGenre(BookGenre entity);
+        Task CreateBookGenre(BookGenre entity);
     }
 }
