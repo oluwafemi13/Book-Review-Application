@@ -49,7 +49,16 @@ namespace Infrastructure.Persistence
             modelBuilder.Entity<BookAuthor>().HasKey(bc => new { bc.AuthorId, bc.BookId});
             modelBuilder.Entity<BookGenre>().HasKey(bg => new { bg.BookId, bg.GenreId });
 
+            modelBuilder.Entity<BookAuthor>()
+            .HasOne<Book>(sc => sc.Book)
+            .WithMany(s => s.BookAuthor)
+            .HasForeignKey(sc => sc.BookId);
 
+
+            modelBuilder.Entity<BookGenre>()
+                .HasOne<Genre>(sc => sc.Genre)
+                .WithMany(s => s.BookGenre)
+                .HasForeignKey(sc => sc.GenreId);
         }
 
     }
