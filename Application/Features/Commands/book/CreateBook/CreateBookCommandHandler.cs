@@ -14,6 +14,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Application.Features.Commands.book.CreateBook
 {
@@ -21,25 +22,59 @@ namespace Application.Features.Commands.book.CreateBook
     {
         private readonly IBookRepository _BookRepository;
         private readonly IFormatRepository _formatRepository;
+        private readonly IGenreRepository _genreRepository;
         private readonly ILogger<CreateBookCommandHandler> _logger;
         private readonly IMapper _mapper;
 
         public CreateBookCommandHandler(IBookRepository BookRepository,
                                         ILogger<CreateBookCommandHandler> logger,
+                                        IGenreRepository genreRepository,
                                         IMapper mapper,
                                         IFormatRepository formatRepository)
         {
             _formatRepository= formatRepository;
             _BookRepository = BookRepository;
+            _genreRepository= genreRepository;
             _logger = logger;
             _mapper = mapper;
         }
         public async Task<Response> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
+           
+            var genreList=new List<object>();
             try
             {
             var findBook = await _BookRepository.GetBookByISBN(request.ISBN);
-            if (findBook != null)
+            var findGenre = await _genreRepository.FindGenreByName(request.GenreName);
+                //GENRE
+                if (findGenre == null)
+                {
+                    var genre = new Genre();
+                    genre.GenreName = request.GenreName;
+                    genre.DateCreated = DateTime.Now;
+                    await _genreRepository.AddAsync(genre);
+
+                    var findGenreAgain = await _genreRepository.FindGenreByName(request.GenreName);
+                    var name = findGenreAgain.GenreName;
+                    var id = findGenreAgain.GenreId;
+                    genreList.Add(name);
+                    genreList.Add(id);
+                    
+
+                }
+                else
+                {
+                   var name = findGenre.GenreName;
+                    var id = findGenre.GenreId;
+                    genreList.Add(name);
+                    genreList.Add(id);
+                }
+
+               /* // add instance to navigation property
+                prod.Supplier.Add(sup);*/
+
+                //BOOK
+                if (findBook != null)
             {
                     _logger.LogError($"Book Already Exist");
                 return new Response
@@ -62,7 +97,7 @@ namespace Application.Features.Commands.book.CreateBook
                 {
                     Status = "Error",
                     Message = "Invalid ISBN Number",
-                    //StatusCode = StatusCodes.Status400BadRequest
+                    
                 };
                 
             }
@@ -76,11 +111,9 @@ namespace Application.Features.Commands.book.CreateBook
                     book.Summary = request.Summary;
                     book.DatePublished = request.DatePublished;
                     book.Author = request.Author;
-                    /*book.format.FormatType = request.FormatType;
-                    book.format.NumberOfPages = request.NumberOfPages;
-                    book.format.BookId = book.BookId;*/
-
+                    
             var create = await _BookRepository.AddAsync(book);
+                //FORMAT
             var format = new Format();
             format.FormatType = request.FormatType;
             format.NumberOfPages = request.NumberOfPages;

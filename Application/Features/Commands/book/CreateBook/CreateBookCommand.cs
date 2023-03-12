@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.book.CreateBook
 {
-    public class CreateBookCommand : IRequest<Response>
+    public class CreateBookCommand :Genre, IRequest<Response>
     {
         //public Guid BookId { get; set; } = new Guid();
         public string BookTitle { get; set; }

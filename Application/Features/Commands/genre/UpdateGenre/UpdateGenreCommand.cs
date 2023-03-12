@@ -13,6 +13,6 @@ namespace Application.Features.Commands.genre.UpdateGenre
         public int Id { get; set; }
         public string GenreName { get; set; }
         public string? LastModifiedBy { get; set; }
-        public DateTime? LastModifiedDate { get; set; }
+        //public DateTime? LastModifiedDate { get; set; }
     }
 }
