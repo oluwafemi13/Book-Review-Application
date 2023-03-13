@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Commands.Reviews.CreateReviewCommand
+namespace Application.Features.Commands.Reviews.CreateReview
 {
     public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, Response>
     {
@@ -44,6 +44,7 @@ namespace Application.Features.Commands.Reviews.CreateReviewCommand
             }
             var rating = new Review()
             {
+                ReviewId = new Guid(),
                 ReviewTitle = request.ReviewTitle,
                 review = request.review,
                 book = new Book { BookId = request.bookId },
