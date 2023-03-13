@@ -15,7 +15,7 @@ namespace Application.Features.Commands.book.CreateBook
             RuleFor(x=>x.ISBN).NotEmpty().NotNull();
             RuleFor(x => x.BookTitle).NotEmpty().NotNull().MaximumLength(80).WithMessage("Book Title too Long");
             RuleFor(x => x.Description).NotNull().NotEmpty();
-            RuleFor(x => x.Author).NotEmpty().NotNull();
+            RuleFor(x => x.AuthorId).NotEmpty().NotNull();
             RuleFor(x=>x.Summary).NotEmpty().NotNull();
             RuleFor(x => x.NumberOfPages).NotEmpty().NotNull();
             RuleFor(x => x.FormatType).NotEmpty().NotNull();

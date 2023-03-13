@@ -26,12 +26,14 @@ namespace Application.Features.Commands.book.CreateBook
         private readonly IGenreRepository _genreRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly IBookGenreRepository _BookGenreRepository;
+        private readonly IBookAuthorRepository _bookAuthorRepository;
         private readonly ILogger<CreateBookCommandHandler> _logger;
         private readonly IMapper _mapper;
 
         public CreateBookCommandHandler(IBookRepository BookRepository,
                                         ILogger<CreateBookCommandHandler> logger,
                                         IBookGenreRepository BookGenreRepository,
+                                        IBookAuthorRepository bookAuthorRepository,
                                         IAuthorRepository authorRepository,
                                         IGenreRepository genreRepository,
                                         IMapper mapper,
@@ -42,6 +44,7 @@ namespace Application.Features.Commands.book.CreateBook
             _genreRepository= genreRepository;
             _BookGenreRepository = BookGenreRepository;
             _authorRepository = authorRepository;
+            _bookAuthorRepository = bookAuthorRepository;
             _logger = logger;
             _mapper = mapper;
         }
@@ -50,6 +53,18 @@ namespace Application.Features.Commands.book.CreateBook
             try
             {
             var findBook = await _BookRepository.GetBookByISBN(request.ISBN);
+            var findAuthor = await _authorRepository.GetAuthorById(request.AuthorId);
+
+            if(findAuthor == null)
+            {
+                    _logger.LogInformation("Author does not Exist");
+                    return new Response
+                    {
+                        Status = "Error",
+                        Message = $"Author with Id {request.AuthorId} does not Exist",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    };
+            }
 
             if (findBook != null)
             {
@@ -62,9 +77,9 @@ namespace Application.Features.Commands.book.CreateBook
                 };
               
             }
-            string clearedIn = request.ISBN.ToUpper().Replace("-", "").Replace(" ", "").Trim();
 
-                //validate ISBN 10 digits number
+            //validate ISBN 10 digits number
+            string clearedIn = request.ISBN.ToUpper().Replace("-", "").Replace(" ", "").Trim();  
             var validation = new ISBN10Validation();
             bool valid = validation.validateISBN10(request.ISBN);
             if (valid == false)
@@ -74,7 +89,7 @@ namespace Application.Features.Commands.book.CreateBook
                 {
                     Status = "Error",
                     Message = "Invalid ISBN Number",
-                    //StatusCode = StatusCodes.Status400BadRequest
+                    
                 };
                 
             }
@@ -88,7 +103,7 @@ namespace Application.Features.Commands.book.CreateBook
                     book.BookTitle = request.BookTitle;
                     book.Summary = request.Summary;
                     book.DatePublished = request.DatePublished;
-                    book.Author = request.Author;
+                    book.AuthorId = request.AuthorId;
                     
             var create = await _BookRepository.AddAsync(book);
             var format = new Format();
@@ -125,6 +140,14 @@ namespace Application.Features.Commands.book.CreateBook
                     }
 
                 }
+
+                //Author
+                var bookauthor = new BookAuthor();
+                bookauthor.Id++;
+                bookauthor.AuthorId = book.AuthorId;
+                bookauthor.BookId = book.BookId;
+                await _bookAuthorRepository.CreateBookAuthor(bookauthor);
+
                 return new Response
             {
                 Status = "Success",

@@ -34,9 +34,9 @@ namespace Infrastructure.Repositories
             return author;
         }
 
-        /*public async Task<Author> UpdateAuthor(Author author)
+        public override async Task<Author> GetByNameAsync(string Name)
         {
-
-        }*/
+            return await _dbContext.Authors.Where(x => x.AuthorName == Name).FirstOrDefaultAsync();
+;        }
     }
 }

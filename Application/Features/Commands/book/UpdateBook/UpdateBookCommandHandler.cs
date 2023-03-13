@@ -54,7 +54,7 @@ namespace Application.Features.Commands.book.UpdateBook
                 if(validateISBN != true)
                 {
                     search.BookTitle = request.BookTitle;
-                    search.Author = request.Author;
+                    //search.AuthorId = request.AuthorId;
                     search.CoverImage ??= request.CoverImage;
                     search.Language = request.Language;
                     search.DatePublished = request.DatePublished;
@@ -66,7 +66,7 @@ namespace Application.Features.Commands.book.UpdateBook
                 else
                 {
                     search.BookTitle = request.BookTitle;
-                    search.Author = request.Author;
+                    //search.AuthorId = request.AuthorId;
                     search.CoverImage ??= request.CoverImage;
                     search.Language = request.Language;
                     search.ISBN = request.ISBN;

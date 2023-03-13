@@ -10,6 +10,7 @@ namespace Application.Contract.Persistence.Interface
     public interface IAuthorRepository: IGenericRepository<Author>
     {
         Task<Author> GetAuthorByEmail(string email);
+        new Task<Author> GetByNameAsync(string Name);
         Task<Author> GetAuthorById(int Id);
     }
 }
