@@ -28,7 +28,7 @@ namespace Application.Features.Commands.Reviews.UpdateReview
         }
         public async Task<bool> Handle(UpdateReviewCommand request, CancellationToken cancellationToken)
         {
-            var find = await _reviewRepository.GetByGuidAsync(request.ReviewId);
+            var find = await _reviewRepository.GetByIdAsync(request.ReviewId);
             if (find == null)
             {
                 _logger.LogInformation("Review Not Found");

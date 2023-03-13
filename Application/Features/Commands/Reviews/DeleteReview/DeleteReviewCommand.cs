@@ -11,7 +11,7 @@ namespace Application.Features.Commands.Reviews.DeleteReview
     public class DeleteReviewCommand: IRequest<bool>
     {
         [Required]
-        public Guid ReviewId { get; set; }
+        public int ReviewId { get; set; }
         //public string ReviewTitle { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("DeleteReview/{Id}")]
-        public async Task<ActionResult> DeleteReview(Guid ReviewId)
+        public async Task<ActionResult> DeleteReview(int ReviewId)
         {
             var command = new DeleteReviewCommand { ReviewId = ReviewId };
             var result = await _mediator.Send(command);

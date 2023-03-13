@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public class Review: EntityBase
     {
-        public Guid ReviewId { get; set; }
+        public int ReviewId { get; set; }
         public string ReviewTitle { get; set; }
         public string review { get; set; }
 

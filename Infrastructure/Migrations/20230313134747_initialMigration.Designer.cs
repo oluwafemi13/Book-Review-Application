@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230312183430_initialMigration")]
+    [Migration("20230313134747_initialMigration")]
     partial class initialMigration
     {
         /// <inheritdoc />
@@ -99,9 +99,8 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("BookTitle")
                         .IsRequired()
@@ -273,9 +272,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
-                    b.Property<Guid>("ReviewId")
+                    b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");

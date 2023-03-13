@@ -269,9 +269,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
-                    b.Property<Guid>("ReviewId")
+                    b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");

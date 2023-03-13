@@ -29,7 +29,7 @@ namespace Application.Features.Commands.Reviews.DeleteReview
 
         public async Task<bool> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
         {
-            var search = await _reviewRepository.GetByGuidAsync(request.ReviewId);
+            var search = await _reviewRepository.GetByIdAsync(request.ReviewId);
             if (search == null)
             {
                 _logger.LogInformation("Review DOes not Exist");

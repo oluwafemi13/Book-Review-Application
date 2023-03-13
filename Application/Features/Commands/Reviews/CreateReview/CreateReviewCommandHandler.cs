@@ -44,7 +44,7 @@ namespace Application.Features.Commands.Reviews.CreateReview
             }
             var rating = new Review()
             {
-                ReviewId = new Guid(),
+                
                 ReviewTitle = request.ReviewTitle,
                 review = request.review,
                 book = new Book { BookId = request.bookId },

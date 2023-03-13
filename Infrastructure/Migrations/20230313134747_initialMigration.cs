@@ -78,7 +78,7 @@ namespace Infrastructure.Migrations
                 {
                     BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BookTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DatePublished = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -346,7 +346,8 @@ namespace Infrastructure.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    ReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReviewId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ReviewTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     review = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
