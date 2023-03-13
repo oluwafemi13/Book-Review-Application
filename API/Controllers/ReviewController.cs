@@ -3,6 +3,7 @@ using Application.Features.Commands.rating.DeleteRating;
 using Application.Features.Commands.rating.UpdateRating;
 using Application.Features.Commands.Reviews.CreateReview;
 using Application.Features.Commands.Reviews.DeleteReview;
+using Application.Features.Commands.Reviews.UpdateReview;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,14 +26,14 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        /*[HttpPut("UpdateReview")]
+        [HttpPut("UpdateReview")]
         public async Task<ActionResult> UpdateReview([FromBody] UpdateReviewCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
-        }*/
+        }
 
-        [HttpDelete("DeleteReview")]
+        [HttpDelete("DeleteReview/{Id}")]
         public async Task<ActionResult> DeleteReview(Guid ReviewId)
         {
             var command = new DeleteReviewCommand { ReviewId = ReviewId };

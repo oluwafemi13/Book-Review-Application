@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.genre.DeleteGenre
 {
-    public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand>
+    public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand, bool>
     {
         private readonly IGenreRepository _genreRepository;
         private readonly ILogger<DeleteGenreCommandHandler> _logger;
@@ -25,17 +25,17 @@ namespace Application.Features.Commands.genre.DeleteGenre
             _logger = logger;
             _mapper = mapper;
         }
-        public async Task<Unit> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
         {
             var check = await _genreRepository.GetByIdAsync(request.GenreId);
             if (check == null)
             {
                 _logger.LogInformation("Genre Does not Exist");
-                return Unit.Value;
+                return false;
             }
                 
             await _genreRepository.DeleteAsync(check);
-            return Unit.Value;
+            return true;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("DeleteRating")]
+        [HttpDelete("DeleteRating/{Id}")]
         public async Task<ActionResult> DeleteRating(int RatingId)
         {
             var command = new DeleteRatingCommand { RatingId= RatingId };

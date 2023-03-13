@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.genre.DeleteGenre
 {
-    public class DeleteGenreCommand: IRequest
+    public class DeleteGenreCommand: IRequest<bool>
     {
         public int GenreId { get; set; }
     }

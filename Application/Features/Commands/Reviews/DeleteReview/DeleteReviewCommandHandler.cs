@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Commands.Reviews.DeleteReview
 {
-    public class DeleteReviewCommandHandler : IRequestHandler<DeleteReviewCommand>
+    public class DeleteReviewCommandHandler : IRequestHandler<DeleteReviewCommand, bool>
     {
         private readonly IReviewRepository _reviewRepository;
         private readonly ILogger<DeleteReviewCommandHandler> _logger;
@@ -27,17 +27,18 @@ namespace Application.Features.Commands.Reviews.DeleteReview
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
         {
-            var confirmExistence = await _reviewRepository.GetByGuidAsync(request.ReviewId);
-            if (confirmExistence == null)
+            var search = await _reviewRepository.GetByGuidAsync(request.ReviewId);
+            if (search == null)
             {
-              throw new NotFoundException(nameof(request.ReviewTitle));
+                _logger.LogInformation("Review DOes not Exist");
+                return false;
                 
             }
-            await _reviewRepository.DeleteAsync(confirmExistence);
-            _logger.LogInformation($"Review with title {request.ReviewTitle} has been deleted.");
-            return Unit.Value;
+            await _reviewRepository.DeleteAsync(search);
+
+            return true;
         }
     }
 }
