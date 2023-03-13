@@ -9,7 +9,7 @@ namespace Application.Contract.Persistence.Interface
 {
     public interface IRatingRepository: IGenericRepository<Rating>
     {
-        
 
+        Task<Rating> FindUserByGuid(string UserId, Guid BookId);
     }
 }

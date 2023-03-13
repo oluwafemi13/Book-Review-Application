@@ -21,7 +21,6 @@ builder.Services.AddMediatRServices();
 builder.Services.AddValidatorConfiguration();
 builder.Services.AddApplicationMappingServices();
 builder.Services.AddRepositoryService();
-//builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();

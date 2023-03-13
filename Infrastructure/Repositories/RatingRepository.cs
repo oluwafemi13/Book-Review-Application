@@ -1,6 +1,7 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Domain.Entities;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,19 @@ namespace Infrastructure.Repositories
 {
     public class RatingRepository: GenericRepository<Rating>, IRatingRepository
     {
+
         public RatingRepository(DatabaseContext db) : base(db)
         {
 
+        }
+
+        public async Task<Rating> FindUserByGuid(string UserId, Guid BookId)
+        {
+            var result = await _dbContext.Ratings.Where(x => x.user.Id == UserId)
+                .Where(y=> y.book.BookId == BookId)
+                .FirstOrDefaultAsync();
+                
+            return result;
         }
     }
 }

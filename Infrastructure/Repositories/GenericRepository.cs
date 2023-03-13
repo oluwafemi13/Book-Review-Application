@@ -63,7 +63,7 @@ namespace Infrastructure.Repositories
             return await _dbContext.Set<TContext>().FindAsync(id);
         }
 
-        public async Task<TContext> GetByGuidAsync(Guid id)
+        public virtual async Task<TContext> GetByGuidAsync(Guid id)
         {
             return await _dbContext.Set<TContext>().FindAsync(id);
         }

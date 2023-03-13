@@ -14,8 +14,6 @@ namespace Application.Extensions
         public static IServiceCollection AddApplicationMappingServices(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            
-            //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             return services;
         }

@@ -30,10 +30,13 @@ namespace Application.Features.Commands.rating.UpdateRating
         {
             var find = await _ratingRepository.GetByIdAsync(request.RatingId);
             if (find == null)
-                return false;
+            {
                 _logger.LogInformation("Rating Not Found");
-            var map = _mapper.Map<Rating>(request);
-            await _ratingRepository.UpdateAsync(map);
+                return false;
+            }
+            find.rating = request.rating;
+           
+            await _ratingRepository.UpdateAsync(find);
             return true;
 
         }

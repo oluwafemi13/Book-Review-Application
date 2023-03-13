@@ -1,4 +1,5 @@
 ﻿using Application.DTO;
+using Application.Features.Commands.rating.DeleteRating;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -15,6 +16,7 @@ namespace Application.MappingConfiguration
         {
             CreateMap<User, UserLoginDTO>().ReverseMap();
             CreateMap<User, UserRegistrationDTO>().ReverseMap();
+            CreateMap<Rating, DeleteRatingCommand>().ReverseMap();
         }
     }
 }
