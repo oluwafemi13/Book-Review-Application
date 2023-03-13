@@ -10,6 +10,6 @@ namespace Application.Features.Commands.rating.UpdateRating
     public class UpdateRatingCommand:IRequest<bool>
     {
         public int RatingId { get; set; }
-        public decimal rating { get; set; }
+        public double rating { get; set; }
     }
 }

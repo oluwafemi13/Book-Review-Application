@@ -1,4 +1,4 @@
-﻿using Application.Features.Queries.GetBookList.GetBookByName;
+﻿using Application.Features.Queries.GetBookList.GetBookByTitle;
 using MediatR;
 using System;
 using System.Collections.Generic;

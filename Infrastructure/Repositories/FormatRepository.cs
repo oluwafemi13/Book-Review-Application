@@ -1,6 +1,7 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Domain.Entities;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Format> FindFormat(Guid id)
         {
-            var result = _dbContext.Formats.Where(x=> x.BookId== id).FirstOrDefault();
+            var result = await _dbContext.Formats.Where(x => x.BookId == id).FirstOrDefaultAsync();
             return result ?? throw new Exception("not found");
         }
     }

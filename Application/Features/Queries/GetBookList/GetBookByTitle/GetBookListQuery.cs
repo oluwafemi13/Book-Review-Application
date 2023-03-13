@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookList.GetBookByName
+namespace Application.Features.Queries.GetBookList.GetBookByTitle
 
 {
     public class GetBookListQuery : IRequest<List<BookVM>>
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
 
-        public GetBookListQuery(string name)
+        public GetBookListQuery(string title)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Title = title ?? throw new ArgumentNullException(nameof(title));
         }
     }
 }

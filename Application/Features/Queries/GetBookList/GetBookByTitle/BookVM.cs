@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookList.GetBookByName
+namespace Application.Features.Queries.GetBookList.GetBookByTitle
 {
     public class BookVM
     {
