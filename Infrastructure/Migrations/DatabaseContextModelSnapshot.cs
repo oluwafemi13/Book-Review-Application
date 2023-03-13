@@ -230,8 +230,8 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("rating")
-                        .HasColumnType("float");
+                    b.Property<decimal>("rating")
+                        .HasColumnType("decimal");
 
                     b.Property<string>("userId")
                         .HasColumnType("nvarchar(450)");

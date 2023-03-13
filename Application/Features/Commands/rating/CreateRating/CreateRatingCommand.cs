@@ -12,7 +12,7 @@ namespace Application.Features.Commands.rating.CreateRating
     public class CreateRatingCommand: IRequest<Response>
     {
         public int RatingId { get; set; }
-        public double rating { get; set; }
+        public decimal rating { get; set; }
 
 
         //relationship between ratings and books

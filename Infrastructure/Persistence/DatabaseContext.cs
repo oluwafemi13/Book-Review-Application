@@ -33,7 +33,7 @@ namespace Infrastructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<RatingAverage>().Property(x => x.AverageRating).HasColumnType<decimal>("decimal");
-            //modelBuilder.Entity<Rating>().Property(x => x.rating).HasColumnType<double>("double");
+            modelBuilder.Entity<Rating>().Property(x => x.rating).HasColumnType<decimal>("decimal");
             
 
             modelBuilder.Entity<Book>().HasOne<Format>(f=> f.format)
