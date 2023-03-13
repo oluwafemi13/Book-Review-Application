@@ -26,6 +26,7 @@ namespace Infrastructure.Extension
             service.AddTransient<IRatingAverageRepository, RatingAverageRepository>();
             service.AddTransient<IAwardRepository, AwardRepository>();
             service.AddTransient<IBookGenreRepository, BookGenreRepository>();
+            service.AddTransient<IBookAuthorRepository, BookAuthorRepository>();
 
 
 

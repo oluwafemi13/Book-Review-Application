@@ -1,8 +1,6 @@
 ﻿using Application.Contract.Persistence.Interface;
-using Application.Model;
 using Domain.Entities;
 using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class BookGenreRepository : IBookGenreRepository
+    public class BookAuthorRepository: IBookAuthorRepository
     {
         private readonly DatabaseContext _Db;
 
-        public BookGenreRepository(DatabaseContext db)
+        public BookAuthorRepository(DatabaseContext db)
         {
             _Db = db;
         }
 
-        public async Task CreateBookGenre(BookGenre entity)
+        public async Task CreateBookAuthor(BookAuthor entity)
         {
-                await _Db.BookGenres.AddAsync(entity);
-                await _Db.SaveChangesAsync();
-               
+            await _Db.BookAuthors.AddAsync(entity);
+            await _Db.SaveChangesAsync();
+
         }
     }
 }

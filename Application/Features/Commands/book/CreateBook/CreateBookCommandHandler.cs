@@ -24,6 +24,7 @@ namespace Application.Features.Commands.book.CreateBook
         private readonly IBookRepository _BookRepository;
         private readonly IFormatRepository _formatRepository;
         private readonly IGenreRepository _genreRepository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IBookGenreRepository _BookGenreRepository;
         private readonly ILogger<CreateBookCommandHandler> _logger;
         private readonly IMapper _mapper;
@@ -31,6 +32,7 @@ namespace Application.Features.Commands.book.CreateBook
         public CreateBookCommandHandler(IBookRepository BookRepository,
                                         ILogger<CreateBookCommandHandler> logger,
                                         IBookGenreRepository BookGenreRepository,
+                                        IAuthorRepository authorRepository,
                                         IGenreRepository genreRepository,
                                         IMapper mapper,
                                         IFormatRepository formatRepository)
@@ -39,6 +41,7 @@ namespace Application.Features.Commands.book.CreateBook
             _BookRepository = BookRepository;
             _genreRepository= genreRepository;
             _BookGenreRepository = BookGenreRepository;
+            _authorRepository = authorRepository;
             _logger = logger;
             _mapper = mapper;
         }
