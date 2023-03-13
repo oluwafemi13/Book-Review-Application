@@ -12,5 +12,6 @@ namespace Application.Contract.Persistence.Interface
         IQueryable<Review> GetAll();
         Task<Review> GetReviewByUsername(string userName);
         Task<Review> GetReviewByBook(string book);
+        Task<Review> FindUserByGuid(string UserId, Guid BookId);
     }
 }

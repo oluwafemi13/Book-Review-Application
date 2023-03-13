@@ -1,6 +1,7 @@
 ﻿using Application.Contract.Persistence.Interface;
 using Domain.Entities;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,15 @@ namespace Infrastructure.Repositories
         public Task<Review> GetReviewByUsername(string userName)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Review> FindUserByGuid(string UserId, Guid BookId)
+        {
+            var result = await _dbContext.Reviews.Where(x => x.user.Id == UserId)
+                .Where(y => y.book.BookId == BookId)
+                .FirstOrDefaultAsync();
+
+            return result;
         }
     }
 }
