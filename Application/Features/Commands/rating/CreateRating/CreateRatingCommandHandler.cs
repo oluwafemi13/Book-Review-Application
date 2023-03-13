@@ -43,7 +43,7 @@ namespace Application.Features.Commands.rating.CreateRating
             }
             var rating = new Rating()
             {
-                rating = request.rating,
+                rating =Math.Round(request.rating, 2) ,
                 book = new Book{BookId = request.BookId},
                 user = new User{Id = request.userId}
             };

@@ -9,6 +9,9 @@ using System.Net;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Some countries do not have neither a State, nor a Province
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class AuthorController:ControllerBase
@@ -20,6 +23,9 @@ namespace API.Controllers
             _mediatr = mediatr;
         }
 
+        /// <summary>
+        /// Some countries do not have neither a State, nor a Province
+        /// </summary>
         [HttpPost("CreateAuthor")]
         public async Task<ActionResult> CreateAuthor([FromBody] CreateAuthorCommand command)
         {
@@ -27,6 +33,9 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Some countries do not have neither a State, nor a Province
+        /// </summary>
         [HttpPut("UpdateAuthor")]
         public async Task<ActionResult> UpdateAuthor([FromBody] UpdateAuthorCommand command)
         {
@@ -34,6 +43,9 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Some countries do not have neither a State, nor a Province
+        /// </summary>
         [HttpDelete("DeleteAuthor/{Id}")]
         public async Task<ActionResult> DeleteAuthor(int AuthorId)
         {
