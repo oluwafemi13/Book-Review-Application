@@ -1,5 +1,4 @@
 ﻿using Application.Contract.Persistence.Interface;
-using Application.Features.Queries.GetBookList.GetBookByTitle;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;

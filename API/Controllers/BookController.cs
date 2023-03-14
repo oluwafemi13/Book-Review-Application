@@ -1,8 +1,8 @@
 ﻿using Application.Features.Commands.book.CreateBook;
 using Application.Features.Commands.book.DeleteBook;
 using Application.Features.Commands.book.UpdateBook;
+using Application.Features.Queries.GetBookList;
 using Application.Features.Queries.GetBookList.GetBookByAverageRating;
-using Application.Features.Queries.GetBookList.GetBookByTitle;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

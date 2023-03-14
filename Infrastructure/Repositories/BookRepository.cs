@@ -35,15 +35,14 @@ namespace Infrastructure.Repositories
         {
             List<decimal> ratingList = new List<decimal>();
             decimal value = 0.1M;
-            if(RatingAverage == Math.Round(RatingAverage, 0))
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    decimal newValue = Math.Round(RatingAverage, 1);
-                    ratingList.Add(newValue);
-                    newValue = RatingAverage - value;
-                }
+            ratingList.Add(RatingAverage);
+             for (int i = 0; i < 5; i++)
+             {
+                    //decimal newValue = Math.Round(RatingAverage, 1);
+                    RatingAverage = RatingAverage - value;
+                    ratingList.Add(RatingAverage);
             }
+            
             var bookIds=new List<RatingAverage>();
             foreach(var rating in ratingList)
             {

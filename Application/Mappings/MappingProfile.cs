@@ -1,6 +1,6 @@
 ﻿using Application.DTO;
 using Application.Features.Commands.rating.DeleteRating;
-using Application.Features.Queries.GetBookList.GetBookByTitle;
+using Application.Features.Queries.GetBookList;
 using AutoMapper;
 using Domain.Entities;
 using System;

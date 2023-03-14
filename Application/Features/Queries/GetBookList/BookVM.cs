@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookList.GetBookByTitle
+namespace Application.Features.Queries.GetBookList
 {
     public class BookVM
     {
-        
+
         public Guid BookId { get; set; }
         public string BookTitle { get; set; }
         public string Author { get; set; }
@@ -21,7 +21,7 @@ namespace Application.Features.Queries.GetBookList.GetBookByTitle
         public string Language { get; set; }
         public string CoverImage { get; set; }
         public decimal AverageRating { get; set; }
-        public IList<Genre> Genres { get; set; }
+        public IList<string> Genres { get; set; }
         public string format { get; set; }
     }
 }
