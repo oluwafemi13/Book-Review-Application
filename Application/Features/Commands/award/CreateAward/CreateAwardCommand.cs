@@ -13,7 +13,7 @@ namespace Application.Features.Commands.award.UpdateAward
 {
     public class CreateAwardCommand : IRequest<Response>
     {
-        public int AwardId { get; set; }
+        //public int AwardId { get; set; }
         public string AwardTitle { get; set; }
 
         public DateTime YearWon { get; set; }

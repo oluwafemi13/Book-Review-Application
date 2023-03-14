@@ -13,7 +13,7 @@ namespace Application.Features.Commands.rating.CreateRating
         { 
             RuleFor(x => x.rating).NotEmpty().NotNull();
             RuleFor(x => x.userId).NotEmpty().NotNull();
-            RuleFor(x => x.RatingId).NotEmpty().NotNull();
+            //RuleFor(x => x.RatingId).NotEmpty().NotNull();
 
 
         }

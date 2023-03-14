@@ -10,7 +10,7 @@ namespace Application.Features.Commands.author.CreateAuthor
 {
     public class CreateAuthorCommand:IRequest<Response>
     {
-        public int AuthorId { get; set; }
+        //public int AuthorId { get; set; }
         public string AuthorName { get; set; }
         public string AuthorEmail { get; set; }
         public string? AuthorBio { get; set; }

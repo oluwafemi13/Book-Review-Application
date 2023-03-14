@@ -11,7 +11,7 @@ namespace Application.Features.Commands.rating.CreateRating
 {
     public class CreateRatingCommand: IRequest<Response>
     {
-        public int RatingId { get; set; }
+        //public int RatingId { get; set; }
         public decimal rating { get; set; }
 
 

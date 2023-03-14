@@ -55,6 +55,7 @@ namespace Application.Features.Commands.book.DeleteBook
             await _BookRepository.DeleteBook(request.ISBN);
             await _reviewRepository.DeleteAsync(search.BookId);
             await _ratingAvgRepository.DeleteAsync(search.BookId);
+            await _ratingRepository.DeleteAsync(search.BookId);
             return new Response
             {
                 Status = "Success",

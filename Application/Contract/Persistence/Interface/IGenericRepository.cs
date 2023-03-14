@@ -12,13 +12,13 @@ namespace Application.Contract.Persistence.Interface
     {
         Task<IReadOnlyList<TContext>> GetAllAsync();
         Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate);
-        Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate = null,
-                                        Func<IQueryable<TContext>, IOrderedQueryable<TContext>> orderBy = null,
-                                        string includeString = null,
+        Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>>? predicate = null,
+                                        Func<IQueryable<TContext>, IOrderedQueryable<TContext>>? orderBy = null,
+                                        string? includeString = null,
                                         bool disableTracking = true);
-        Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate = null,
-                                       Func<IQueryable<TContext>, IOrderedQueryable<TContext>> orderBy = null,
-                                       List<Expression<Func<TContext, object>>> includes = null,
+        Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>>? predicate = null,
+                                       Func<IQueryable<TContext>, IOrderedQueryable<TContext>>? orderBy = null,
+                                       List<Expression<Func<TContext, object>>>? includes = null,
                                        bool disableTracking = true);
 
         Task<TContext> GetByIdAsync(int id);

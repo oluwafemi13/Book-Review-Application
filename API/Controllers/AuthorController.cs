@@ -26,12 +26,12 @@ namespace API.Controllers
         /// <summary>
         /// Some countries do not have neither a State, nor a Province
         /// </summary>
-        [HttpPost("CreateAuthor")]
+        /*[HttpPost("CreateAuthor")]
         public async Task<ActionResult> CreateAuthor([FromBody] CreateAuthorCommand command)
         {
             var result = await _mediatr.Send(command);
             return Ok(result);
-        }
+        }*/
 
         /// <summary>
         /// Some countries do not have neither a State, nor a Province
