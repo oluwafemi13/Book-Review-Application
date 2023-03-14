@@ -99,7 +99,7 @@ namespace Infrastructure.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            _dbContext.Entry(id).State= EntityState.Deleted;
+            _dbContext.Entry(id).State = EntityState.Deleted;
             _dbContext.SaveChangesAsync();
         }
 

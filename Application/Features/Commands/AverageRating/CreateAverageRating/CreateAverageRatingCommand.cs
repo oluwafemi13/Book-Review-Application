@@ -12,9 +12,9 @@ namespace Application.Features.Commands.AverageRating.CreateAverageRating
 {
     public class CreateAverageRatingCommand: IRequest<Response>
     {
-        public int Id { get; set; }
+       /* public int Id { get; set; }
 
-        public decimal AverageRating { get; set; }
+        public decimal AverageRating { get; set; }*/
 
         public Guid BookId { get; set; }
        

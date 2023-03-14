@@ -32,10 +32,9 @@ namespace Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<RatingAverage>().Property(x => x.AverageRating).HasColumnType<decimal>("decimal");
+            modelBuilder.Entity<RatingAverage>().Property(x => x.AverageRating).HasColumnType<decimal>("decimal").HasPrecision(18,1);
             modelBuilder.Entity<Rating>().Property(x => x.rating).HasColumnType<decimal>("decimal").HasPrecision(18, 1);
-            
-
+         
             modelBuilder.Entity<Book>().HasOne<Format>(f=> f.format)
                                        .WithOne(b=> b.book)
                                        .OnDelete(DeleteBehavior.Cascade);

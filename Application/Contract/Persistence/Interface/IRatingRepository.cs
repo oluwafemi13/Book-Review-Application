@@ -11,5 +11,6 @@ namespace Application.Contract.Persistence.Interface
     {
 
         Task<Rating> FindUserByGuid(string UserId, Guid BookId);
+        Task<IEnumerable<Rating>> GetRatingsByBookId(Guid BookId);
     }
 }

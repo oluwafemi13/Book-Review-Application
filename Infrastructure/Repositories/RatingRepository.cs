@@ -26,5 +26,15 @@ namespace Infrastructure.Repositories
                 
             return result;
         }
+
+        public async Task<IEnumerable<Rating>> GetRatingsByBookId(Guid BookId)
+        {
+            var result = await _dbContext.Ratings
+                //.Include(y=> y.rating)
+                .Where(x=> x.book.BookId == BookId)
+                .ToListAsync();
+
+            return result;
+        }
     }
 }
