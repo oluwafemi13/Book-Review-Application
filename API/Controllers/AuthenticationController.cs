@@ -25,7 +25,7 @@ namespace API.Controllers
     {
         private readonly UserManager<User> _usermanager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IConfiguration _configuration;
+        private  IConfiguration _configuration;
         private IAuthorRepository _authorRepository;
         private IMapper _mapper;
         
@@ -50,8 +50,6 @@ namespace API.Controllers
         [Route("login")]
         public async Task<ActionResult> Login([FromBody] UserLoginDTO model)
         {
-            //var check = _mapper.Map<User>(model);
-            //var UserName = model.Email;
             var user = await _usermanager.FindByNameAsync(model.Email);
             if (user != null && await _usermanager.CheckPasswordAsync(user, model.Password))
             {

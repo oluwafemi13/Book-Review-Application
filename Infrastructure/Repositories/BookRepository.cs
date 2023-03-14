@@ -1,4 +1,5 @@
 ﻿using Application.Contract.Persistence.Interface;
+//using Application.Features.Queries.GetBookList.GetBookByTitle;
 using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -30,15 +31,28 @@ namespace Infrastructure.Repositories
             return book;
         }
 
-        public Task<IEnumerable<Book>> GetBookByRatingAverage(decimal RatingAverage)
+        public async Task<IEnumerable<RatingAverage>> GetBookByRatingAverage(decimal RatingAverage)
         {
-            throw new NotImplementedException();
+            List<decimal> ratingList = new List<decimal>();
+            decimal value = 0.1M;
+            if(RatingAverage == Math.Round(RatingAverage, 0))
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    decimal newValue = Math.Round(RatingAverage, 1);
+                    ratingList.Add(newValue);
+                    newValue = RatingAverage - value;
+                }
+            }
+            var bookIds=new List<RatingAverage>();
+            foreach(var rating in ratingList)
+            {
+                bookIds = await _dbContext.RatingAverages.Where(x => x.AverageRating == Math.Round(RatingAverage, 1)).ToListAsync();
+            }
+            //var bookIds = await _dbContext.RatingAverages.Where(x => x.AverageRating == Math.Round(RatingAverage, 1)).ToListAsync();
+            return bookIds;
         }
 
-        /*public async Task<bool> InsertGenreByBook(List<Genre> genre)
-        {
-            var result = await _dbContext.Books
-            throw new NotImplementedException();
-        }*/
+       
     }
 }

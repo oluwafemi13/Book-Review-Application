@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Extensions
 {
-    public static class MappingConfiguration
+    public static class MappingConfig
     {
         public static IServiceCollection AddApplicationMappingServices(this IServiceCollection services)
         {

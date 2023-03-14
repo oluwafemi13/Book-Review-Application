@@ -1,6 +1,8 @@
 ﻿using Application.Features.Commands.book.CreateBook;
 using Application.Features.Commands.book.DeleteBook;
 using Application.Features.Commands.book.UpdateBook;
+using Application.Features.Queries.GetBookList.GetBookByAverageRating;
+using Application.Features.Queries.GetBookList.GetBookByTitle;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +37,14 @@ namespace API.Controllers
         public async Task<ActionResult> DeleteBook(string ISBN)
         {
            var command = new DeleteBookCommand() { ISBN   = ISBN};
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpGet("GetBookByRating")]
+        public async Task<ActionResult<IEnumerable<BookVM>>> GetBooks(decimal rating)
+        {
+            var command = new GetBookByAverageRatingQuery(rating);
             var result = await _mediator.Send(command);
             return Ok(result);
         }

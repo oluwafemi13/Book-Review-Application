@@ -25,6 +25,7 @@ namespace Application.Features.Queries.GetBookList.GetBookByAverageRating
         public async Task<List<BookVM>> Handle(GetBookByAverageRatingQuery request, CancellationToken cancellationToken)
         {
             var bookList = await _bookRepo.GetBookByRatingAverage(request.AverageRating);
+            
             return _mapper.Map<List<BookVM>>(bookList);
         }
     }
