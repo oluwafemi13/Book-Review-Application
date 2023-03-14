@@ -17,15 +17,24 @@ namespace Application.Features.Commands.book.DeleteBook
     {
         private readonly IBookRepository _BookRepository;
         //private readonly IFormatRepository _formatRepository;
+        private readonly IReviewRepository _reviewRepository;
+        private readonly IRatingRepository _ratingRepository;
+        private readonly IRatingAverageRepository _ratingAvgRepository;
         private readonly ILogger<DeleteBookCommandHandler> _logger;
         private readonly IMapper _mapper;
 
         public DeleteBookCommandHandler(IBookRepository BookRepository,
                                         ILogger<DeleteBookCommandHandler> logger,
+                                        IRatingRepository ratingRepository,
+                                        IReviewRepository reviewRepository,
+                                        IRatingAverageRepository ratingAverage,
                                         IMapper mapper)
         {
             
             _BookRepository = BookRepository;
+            _ratingAvgRepository = ratingAverage;
+            _ratingRepository = ratingRepository;
+            _reviewRepository= reviewRepository;
             _logger = logger;
             _mapper = mapper;
         }
@@ -44,6 +53,8 @@ namespace Application.Features.Commands.book.DeleteBook
 
             }
             await _BookRepository.DeleteBook(request.ISBN);
+            await _reviewRepository.DeleteAsync(search.BookId);
+            await _ratingAvgRepository.DeleteAsync(search.BookId);
             return new Response
             {
                 Status = "Success",

@@ -10,5 +10,7 @@ namespace Application.Contract.Persistence.Interface
     public interface IRatingAverageRepository: IGenericRepository<RatingAverage>
     {
         Task<IEnumerable<Rating>> GetRatingAverageByBook(string book);
+        new Task DeleteAsync(Guid BookId);
+
     }
 }

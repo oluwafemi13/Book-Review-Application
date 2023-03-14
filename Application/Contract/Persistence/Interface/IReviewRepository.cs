@@ -13,5 +13,6 @@ namespace Application.Contract.Persistence.Interface
         Task<Review> GetReviewByUsername(string userName);
         Task<Review> GetReviewByBook(string book);
         Task<Review> FindUserByGuid(string UserId, Guid BookId);
+        new Task DeleteAsync(Guid BookId);
     }
 }

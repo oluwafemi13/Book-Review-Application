@@ -36,5 +36,15 @@ namespace Infrastructure.Repositories
 
             return result;
         }
+
+        public new async Task DeleteAsync(Guid BookId)
+        {
+            var result = await _dbContext.Ratings.Where(x => x.book.BookId == BookId).ToListAsync();
+
+            _dbContext.Ratings.RemoveRange(result);
+            await _dbContext.SaveChangesAsync();
+
+
+        }
     }
 }
