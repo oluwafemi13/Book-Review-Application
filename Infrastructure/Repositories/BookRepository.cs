@@ -1,4 +1,5 @@
 ﻿using Application.Contract.Persistence.Interface;
+using Application.Features.Queries.GetBookList;
 //using Application.Features.Queries.GetBookList.GetBookByTitle;
 using Domain.Entities;
 using Infrastructure.Persistence;
@@ -30,10 +31,15 @@ namespace Infrastructure.Repositories
             var book = await _dbContext.Books.Where(x => x.ISBN == clearedIn).FirstOrDefaultAsync();
             return book;
         }
-
-        public async Task<IEnumerable<RatingAverage>> GetBookByRatingAverage(decimal RatingAverage)
+        public async Task<IEnumerable<Book>> GetByName(string Name)
         {
-            List<decimal> ratingList = new List<decimal>();
+            var book =await _dbContext.Books.Where(x=> x.BookTitle == Name).ToListAsync();
+            return book;
+        }
+
+        public async Task<IEnumerable<Book>> GetBookByRatingAverage(decimal RatingAverage)
+        {
+            /*var ratingList = new List<decimal>();
             decimal value = 0.1M;
             ratingList.Add(RatingAverage);
              for (int i = 0; i < 5; i++)
@@ -41,15 +47,17 @@ namespace Infrastructure.Repositories
                     //decimal newValue = Math.Round(RatingAverage, 1);
                     RatingAverage = RatingAverage - value;
                     ratingList.Add(RatingAverage);
-            }
+            }*/
             
-            var bookIds=new List<RatingAverage>();
-            foreach(var rating in ratingList)
+            //var ratings=new List<RatingAverage>();
+            var bookList = new List<Book>();
+            var ratings = await _dbContext.RatingAverages.Where(x => x.AverageRating == Math.Round(RatingAverage, 1)).ToListAsync();
+            foreach (var book in ratings)
             {
-                bookIds = await _dbContext.RatingAverages.Where(x => x.AverageRating == Math.Round(RatingAverage, 1)).ToListAsync();
+                bookList= await _dbContext.Books.Where(x=> x.BookId== book.BookId).ToListAsync();
             }
             //var bookIds = await _dbContext.RatingAverages.Where(x => x.AverageRating == Math.Round(RatingAverage, 1)).ToListAsync();
-            return bookIds;
+            return bookList;
         }
 
        

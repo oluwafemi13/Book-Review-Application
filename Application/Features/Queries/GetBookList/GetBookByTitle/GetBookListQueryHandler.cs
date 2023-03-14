@@ -23,7 +23,8 @@ namespace Application.Features.Queries.GetBookList.GetBookByTitle
 
         public async Task<List<BookVM>> Handle(GetBookListQuery request, CancellationToken cancellationToken)
         {
-            var bookList = await _bookRepo.GetByNameAsync(request.Title);
+            var bookList = await _bookRepo.GetByName(request.Title);
+            
             return _mapper.Map<List<BookVM>>(bookList);
         }
     }

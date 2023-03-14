@@ -21,11 +21,11 @@ namespace Application.Features.Queries.GetBookList.GetBookByAverageRating
             _mapper = mapper;
         }
 
-        public async Task<List<BookVM>> Handle(GetBookByAverageRatingQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<BookVM>> Handle(GetBookByAverageRatingQuery request, CancellationToken cancellationToken)
         {
             var bookList = await _bookRepo.GetBookByRatingAverage(request.AverageRating);
             
-            return _mapper.Map<List<BookVM>>(bookList);
+            return _mapper.Map<IEnumerable<BookVM>>(bookList);
         }
     }
 }
