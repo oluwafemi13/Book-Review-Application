@@ -50,6 +50,16 @@ namespace Application.Features.Commands.book.UpdateBook
                     };
                 }
                 var validate = new ISBN10Validation();
+                var CheckISBN = await _BookRepository.GetBookByISBN(request.ISBN);
+                if(CheckISBN != null)
+                {
+                    return new Response
+                    {
+                        Status = "Error",
+                        Message = "Duplicate ISBN number",
+                        StatusCode = StatusCodes.Status409Conflict
+                    };
+                }
                 var validateISBN = validate.validateISBN10(request.ISBN);
                 if(validateISBN != true)
                 {

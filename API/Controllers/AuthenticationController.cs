@@ -50,7 +50,21 @@ namespace API.Controllers
         [Route("login")]
         public async Task<ActionResult> Login([FromBody] UserLoginDTO model)
         {
-            var user = await _usermanager.FindByNameAsync(model.Email);
+            try
+            {
+
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    Status = "Error",
+                    Message = "Invalid model",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+
+            var user = await _usermanager.FindByEmailAsync(model.Email);
             if (user != null && await _usermanager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _usermanager.GetRolesAsync(user);
@@ -83,6 +97,12 @@ namespace API.Controllers
                 });
             }
             return Unauthorized();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
 #endregion
@@ -94,14 +114,23 @@ namespace API.Controllers
         public async Task<ActionResult<Response>> Register([FromBody] UserRegistrationDTO model, CancellationToken token)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-         
+            try
+            {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    Status="Error",
+                    Message="Invalid model",
+                    StatusCode=StatusCodes.Status400BadRequest
+                });
+            }
             var userExists = await _usermanager.FindByEmailAsync(model.Email);
-           
             if (userExists !=null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", 
                                                                                            Message = $"User with Email: {model.Email} already exists!", 
                                                                                            StatusCode = StatusCodes.Status500InternalServerError });
-            
 
             var user = new User()
             {
@@ -115,8 +144,6 @@ namespace API.Controllers
                 //LockoutEnabled= false,
                 TwoFactorEnabled= false,
                 PhoneNumberConfirmed= false,  
-                
-
             };
             var result = await _usermanager.CreateAsync(user, model.Password);
 
@@ -164,6 +191,13 @@ namespace API.Controllers
             return Ok(new Response { Status = "Success", 
                                     Message = "User created successfully!", 
                                     StatusCode = StatusCodes.Status200OK});
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         #endregion

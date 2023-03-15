@@ -6,6 +6,7 @@ using Application.Features.Queries.GetBookList.GetAllBooks;
 using Application.Features.Queries.GetBookList.GetBookByAverageRating;
 using Application.Features.Queries.GetBookList.GetBookByTitle;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -21,6 +22,7 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
+        [Authorize(Roles ="Author")]
         [HttpPost("CreateBook")]
         public async Task<ActionResult> CreateBook([FromBody] CreateBookCommand command)
         {
@@ -28,6 +30,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles ="Author")]
         [HttpPut("UpdateBook")]
         public async Task<ActionResult> UpdateBook([FromBody] UpdateBookCommand command)
         {
@@ -35,6 +38,8 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles ="Author")]
+        [Authorize(Roles ="Admin")]
         [HttpDelete("DeleteBook/{ISBN}")]
         public async Task<ActionResult> DeleteBook(string ISBN)
         {
