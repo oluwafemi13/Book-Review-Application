@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Queries.GetBookList.GetBookByAverageRating
 {
-    public class GetBookByAverageRatingQuery : IRequest<List<BookVM>>
+    public class GetBookByAverageRatingQuery : IRequest<IEnumerable<BookVM>>
     {
         [Required]
         public decimal AverageRating { get; set; }

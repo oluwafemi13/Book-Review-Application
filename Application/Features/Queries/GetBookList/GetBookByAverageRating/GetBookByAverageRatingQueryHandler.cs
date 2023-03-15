@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Queries.GetBookList.GetBookByAverageRating
 {
-    public class GetBookByAverageRatingQueryHandler : IRequestHandler<GetBookByAverageRatingQuery, List<BookVM>>
+    public class GetBookByAverageRatingQueryHandler : IRequestHandler<GetBookByAverageRatingQuery, IEnumerable<BookVM>>
     {
         private readonly IBookRepository _bookRepo;
         private readonly IMapper _mapper;
@@ -24,8 +24,8 @@ namespace Application.Features.Queries.GetBookList.GetBookByAverageRating
         public async Task<IEnumerable<BookVM>> Handle(GetBookByAverageRatingQuery request, CancellationToken cancellationToken)
         {
             var bookList = await _bookRepo.GetBookByRatingAverage(request.AverageRating);
-            
-            return _mapper.Map<IEnumerable<BookVM>>(bookList);
+
+            return bookList;
         }
     }
 }

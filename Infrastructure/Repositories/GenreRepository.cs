@@ -16,9 +16,10 @@ namespace Infrastructure.Repositories
         {
 
         }
-        public Task<IEnumerable<Genre>> GetGenreByBook(Guid BookId)
+        public async Task<IEnumerable<Genre>> GetGenreByBook(Guid BookId)
         {
-            throw new NotImplementedException();
+            var result = await _dbContext.BookGenres.Where(x=> x.BookId== BookId).ToListAsync();
+            return result.Select(x => x.Genre);
         }
 
         public async Task<Genre> FindGenreByName(string Name)

@@ -21,7 +21,7 @@ namespace Application.Features.Queries.GetBookList
         public string Language { get; set; }
         public string CoverImage { get; set; }
         public decimal AverageRating { get; set; }
-        public IList<string> Genres { get; set; }
-        public string format { get; set; }
+        public List<string> Genres { get; set; }
+        //public string format { get; set; }
     }
 }

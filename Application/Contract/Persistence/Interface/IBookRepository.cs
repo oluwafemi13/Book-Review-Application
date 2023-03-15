@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Features.Queries.GetBookList;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace Application.Contract.Persistence.Interface
     {
         Task<Book> GetBookByISBN(string ISBN);
         //Task<IEnumerable<Book>> GetBookByLanguage(string Language);
-        Task<IEnumerable<Book>> GetBookByRatingAverage(decimal RatingAverage);
+        Task<IEnumerable<BookVM>> GetBookByRatingAverage(decimal RatingAverage);
         Task DeleteBook(string ISBN);
-        Task<IEnumerable<Book>> GetByName(string Name);
+        Task<IEnumerable<BookVM>> GetByName(string Name);
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Application.Features.Queries.GetBookList.GetBookByTitle
 
 {
-    public class GetBookListQuery : IRequest<List<BookVM>>
+    public class GetBookListQuery : IRequest<IEnumerable<BookVM>>
     {
         [Required]
         public string Title { get; set; }

@@ -59,6 +59,14 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetByTitle")]
+        public async Task<ActionResult<IEnumerable<BookVM>>> GetByTitle(string title)
+        {
+            var command = new GetBookListQuery(title);
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
 
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Queries.GetBookList.GetBookByTitle
 {
-    public class GetBookListQueryHandler : IRequestHandler<GetBookListQuery, List<BookVM>>
+    public class GetBookListQueryHandler : IRequestHandler<GetBookListQuery, IEnumerable<BookVM>>
     {
         private readonly IBookRepository _bookRepo;
         private readonly IMapper _mapper;
@@ -21,11 +21,10 @@ namespace Application.Features.Queries.GetBookList.GetBookByTitle
             _mapper = mapper;
         }
 
-        public async Task<List<BookVM>> Handle(GetBookListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<BookVM>> Handle(GetBookListQuery request, CancellationToken cancellationToken)
         {
             var bookList = await _bookRepo.GetByName(request.Title);
-            
-            return _mapper.Map<List<BookVM>>(bookList);
+            return bookList;
         }
     }
 }
