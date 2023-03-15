@@ -1,4 +1,6 @@
 ﻿using Application.Contract.Persistence.Interface;
+using Application.DTO;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -19,9 +21,16 @@ namespace Application.Features.Queries.GetBookList.GetByAuthor
             _bookrRepo = bookrRepo;
         }
 
-        public Task<IEnumerable<BookVM>> Handle(GetByAuthorQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<BookVM>> Handle(GetByAuthorQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var list = new List<Book>();
+            var result = await _authorRepo.GetAsync(x=> x.AuthorName == request.Author);
+            foreach(var item in result)
+            {
+                var books = await _bookrRepo.GetBook(item.AuthorId);
+                
+            }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Contract.Persistence.Interface;
+using Application.DTO;
 using Application.Features.Queries.GetBookList;
 //using Application.Features.Queries.GetBookList.GetBookByTitle;
 using Domain.Entities;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Infrastructure.Repositories
 {
@@ -24,6 +26,11 @@ namespace Infrastructure.Repositories
             _dbContext.Books.Remove(book);
             _dbContext.SaveChanges();
 
+        }
+
+        public async Task<IEnumerable<Book>> GetBook(int AuthorId)
+        {
+            return await _dbContext.Books.Where(x => x.AuthorId == AuthorId).ToListAsync();
         }
 
         public async Task<Book> GetBookByISBN(string ISBN)
