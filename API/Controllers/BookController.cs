@@ -9,6 +9,7 @@ using Application.Features.Queries.GetBookList.GetBookByTitle;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace API.Controllers
 {
@@ -58,9 +59,9 @@ namespace API.Controllers
         }
 
         [HttpGet("GetAllBooks")]
-        public async Task<ActionResult<IEnumerable<BookVM>>> GetAllBook([FromQuery] RequestParameters request)
+        public async Task<ActionResult<IPagedList<BookVM>>> GetAllBook([FromQuery] RequestParameters request)
         {
-            var command = new AllBooksQuery();
+            var command = new AllBooksQuery(request.PageIndex, request.PageSize);
             var result = await _mediator.Send(command);
             return Ok(result);
         }

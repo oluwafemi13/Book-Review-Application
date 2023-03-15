@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Application.Features.Queries.GetBookList.GetAllBooks
 {
@@ -21,10 +22,10 @@ namespace Application.Features.Queries.GetBookList.GetAllBooks
             _mapper = mapper;
         }
 
-        public async Task<IReadOnlyList<BookVM>> Handle(AllBooksQuery request, CancellationToken cancellationToken)
+        public async Task<IPagedList<BookVM>> Handle(AllBooksQuery request, CancellationToken cancellationToken)
         {
-            var result = await _bookRepo.GetAllAsync();
-            return _mapper.Map<IReadOnlyList<BookVM>>(result);
+            var result = await _bookRepo.GetAllPagedAsync(request);
+            return _mapper.Map<IPagedList<BookVM>>(result);
         }
     }
 }

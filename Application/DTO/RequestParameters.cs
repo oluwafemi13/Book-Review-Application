@@ -9,7 +9,7 @@ namespace Application.DTO
     public class RequestParameters
     {
         private int _pageSize = 20;
-        const int _maxPageSize = 50;
+        const int _maxPageSize = 40;
         public int PageIndex { get; set; } = 1;
         public int PageSize
         {
