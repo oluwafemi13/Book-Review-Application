@@ -8,20 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookList.GetBookByAverageRating
+namespace Application.Features.Queries.GetBookList.GetByAverageRating
 {
-    public class GetBookByAverageRatingQueryHandler : IRequestHandler<GetBookByAverageRatingQuery, IEnumerable<BookVM>>
+    public class GetByAverageRatingQueryHandler : IRequestHandler<GetByAverageRatingQuery, IEnumerable<BookVM>>
     {
         private readonly IBookRepository _bookRepo;
         private readonly IMapper _mapper;
 
-        public GetBookByAverageRatingQueryHandler(IBookRepository bookRepo, IMapper mapper)
+        public GetByAverageRatingQueryHandler(IBookRepository bookRepo, IMapper mapper)
         {
             _bookRepo = bookRepo;
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BookVM>> Handle(GetBookByAverageRatingQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<BookVM>> Handle(GetByAverageRatingQuery request, CancellationToken cancellationToken)
         {
             var bookList = await _bookRepo.GetBookByRatingAverage(request.AverageRating);
 

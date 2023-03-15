@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookList.GetBookByAverageRating
+namespace Application.Features.Queries.GetBookList.GetByAverageRating
 {
-    public class GetBookByAverageRatingQuery : IRequest<IEnumerable<BookVM>>
+    public class GetByAverageRatingQuery : IRequest<IEnumerable<BookVM>>
     {
         [Required]
         public decimal AverageRating { get; set; }
-        public GetBookByAverageRatingQuery(decimal averageRating)
+        public GetByAverageRatingQuery(decimal averageRating)
         {
             AverageRating = averageRating;
         }

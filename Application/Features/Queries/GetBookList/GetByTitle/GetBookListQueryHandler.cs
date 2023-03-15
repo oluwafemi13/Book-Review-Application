@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetBookList.GetBookByTitle
+namespace Application.Features.Queries.GetBookList.GetByTitle
 {
     public class GetBookListQueryHandler : IRequestHandler<GetBookListQuery, IEnumerable<BookVM>>
     {

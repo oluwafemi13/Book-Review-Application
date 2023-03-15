@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using X.PagedList;
 
-namespace Application.Features.Queries.GetBookList.GetAllBooks
+namespace Application.Features.Queries.GetBookList.GetAll
 {
     public class AllBooksQuery:RequestParameters, IRequest<IEnumerable<BookVM>>
     {
