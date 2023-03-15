@@ -3,6 +3,7 @@ using Application.Features.Commands.author.DeleteAuthor;
 using Application.Features.Commands.author.UpdateAuthor;
 using Application.Model;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 //using System.Web.Http;
@@ -10,7 +11,7 @@ using System.Net;
 namespace API.Controllers
 {
     /// <summary>
-    /// Some countries do not have neither a State, nor a Province
+    /// https://localhost:44339/api/Author
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -23,9 +24,7 @@ namespace API.Controllers
             _mediatr = mediatr;
         }
 
-        /// <summary>
-        /// Some countries do not have neither a State, nor a Province
-        /// </summary>
+
         /*[HttpPost("CreateAuthor")]
         public async Task<ActionResult> CreateAuthor([FromBody] CreateAuthorCommand command)
         {
@@ -34,8 +33,14 @@ namespace API.Controllers
         }*/
 
         /// <summary>
-        /// Some countries do not have neither a State, nor a Province
+        /// AuthorFirstName 
+        /// AuthorLastName
+        /// AuthorEmail
+        /// AuthorBio
+        /// LastModifiedBy
+        /// LastModifiedDate
         /// </summary>
+        [Authorize(Roles = "Author")]
         [HttpPut("UpdateAuthor")]
         public async Task<ActionResult> UpdateAuthor([FromBody] UpdateAuthorCommand command)
         {
@@ -44,8 +49,10 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Some countries do not have neither a State, nor a Province
+        /// Requires the Author ID as Input Parameter
         /// </summary>
+        [Authorize(Roles = "Author")]
+        [Authorize(Roles ="Admin")]
         [HttpDelete("DeleteAuthor/{Id}")]
         public async Task<ActionResult> DeleteAuthor(int AuthorId)
         {

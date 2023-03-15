@@ -4,6 +4,7 @@ using Application.Features.Commands.rating.CreateRating;
 using Application.Features.Commands.rating.DeleteRating;
 using Application.Features.Commands.rating.UpdateRating;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -18,13 +19,14 @@ namespace API.Controllers
             _mediator= mediator;
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost("CreateRating")]
         public async Task<ActionResult> CreateRating([FromBody] CreateRatingCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
         }
-
+        [Authorize(Roles = "User")]
         [HttpPut("UpdateRating")]
         public async Task<ActionResult> UpdateRating([FromBody] UpdateRatingCommand command)
         {
@@ -32,6 +34,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "User")]
         [HttpDelete("DeleteRating/{Id}")]
         public async Task<ActionResult> DeleteRating(int RatingId)
         {

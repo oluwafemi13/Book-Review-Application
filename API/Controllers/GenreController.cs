@@ -2,6 +2,7 @@
 using Application.Features.Commands.genre.DeleteGenre;
 using Application.Features.Commands.genre.UpdateGenre;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,6 +17,8 @@ namespace API.Controllers
             _mediator= mediator;
         }
 
+        [Authorize(Roles = "Author")]
+        [Authorize(Roles ="Admin")]
         [HttpPost("CreateGenre")]
         public async Task<ActionResult> CreateGenre([FromBody] CreateGenreCommand command)
         {
@@ -23,6 +26,8 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Author")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateGenre")]
         public async Task<ActionResult> UpdateGenre([FromBody] UpdateGenreCommand command)
         {
@@ -30,6 +35,8 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Author")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteGenre/{Id}")]
         public async Task<ActionResult> DeleteGenre(int Id)
         {

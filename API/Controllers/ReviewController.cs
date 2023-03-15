@@ -5,6 +5,7 @@ using Application.Features.Commands.Reviews.CreateReview;
 using Application.Features.Commands.Reviews.DeleteReview;
 using Application.Features.Commands.Reviews.UpdateReview;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -19,6 +20,7 @@ namespace API.Controllers
             _mediator= mediator;
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost("CreateReview")]
         public async Task<ActionResult> CreateReview([FromBody] CreateReviewCommand command)
         {
@@ -26,6 +28,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPut("UpdateReview")]
         public async Task<ActionResult> UpdateReview([FromBody] UpdateReviewCommand command)
         {
@@ -33,6 +36,8 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteReview/{Id}")]
         public async Task<ActionResult> DeleteReview(int ReviewId)
         {

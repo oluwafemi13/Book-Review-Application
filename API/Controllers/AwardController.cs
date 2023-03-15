@@ -1,6 +1,7 @@
 ﻿using Application.Features.Commands.award.DeleteAward;
 using Application.Features.Commands.award.UpdateAward;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,6 +17,7 @@ namespace API.Controllers
             _mediatR = mediatR;
         }
 
+        [Authorize(Roles = "Author")]
         [HttpPost("CreateAward")]
         public async Task<ActionResult> CreateAward([FromBody] CreateAwardCommand command)
         {
@@ -23,6 +25,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Author")]
         [HttpPut("UpdateAward")]
         public async Task<ActionResult> UpdateAward([FromBody] UpdateAwardCommand command)
         {
@@ -30,6 +33,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Author")]
         [HttpDelete("DeleteAward/{Id}")]
         public async Task<ActionResult> DeleteAward(int Id)
         {

@@ -1,4 +1,5 @@
-﻿using Application.Features.Commands.book.CreateBook;
+﻿using Application.DTO;
+using Application.Features.Commands.book.CreateBook;
 using Application.Features.Commands.book.DeleteBook;
 using Application.Features.Commands.book.UpdateBook;
 using Application.Features.Queries.GetBookList;
@@ -57,7 +58,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetAllBooks")]
-        public async Task<ActionResult<IEnumerable<BookVM>>> GetAllBook()
+        public async Task<ActionResult<IEnumerable<BookVM>>> GetAllBook([FromQuery] RequestParameters request)
         {
             var command = new AllBooksQuery();
             var result = await _mediator.Send(command);
