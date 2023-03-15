@@ -13,7 +13,7 @@ namespace Application.Contract.Persistence.Interface
     public interface IGenericRepository<TContext> where TContext : class
     {
         Task<IReadOnlyList<TContext>> GetAllAsync();
-        Task<IPagedList<TContext>> GetAllPagedAsync(RequestParameters requestParams);
+        Task<IEnumerable<TContext>> GetAllPagedAsync(RequestParameters requestParams);
         Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate);
         Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>>? predicate = null,
                                         Func<IQueryable<TContext>, IOrderedQueryable<TContext>>? orderBy = null,

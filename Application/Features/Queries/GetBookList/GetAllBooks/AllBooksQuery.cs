@@ -9,7 +9,7 @@ using X.PagedList;
 
 namespace Application.Features.Queries.GetBookList.GetAllBooks
 {
-    public class AllBooksQuery:RequestParameters, IRequest<IPagedList<BookVM>>
+    public class AllBooksQuery:RequestParameters, IRequest<IEnumerable<BookVM>>
     {
         public AllBooksQuery(int pageIndex, int pageSize)
         {

@@ -10,7 +10,7 @@ using X.PagedList;
 
 namespace Application.Features.Queries.GetBookList.GetAllBooks
 {
-    public class AllBooksQueryHandler : IRequestHandler<AllBooksQuery, IReadOnlyList<BookVM>>
+    public class AllBooksQueryHandler : IRequestHandler<AllBooksQuery, IEnumerable<BookVM>>
     {
         private readonly IBookRepository _bookRepo;
         private readonly IMapper _mapper;
@@ -22,10 +22,10 @@ namespace Application.Features.Queries.GetBookList.GetAllBooks
             _mapper = mapper;
         }
 
-        public async Task<IPagedList<BookVM>> Handle(AllBooksQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<BookVM>> Handle(AllBooksQuery request, CancellationToken cancellationToken)
         {
             var result = await _bookRepo.GetAllPagedAsync(request);
-            return _mapper.Map<IPagedList<BookVM>>(result);
+            return _mapper.Map<IEnumerable<BookVM>>(result);
         }
     }
 }

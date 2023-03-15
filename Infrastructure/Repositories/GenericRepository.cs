@@ -26,7 +26,7 @@ namespace Infrastructure.Repositories
             return await _dbContext.Set<TContext>().ToListAsync();
         }
 
-        public async Task<IPagedList<TContext>> GetAllPagedAsync(RequestParameters requestParams)
+        public async Task<IEnumerable<TContext>> GetAllPagedAsync(RequestParameters requestParams)
         {
             return await _dbContext.Set<TContext>().ToPagedListAsync(requestParams.PageIndex, requestParams.PageSize);
         }

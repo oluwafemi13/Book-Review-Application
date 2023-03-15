@@ -59,7 +59,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetAllBooks")]
-        public async Task<ActionResult<IPagedList<BookVM>>> GetAllBook([FromQuery] RequestParameters request)
+        public async Task<ActionResult<IEnumerable<BookVM>>> GetAllBook([FromQuery] RequestParameters request)
         {
             var command = new AllBooksQuery(request.PageIndex, request.PageSize);
             var result = await _mediator.Send(command);
