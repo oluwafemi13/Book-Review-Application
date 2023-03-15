@@ -1,16 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Application.DTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Application.Contract.Persistence.Interface
 {
     public interface IGenericRepository<TContext> where TContext : class
     {
         Task<IReadOnlyList<TContext>> GetAllAsync();
+        Task<IPagedList<TContext>> GetAllAsync(RequestParameters requestParams);
         Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate);
         Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>>? predicate = null,
                                         Func<IQueryable<TContext>, IOrderedQueryable<TContext>>? orderBy = null,

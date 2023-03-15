@@ -24,14 +24,6 @@ namespace API.Controllers
             _mediatr = mediatr;
         }
 
-
-        /*[HttpPost("CreateAuthor")]
-        public async Task<ActionResult> CreateAuthor([FromBody] CreateAuthorCommand command)
-        {
-            var result = await _mediatr.Send(command);
-            return Ok(result);
-        }*/
-
         /// <summary>
         /// AuthorFirstName 
         /// AuthorLastName

@@ -1,4 +1,5 @@
 ﻿using Application.Contract.Persistence.Interface;
+using Application.DTO;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Infrastructure.Repositories
 {
@@ -23,7 +25,12 @@ namespace Infrastructure.Repositories
         {
             return await _dbContext.Set<TContext>().ToListAsync();
         }
-        
+
+        public async Task<IPagedList<TContext>> GetAllAsync(RequestParameters requestParams)
+        {
+            return await _dbContext.Set<TContext>().ToPagedListAsync(requestParams.PageIndex, requestParams.PageSize);
+        }
+
 
         public async Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate)
         {
