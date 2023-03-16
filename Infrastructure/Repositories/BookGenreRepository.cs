@@ -26,5 +26,11 @@ namespace Infrastructure.Repositories
                 await _Db.SaveChangesAsync();
                
         }
+
+        public async Task<IEnumerable<int>> GetGenreByBook(Guid BookId)
+        {
+            var result = await _dbContext.BookGenres.Where(x => x.BookId == BookId).Select(x => x.GenreId).ToListAsync();
+            return result;
+        }
     }
 }

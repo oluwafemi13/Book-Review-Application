@@ -24,7 +24,7 @@ namespace Infrastructure.Repositories
 
         public async Task<string> GetById(int id)
         {
-            var result = _dbContext.Genres.Where(x => x.GenreId == id).Select(y => y.GenreName).ToString();
+            var result = await _dbContext.Genres.Where(x => x.GenreId == id).Select(y => y.GenreName).FirstOrDefaultAsync();
             return result;
         }
         public async Task<Genre> FindGenreByName(string Name)

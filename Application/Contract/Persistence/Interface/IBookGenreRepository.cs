@@ -11,5 +11,6 @@ namespace Application.Contract.Persistence.Interface
     public interface IBookGenreRepository: IGenericRepository<BookGenre>
     {
         Task CreateBookGenre(BookGenre entity);
+        Task<IEnumerable<int>> GetGenreByBook(Guid BookId);
     }
 }

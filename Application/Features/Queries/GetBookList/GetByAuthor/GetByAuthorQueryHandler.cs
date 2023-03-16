@@ -37,7 +37,7 @@ namespace Application.Features.Queries.GetBookList.GetByAuthor
 
         public async Task<IEnumerable<BookVM>> Handle(GetByAuthorQuery request, CancellationToken cancellationToken)
         {
-            var list = new List<BookVM>();
+            var list = new List<List<BookVM>>();
             var book = new BookVM();
             var result = await _authorRepo.GetAsync(x => x.AuthorName == request.Author);
             
@@ -49,11 +49,11 @@ namespace Application.Features.Queries.GetBookList.GetByAuthor
                     //average Rating
                     var rating = await _RA.GetRatingAverageByBook(i.BookId);
                     //Genre
-                    var genre = await _BG.GetAsync(x => x.BookId == book.BookId);
+                    var genre = await _BG.GetGenreByBook(i.BookId);
                     var genreList = new List<string>();
                     foreach (var gen in genre)
                     {
-                        var genreName = await _GR.GetById(gen.GenreId);
+                        var genreName = await _GR.GetById(gen);
                         genreList.Add(genreName);
                     }
                     book.ISBN = i.ISBN;
@@ -65,7 +65,7 @@ namespace Application.Features.Queries.GetBookList.GetByAuthor
                     book.CoverImage = i.CoverImage;
                     book.Description = i.Description;
                     book.Summary = i.Summary;
-                    book.Genres = new List<string>(genreList);
+                    book.Genres = genreList;
                     book.Language = i.Language;
                     list.Add(book);
                 }
