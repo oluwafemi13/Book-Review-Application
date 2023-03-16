@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Extension;
 using Infrastructure.Persistence;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -17,10 +18,20 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//var config = new ConfigurationBuilder();
 // Add services to the container.
 
 builder.Services.AddResponseCaching();
+builder.Services.AddHttpCacheHeaders(
+    expirationOpt=>
+    {
+        expirationOpt.MaxAge = 120;
+        expirationOpt.CacheLocation = CacheLocation.Public;
+    },
+    validationOpt=>
+    {
+        validationOpt.MustRevalidate = true;
+    }
+    );
 builder.Services.AddDatabaseService(builder.Configuration);
 builder.Services.AddMediatRServices();
 builder.Services.AddValidatorConfiguration();
@@ -84,8 +95,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseResponseCaching();
+app.UseHttpCacheHeaders();
 app.UseAuthentication();
 app.UseAuthorization();
 
