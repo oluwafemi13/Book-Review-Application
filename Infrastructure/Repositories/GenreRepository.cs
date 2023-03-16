@@ -16,12 +16,17 @@ namespace Infrastructure.Repositories
         {
 
         }
-        public async Task<IEnumerable<Genre>> GetGenreByBook(Guid BookId)
+        public async Task<IEnumerable<int>> GetGenreByBook(Guid BookId)
         {
-            var result = await _dbContext.BookGenres.Where(x=> x.BookId== BookId).ToListAsync();
-            return result.Select(x => x.Genre);
+            var result = await _dbContext.BookGenres.Where(x=> x.BookId== BookId).Select(x => x.GenreId).ToListAsync();
+            return result;
         }
 
+        public async Task<string> GetById(int id)
+        {
+            var result = _dbContext.Genres.Where(x => x.GenreId == id).Select(y => y.GenreName).ToString();
+            return result;
+        }
         public async Task<Genre> FindGenreByName(string Name)
         {
             var result = await _dbContext.Genres.Where(x => x.GenreName == Name).FirstOrDefaultAsync();

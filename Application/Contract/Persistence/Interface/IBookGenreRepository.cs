@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contract.Persistence.Interface
 {
-    public interface IBookGenreRepository
+    public interface IBookGenreRepository: IGenericRepository<BookGenre>
     {
         Task CreateBookGenre(BookGenre entity);
     }

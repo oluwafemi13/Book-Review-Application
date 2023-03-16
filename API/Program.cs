@@ -22,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+//configure caching
 builder.Services.AddResponseCaching();
 builder.Services.AddHttpCacheHeaders(
     expirationOpt=>
@@ -105,7 +106,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
-app.UseIpRateLimiting();
+//app.UseIpRateLimiting();
 app.UseAuthentication();
 app.UseAuthorization();
 

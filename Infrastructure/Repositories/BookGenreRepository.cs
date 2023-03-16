@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class BookGenreRepository : IBookGenreRepository
+    public class BookGenreRepository : GenericRepository<BookGenre>, IBookGenreRepository
     {
         private readonly DatabaseContext _Db;
 
-        public BookGenreRepository(DatabaseContext db)
+        public BookGenreRepository(DatabaseContext db): base(db)
         {
             _Db = db;
         }

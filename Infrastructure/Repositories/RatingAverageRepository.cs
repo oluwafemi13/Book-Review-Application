@@ -14,9 +14,9 @@ namespace Infrastructure.Repositories
     {
         public RatingAverageRepository(DatabaseContext db):base(db) { }
        
-        public Task<IEnumerable<Rating>> GetRatingAverageByBook(string book)
+        public async Task<decimal> GetRatingAverageByBook(Guid bookId)
         {
-            throw new NotImplementedException();
+            return await _dbContext.RatingAverages.Where(x=> x.BookId == bookId).Select(x => x.AverageRating).FirstOrDefaultAsync();
         }
 
         public new async Task DeleteAsync(Guid BookId)

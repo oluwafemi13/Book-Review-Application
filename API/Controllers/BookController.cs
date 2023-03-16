@@ -4,6 +4,7 @@ using Application.Features.Commands.book.DeleteBook;
 using Application.Features.Commands.book.UpdateBook;
 using Application.Features.Queries.GetBookList;
 using Application.Features.Queries.GetBookList.GetAll;
+using Application.Features.Queries.GetBookList.GetByAuthor;
 using Application.Features.Queries.GetBookList.GetByAverageRating;
 using Application.Features.Queries.GetBookList.GetByTitle;
 using MediatR;
@@ -73,6 +74,15 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<BookVM>>> GetByTitle(string title)
         {
             var command = new GetBookListQuery(title);
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpGet("GetByAuthor")]
+        //[ResponseCache(CacheProfileName = "240SecondsCaching")]
+        public async Task<ActionResult<IEnumerable<BookVM>>> GetByAuthor(string Author)
+        {
+            var command = new GetByAuthorQuery(Author);
             var result = await _mediator.Send(command);
             return Ok(result);
         }
