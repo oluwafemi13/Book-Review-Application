@@ -1,5 +1,7 @@
+using API.ServiceExtension;
 using Application.Extensions;
 using Application.MappingConfiguration;
+using AspNetCoreRateLimit;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Extension;
@@ -32,6 +34,12 @@ builder.Services.AddHttpCacheHeaders(
         validationOpt.MustRevalidate = true;
     }
     );
+//configure rate Limiting
+builder.Services.AddMemoryCache();
+builder.Services.ConfigureRateLimiting();
+builder.Services.AddHttpContextAccessor();
+////////
+///////
 builder.Services.AddDatabaseService(builder.Configuration);
 builder.Services.AddMediatRServices();
 builder.Services.AddValidatorConfiguration();
@@ -97,6 +105,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
+app.UseIpRateLimiting();
 app.UseAuthentication();
 app.UseAuthorization();
 
