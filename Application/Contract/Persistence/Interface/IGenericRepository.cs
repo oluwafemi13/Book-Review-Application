@@ -14,7 +14,7 @@ namespace Application.Contract.Persistence.Interface
     {
         Task<IReadOnlyList<TContext>> GetAllAsync();
         Task<IEnumerable<TContext>> GetAllPagedAsync(RequestParameters requestParams);
-        Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate);
+        Task<IEnumerable<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate);
         Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>>? predicate = null,
                                         Func<IQueryable<TContext>, IOrderedQueryable<TContext>>? orderBy = null,
                                         string? includeString = null,

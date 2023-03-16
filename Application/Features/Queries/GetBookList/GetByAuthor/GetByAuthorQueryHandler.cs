@@ -23,13 +23,16 @@ namespace Application.Features.Queries.GetBookList.GetByAuthor
 
         public async Task<IEnumerable<BookVM>> Handle(GetByAuthorQuery request, CancellationToken cancellationToken)
         {
-            var list = new List<Book>();
+            var list = new List<BookVM>();
+            var book = new BookVM();
             var result = await _authorRepo.GetAsync(x=> x.AuthorName == request.Author);
             foreach(var item in result)
             {
                 var books = await _bookrRepo.GetBook(item.AuthorId);
                 
+                
             }
+            
             
         }
     }

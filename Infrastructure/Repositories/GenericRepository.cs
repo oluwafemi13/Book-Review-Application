@@ -32,7 +32,7 @@ namespace Infrastructure.Repositories
         }
 
 
-        public async Task<IReadOnlyList<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate)
+        public async Task<IEnumerable<TContext>> GetAsync(Expression<Func<TContext, bool>> predicate)
         {
             return await _dbContext.Set<TContext>().Where(predicate).ToListAsync();
         }

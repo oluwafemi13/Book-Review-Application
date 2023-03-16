@@ -9,13 +9,13 @@ namespace Application.Features.Queries.GetBookList.GetByAuthor
 {
     public class GetByAuthorQuery:IRequest<IEnumerable<BookVM>>
     {
-        public int PageIndex { get; set; }
-        public int PageSize { get; set; }
+       /* public int PageIndex { get; set; }
+        public int PageSize { get; set; }*/
         public string Author { get; set; }
-        public GetByAuthorQuery(int pageIndex, int pageSize, string author)
+        public GetByAuthorQuery(/*int pageIndex, int pageSize,*/ string author)
         {
-            PageIndex = pageIndex;
-            PageSize = pageSize;
+           /* PageIndex = pageIndex;
+            PageSize = pageSize;*/
             Author = author;
         }
 

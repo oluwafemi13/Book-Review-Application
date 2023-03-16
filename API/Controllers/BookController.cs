@@ -51,6 +51,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetBookByRating")]
+        [ResponseCache(CacheProfileName = "240SecondsCaching")]
         public async Task<ActionResult<IEnumerable<BookVM>>> GetBooksByRating(decimal rating)
         {
             var command = new GetByAverageRatingQuery(rating);
@@ -59,6 +60,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetAllBooks")]
+        [ResponseCache(CacheProfileName = "240SecondsCaching")]
         public async Task<ActionResult<IEnumerable<BookVM>>> GetAllBook([FromQuery] RequestParameters request)
         {
             var command = new AllBooksQuery(request.PageIndex, request.PageSize);
@@ -67,6 +69,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetByTitle")]
+        [ResponseCache(CacheProfileName = "240SecondsCaching")]
         public async Task<ActionResult<IEnumerable<BookVM>>> GetByTitle(string title)
         {
             var command = new GetBookListQuery(title);

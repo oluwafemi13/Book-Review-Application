@@ -7,6 +7,7 @@ using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,8 +17,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//var config = new ConfigurationBuilder();
 // Add services to the container.
 
+builder.Services.AddResponseCaching();
 builder.Services.AddDatabaseService(builder.Configuration);
 builder.Services.AddMediatRServices();
 builder.Services.AddValidatorConfiguration();
@@ -25,7 +28,15 @@ builder.Services.AddApplicationMappingServices();
 builder.Services.AddRepositoryService();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-builder.Services.AddControllers();
+//Add caching in controllers
+builder.Services.AddControllers(config =>
+{
+    config.CacheProfiles.Add("240SecondsCaching", new CacheProfile
+    {
+        Duration=240,
+        
+    });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -74,6 +85,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseResponseCaching();
 app.UseAuthentication();
 app.UseAuthorization();
 
