@@ -18,7 +18,7 @@ using Application.Contract.Persistence.Interface;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("Api/v1/[Controller]")]
+    [Route("Api/[Controller]")]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class AuthenticationController : ControllerBase
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

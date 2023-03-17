@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-//using System.Web.Http;
 
 namespace API.Controllers
 {
