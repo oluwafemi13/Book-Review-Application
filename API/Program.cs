@@ -85,7 +85,7 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true,
-        ValidateAudience = false,
+        ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:ValidAudience"],
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
@@ -102,8 +102,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
-        c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "BookReview.API");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ordering.API v1");
     });
 }
 
