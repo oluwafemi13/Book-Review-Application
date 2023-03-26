@@ -56,12 +56,7 @@ namespace API.Controllers
             
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    Status = "Error",
-                    Message = "Invalid model",
-                    StatusCode = StatusCodes.Status400BadRequest
-                });
+                return BadRequest();
             }
 
             var user = await _usermanager.FindByEmailAsync(model.Email);
@@ -93,7 +88,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo.AddHours(5)
+                    //expiration = token.ValidTo.AddHours(2)
                 });
             }
             return Unauthorized();
