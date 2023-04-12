@@ -21,10 +21,11 @@ namespace Application.Features.Commands.book.CreateBook
         public string Language { get; set; }
         public string CoverImage { get; set; }
         public IList<string> GenreName { get; set; }
+        // public Format format { get; set; }
         public string FormatType { get; set; }
         public int NumberOfPages { get; set; }
 
-        
+
 
     }
 }

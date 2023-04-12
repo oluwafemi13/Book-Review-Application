@@ -25,7 +25,7 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        [Authorize(Roles ="Author")]
+        /*[Authorize(Roles ="Author")]*/
         [HttpPost("CreateBook")]
         public async Task<ActionResult> CreateBook([FromBody] CreateBookCommand command)
         {
