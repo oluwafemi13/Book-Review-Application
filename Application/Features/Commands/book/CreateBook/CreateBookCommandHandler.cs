@@ -105,21 +105,15 @@ namespace Application.Features.Commands.book.CreateBook
                     book.Summary = request.Summary;
                     book.DatePublished = request.DatePublished;
                     book.AuthorId = request.AuthorId;
-                book.format.NumberOfPages = request.format.NumberOfPages;
-                book.format.FormatType = request.format.FormatType;
-                book.format.BookId = book.BookId;
-
-
-
-
+  
                 var create = await _BookRepository.AddAsync(book);
-                
-                
-            /*var format = new Format();
-            format.FormatType = request.FormatType;
-            format.NumberOfPages = request.NumberOfPages;
-            format.BookId = book.BookId;
-            await _formatRepository.AddAsync(format);*/
+
+
+                var format = new Format();
+                format.FormatType = request.FormatType;
+                format.NumberOfPages = request.NumberOfPages;
+                format.BookId = book.BookId;
+                await _formatRepository.AddAsync(format);
 
                 //GENRE
                 foreach (var genre in request.GenreName)
