@@ -95,7 +95,7 @@ namespace Application.Features.Commands.book.CreateBook
             }
             
                     var book = new Book();
-                    var format = new Format();
+                    //var format = new Format();
                     book.ISBN = clearedIn;
                     book.BookId = Guid.NewGuid();
                     book.CoverImage = request.CoverImage;
