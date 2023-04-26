@@ -64,6 +64,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookReview.API", Version = "v1" });
 });
 
+
+
 // For Identity  
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>()
@@ -99,17 +101,23 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //app.UseSwagger();
+    app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/swagger.json", "Ordering.API");
+        c.SwaggerEndpoint("/swagger/swagger.json", "BookReview.API");
     });
-}
 
+}
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/swagger.json", "BookReview.API");
+});
+app.UseIpRateLimiting();
 app.UseHttpsRedirection();
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
-//app.UseIpRateLimiting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
