@@ -29,37 +29,48 @@ namespace Application.Features.Commands.AverageRating.CreateAverageRating
 
         public async Task<Response> Handle(CreateAverageRatingCommand request, CancellationToken cancellationToken)
         {
-            var fetchRatings = await _ratingRepo.GetRatingsByBookId(request.BookId);
-            if(fetchRatings == null)
+            try
             {
-                _logger.LogInformation($"Book with Id {request.BookId} has no rating from any user");
+                var fetchRatings = await _ratingRepo.GetRatingsByBookId(request.BookId);
+                if (fetchRatings == null)
+                {
+                    _logger.LogInformation($"Book with Id {request.BookId} has no rating from any user");
+                    return new Response
+                    {
+                        Status = "Error",
+                        Message = $"Book with Id {request.BookId} has no rating from any user",
+                        StatusCode = StatusCodes.Status404NotFound
+                    };
+                }
+                /*var totalCount = 0;
+                decimal total = 0;
+                decimal averageRating = 0;
+                foreach (var rating in fetchRatings)
+                {
+                    total = total + rating.rating;
+                    totalCount++;
+                }*/
+                var avg = fetchRatings.Average(r=> r.rating);
+                //averageRating = Math.Round(total / totalCount, 1);
+                var avgRating = Math.Round(avg, 2);
+                var ratingAvg = new RatingAverage();
+                ratingAvg.AverageRating = avgRating;
+                ratingAvg.BookId = request.BookId;
+
+                var result = _ratingAverageRepo.AddAsync(ratingAvg);
                 return new Response
                 {
-                    Status = "Error",
-                    Message= "Book with Id {request.BookId} has no rating from any user",
-                    StatusCode= StatusCodes.Status404NotFound
+                    Status = "Success",
+                    Message = "Successfully Created",
+                    StatusCode = StatusCodes.Status201Created
                 };
             }
-            var totalCount = 0;
-            decimal total = 0;
-            decimal averageRating=0;
-            foreach(var rating in fetchRatings)
+            catch (Exception ex)
             {
-                total = total + rating.rating;
-                totalCount++;
-            }
-            averageRating =Math.Round(total / totalCount, 1) ;
-            var ratingAvg = new RatingAverage();
-            ratingAvg.AverageRating = averageRating;
-            ratingAvg.BookId= request.BookId;
 
-            var result = _ratingAverageRepo.AddAsync(ratingAvg);
-            return new Response
-            {
-                Status = "Success",
-                Message = "Successfully Created",
-                StatusCode = StatusCodes.Status201Created
-            };
+                throw new Exception(ex.Message);
+            }
+            
 
         }
     }
