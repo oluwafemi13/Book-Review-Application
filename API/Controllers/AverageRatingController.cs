@@ -26,7 +26,7 @@ namespace API.Controllers
         /// <summary>
         /// Summary
         /// </summary>
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpPost("CreateAverageRating")]
         public async Task<ActionResult> Create([FromBody] CreateAverageRatingCommand command)
         {

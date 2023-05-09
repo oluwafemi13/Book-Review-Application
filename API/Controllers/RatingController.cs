@@ -19,7 +19,7 @@ namespace API.Controllers
             _mediator= mediator;
         }
 
-        [Authorize(Roles = "User")]
+       // [Authorize(Roles = "User")]
         [HttpPost("CreateRating")]
         public async Task<ActionResult> CreateRating([FromBody] CreateRatingCommand command)
         {

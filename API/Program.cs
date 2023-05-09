@@ -102,18 +102,18 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
+    /*app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/swagger.json", "BookReview.API");
     });
-
+*/
 }
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookReview.API");
 });
-app.UseIpRateLimiting();
+//app.UseIpRateLimiting();
 app.UseHttpsRedirection();
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
