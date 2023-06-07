@@ -28,7 +28,7 @@ namespace Infrastructure.Repositories
 
         }
 
-        public async Task<IEnumerable<Book>> GetBook(int AuthorId)
+        public async Task<IReadOnlyList<Book>> GetBook(int AuthorId)
         {
             return await _dbContext.Books.Where(x => x.AuthorId == AuthorId).ToListAsync();
         }

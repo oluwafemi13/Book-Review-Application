@@ -13,7 +13,7 @@ namespace Application.Contract.Persistence.Interface
     {
         Task<Book> GetBookByISBN(string ISBN);
         Task<IEnumerable<BookVM>> GetBookByRatingAverage(decimal RatingAverage);
-        Task<IEnumerable<Book>> GetBook(int AuthorId);
+        Task<IReadOnlyList<Book>> GetBook(int AuthorId);
         Task DeleteBook(string ISBN);
         Task<IEnumerable<BookVM>> GetByName(string Name);
     }
