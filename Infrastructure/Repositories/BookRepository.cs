@@ -81,17 +81,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<BookVM>> GetBookByRatingAverage(decimal RatingAverage)
         {
-            /*var ratingList = new List<decimal>();
-            decimal value = 0.1M;
-            ratingList.Add(RatingAverage);
-             for (int i = 0; i < 5; i++)
-             {
-                    //decimal newValue = Math.Round(RatingAverage, 1);
-                    RatingAverage = RatingAverage - value;
-                    ratingList.Add(RatingAverage);
-            }*/
-            
-            //var ratings=new List<RatingAverage>();
+           
             var bookList = new List<Book>();
             var books = new List<BookVM>();
             var newBooks = new BookVM();
