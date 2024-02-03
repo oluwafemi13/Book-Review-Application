@@ -14,15 +14,20 @@ namespace API.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthorController:ControllerBase
+    public class AuthorController:ApiController
     {
-        private readonly IMediator _mediatr;
+        public AuthorController(IMediator mediatr) : base(mediatr) { }
+       
 
-        public AuthorController(IMediator mediatr)
-        {
-            _mediatr = mediatr;
-        }
+        /* private readonly IMediator _mediatr;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+public AuthorController(IMediator mediatr)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+{
+    _mediatr = mediatr;
+}
+*/
         /// <summary>
         /// AuthorFirstName 
         /// AuthorLastName
@@ -45,6 +50,7 @@ namespace API.Controllers
         [Authorize(Roles = "Author")]
         [Authorize(Roles ="Admin")]
         [HttpDelete("DeleteAuthor/{Id}")]
+
         public async Task<ActionResult> DeleteAuthor(int AuthorId)
         {
             var command = new DeleteAuthorCommand { AuthorId = AuthorId };

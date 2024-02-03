@@ -14,14 +14,9 @@ namespace API.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class AverageRatingController:ControllerBase
+    public class AverageRatingController:ApiController
     {
-        private readonly IMediator _mediatr;
-
-        public AverageRatingController(IMediator mediatr)
-        {
-            _mediatr = mediatr;
-        }
+        public AverageRatingController(IMediator mediatr) : base(mediatr) { }
 
         /// <summary>
         /// Summary

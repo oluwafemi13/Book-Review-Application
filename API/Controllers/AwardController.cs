@@ -8,14 +8,15 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AwardController:ControllerBase
+    public class AwardController: ControllerBase
     {
-        private readonly IMediator _mediatR;
-       
-        public AwardController(IMediator mediatR)
+
+        private IMediator _mediatR;
+        public AwardController(IMediator mediatr)
         {
-            _mediatR = mediatR;
+            _mediatR = mediatr;
         }
+
 
         [Authorize(Roles = "Author")]
         [HttpPost("CreateAward")]

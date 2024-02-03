@@ -18,12 +18,11 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class BookController : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public BookController(IMediator mediator)
+        private IMediator _mediator;
+        public BookController(IMediator mediatr)
         {
-            _mediator = mediator;
-        }
+            _mediator= mediatr;
+        } 
 
         /*[Authorize(Roles ="Author")]*/
         [HttpPost("CreateBook")]
